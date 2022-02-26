@@ -2,6 +2,11 @@
 
 Covid-19 is hospital management where the patient can visit a website and can book an appointment and staff can check the availability of a bed after that staff can approve or reject the appointment.  
 
+# IMPORTANT
+```bash
+Do not merge in the main branch
+```
+
 ## Project Setup Locally
 ```bash
 pip install virtualenv
@@ -32,5 +37,14 @@ pip install django
 
 ## Push in Github
 ```bash
-git checkout <>
+git checkout development
+```
+```bash
+git add .
+```
+```bash
+git commit -m "your work message"
+```
+```bash
+git push origin development
 ```
