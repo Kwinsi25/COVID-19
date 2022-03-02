@@ -2,7 +2,6 @@ from django.forms import ModelForm
 from django.shortcuts import redirect, render
 from home.models import staff,Bed
 
-
 # Create your views here.
 def home(request):
     beds = Bed.objects.all()
