@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class staff(models.Model):
     staffName = models.CharField(primary_key=True,max_length=24)
     staffContactNumber = models.CharField(max_length=10)
