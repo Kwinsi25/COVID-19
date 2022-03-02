@@ -124,6 +124,56 @@
             </div>     
       </div>
 	</div>
+	<!-- bed Status -->
+     <center><br><br>
+                <div class="container my-4">
+                        <h2><b style="color: rgb(95, 93, 93);"><u>Bed Availability</u></b></h2>
+                            <table style="width:100%">
+                                <tr rowspan="2">
+                                    {% for bed in beds%}
+                                    {% if bed.bedNumber|slice:":1" == 'A' %}
+                                    {% if bed.occupied == True %}
+                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed"> {{bed.bedNumber}}</button></td>
+                                    {% else %}
+                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse" style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                <tr rowspan="2">
+                                    {% for bed in beds%}
+                                    {% if bed.bedNumber|slice:":1" == 'B' %}
+                                    {% if bed.occupied == True %}
+                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                            {{bed.bedNumber}}</button></td>
+                                    {% else %}
+                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
+                                            style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                <tr rowspan="2">
+                                    {% for bed in beds%}
+                                    {% if bed.bedNumber|slice:":1" == 'C' %}
+                                    {% if bed.occupied == True %}
+                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                            {{bed.bedNumber}}</button></td>
+                                    {% else %}
+                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
+                                            style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        <figure class="p-3 mb-0">
+                            <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked &nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
+                                style="background-color: blueviolet;"></button> : Available
+                        </figure>
+                </div>
+                </center>
         <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
 	        <div class="modal-dialog modal-login">
