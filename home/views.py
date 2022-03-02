@@ -10,6 +10,14 @@ def home(request):
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password') 
+        staffDetails=staff.objects.filter(staffUserName = username,staffPassword = password)
+        if staffDetails.count() > 0 :
+            return redirect ('/staffDashboard')
+        else:
+            print("Not Found")    
     return render(request, 'index.html',{"bedcnt":bedcnt})
 
 def login(request):
