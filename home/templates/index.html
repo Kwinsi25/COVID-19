@@ -103,13 +103,15 @@
                 </div>
             </div>
             <div class="col-sm">
+                <a href={% url 'bedAvailablity' %}>
                 <div class="card" style="width: 15rem;">
                     <img src="{% static 'hospital-bed.png' %}" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Bed Availability</h5>
-                                <h5 class="card-title">10</h5>
-                        </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Bed Availability</h5>
+                        <h5 class="card-title">{{bedcnt}}</h5>
+                    </div>
                 </div>
+                </a>
             </div>
             <div class="col-sm">
                 <div class="card" style="width: 15rem;">
@@ -121,26 +123,7 @@
                 </div>
             </div>     
       </div>
-    </div>
-    <!-- beds -->
-    
-    <div style="padding: 30px;"><h1 class="font-weight-bold my-3 ">Beds availability</h1></div>
-        <div class="row">
-            {% comment %} <div class="bg-success grid-box my-2 mx-2 py-3 px-3"> {% endcomment %}
-            {% comment %} </div> {% endcomment %}
-
-            {% for bed in beds %}
-                <div class="
-                {% if bed.occupied == True %}
-                bg-danger 
-                {% elif bed.occupied == False %}
-                bg-success
-                {% endif %}
-                grid-box my-2 mx-2 py-3 px-3 text-white">{{ bed }}</div>
-            {% endfor %}
-            
-        </div>
-
+	</div>
         <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
 	        <div class="modal-dialog modal-login">
