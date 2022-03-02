@@ -8,7 +8,11 @@ def home(request):
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds})
+    return render(request, 'index.html',{"bedcnt":bedcnt})
 
 def login(request):
     return render(request,'login.html')
+
+def bedAvailablity(request):
+    beds = Bed.objects.all() 
+    return render(request, 'bedAvailablity.html',{"beds":beds})
