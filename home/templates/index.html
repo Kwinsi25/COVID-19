@@ -32,6 +32,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     
+    <!-- login form validation -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <title>COVID HOSPITAL MANAGEMENT SYSTEM</title>
 </head>
 <body>
@@ -85,7 +90,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <div class="card" style="width: 15rem;">
+                <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'heart.png' %}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">Recovered</h5>
@@ -94,7 +99,7 @@
                 </div>
             </div>
             <div class="col-sm">
-                <div class="card" style="width: 15rem;">
+                <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'coffin.png'%}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">Deceased</h5>
@@ -103,8 +108,7 @@
                 </div>
             </div>
             <div class="col-sm">
-                <a href={% url 'bedAvailablity' %}>
-                <div class="card" style="width: 15rem;">
+                <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'hospital-bed.png' %}" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title">Bed Availability</h5>
@@ -114,7 +118,7 @@
                 </a>
             </div>
             <div class="col-sm">
-                <div class="card" style="width: 15rem;">
+                <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'oxygenation.png' %}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">Oxygen</h5>
@@ -125,55 +129,62 @@
       </div>
 	</div>
 	<!-- bed Status -->
-     <center><br><br>
-                <div class="container my-4">
-                        <h2><b style="color: rgb(95, 93, 93);"><u>Bed Availability</u></b></h2>
-                            <table style="width:100%">
-                                <tr rowspan="2">
-                                    {% for bed in beds%}
-                                    {% if bed.bedNumber|slice:":1" == 'A' %}
-                                    {% if bed.occupied == True %}
-                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed"> {{bed.bedNumber}}</button></td>
-                                    {% else %}
-                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse" style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endfor %}
-                                </tr>
-                                <tr rowspan="2">
-                                    {% for bed in beds%}
-                                    {% if bed.bedNumber|slice:":1" == 'B' %}
-                                    {% if bed.occupied == True %}
-                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                            {{bed.bedNumber}}</button></td>
-                                    {% else %}
-                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
-                                            style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endfor %}
-                                </tr>
-                                <tr rowspan="2">
-                                    {% for bed in beds%}
-                                    {% if bed.bedNumber|slice:":1" == 'C' %}
-                                    {% if bed.occupied == True %}
-                                    <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                            {{bed.bedNumber}}</button></td>
-                                    {% else %}
-                                    <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
-                                            style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        <figure class="p-3 mb-0">
-                            <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked &nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
-                                style="background-color: blueviolet;"></button> : Available
-                        </figure>
+    <br><br>
+        <div class="container my-4">
+            <div class="row">
+                <div class="col-sm">
+                    <h2><b>Bed Availability</b></h2><br>
                 </div>
-                </center>
+                <div class = "col-sm">
+                    <figure class="p-3 mb-0">
+                        <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked &nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
+                            style="background-color: blueviolet;"></button> : Available
+                    </figure>
+                </div>
+            </div>
+                    <table style="width:100%">
+                        <tr rowspan="2">
+                            {% for bed in beds%}
+                            {% if bed.bedNumber|slice:":1" == 'A' or bed.bedNumber|slice:":1" == 'a' %}
+                            {% if bed.occupied == True %}
+                            <td><button type="button" class="btn btn-danger btn-lg fa fa-bed"> {{bed.bedNumber}}</button></td>
+                            {% else %}
+                            <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse" style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        <tr rowspan="2">
+                            {% for bed in beds%}
+                            {% if bed.bedNumber|slice:":1" == 'B' or bed.bedNumber|slice:":1" == 'b' %}
+                            {% if bed.occupied == True %}
+                            <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                    {{bed.bedNumber}}</button></td>
+                            {% else %}
+                            <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
+                                    style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        <tr rowspan="2">
+                            {% for bed in beds%}
+                            {% if bed.bedNumber|slice:":1" == 'C' or bed.bedNumber|slice:":1" == 'c' %}
+                            {% if bed.occupied == True %}
+                            <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                    {{bed.bedNumber}}</button></td>
+                            {% else %}
+                            <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed"
+                                    style="background-color: blueviolet;"> {{bed.bedNumber}}</button></td>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </table>
+                
+        </div>
+        
         <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
 	        <div class="modal-dialog modal-login">
@@ -183,24 +194,22 @@
 				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			        </div>
 			        <div class="modal-body">
-				        <form action="#" method="post" autocomplete="off">
+				        <form action="#" method="post" autocomplete="off" id="newModalForm">
                             {% csrf_token %}
 					        <div class="form-group">
 						        <i class="fa fa-user"></i>
-						            <input type="text" class="form-control" name= "username" placeholder="Username" >
+						            <input type="text" class="form-control " name= "username" id="username" placeholder="Username" >
 
 					        </div>
+                            
 					        <div class="form-group">
 						        <i class="fa fa-lock"></i>
-						            <input type="password" class="form-control" name="password" placeholder="Password" >					
+						            <input type="password" class="form-control " name="password" id="password" placeholder="Password" >					
 					        </div>
 					        <div class="form-group">
-						        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+						        <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-lg loginButton" value="Login">Login</button>
 					        </div>
-                            
-                            {% if FieldEmpty is not None %}
-                                <p style="color: red;">{{FieldEmpty}}</p>
-                            {% endif %}
+                            <p class="text"></p>
 				        </form>
 			        </div>
 			        <div class="modal-footer">
@@ -208,7 +217,25 @@
 			        </div>
 		        </div>
 	        </div>
-        </div>     
+        </div>    
+        <script>
+            $(function() {
+                $("#newModalForm").validate({
+                    rules: {
+                        username: {
+                            required: true,
+                        },
+                        password: "required"
+                    },
+                    messages: {
+                        username: {
+                            required: "Please enter username",
+                        },
+                        password: "Please provide password"
+                    }
+                });
+            });
+        </script>
 </body>
     
 </html>
