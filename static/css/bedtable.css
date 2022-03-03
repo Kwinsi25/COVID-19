@@ -1,0 +1,14 @@
+table,
+th,
+td {
+    border: 0px solid black;
+    padding: 5px;
+}
+
+table {
+    border-spacing: 15px;
+}
+p{
+    font-size: medium;
+    color: black;
+}
