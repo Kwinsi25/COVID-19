@@ -48,3 +48,25 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.doctorName
+
+class Equipment(models.Model):
+    equipment_Id = models.AutoField(primary_key=True)
+    equipment_Name = models.CharField(max_length=50)
+    equipment_Quantity = models.IntegerField()
+    equipment_Assigned = models.IntegerField()
+    equipment_Usable = models.IntegerField()
+    
+    def _str_(self):
+        return str(self.equipment_Name)
+
+
+class Oxygen(models.Model):
+    oxygen_Total = models.IntegerField(help_text = " Days &")
+    oxygen_Total_Hour = models.TimeField(help_text = " Hours of Total Oxygen")
+    oxygen_Used = models.IntegerField(help_text = " Days &")
+    oxygen_Used_Hour = models.TimeField(help_text = " Hours of Oxygen Used")
+    oxygen_Remaining = models.IntegerField(help_text = " Days &")
+    oxygen_Remaining_Hour = models.TimeField(help_text = " Hours of Oxygen Remaining")
+
+    def _str_(self):
+        return str(self.oxygen_Remaining)
