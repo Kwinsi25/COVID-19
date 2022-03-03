@@ -7,3 +7,4 @@ class staff(models.Model):
     def __str__(self):
         return self.staffName
         # fnam mnma lnman status image gender username password
+
