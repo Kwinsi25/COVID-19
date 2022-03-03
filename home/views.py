@@ -31,7 +31,8 @@ def home(request):
         if staffDetails.count() > 0 :
             return redirect ('/staffDashboard')
         else:
-            print("Not Found")    
+            print("Not Found") 
+               
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds})
 
 def login(request):
@@ -43,3 +44,7 @@ def bedAvailablity(request):
 
 def staffDashboard(request):
     return render(request,'staffDashboard.html')
+
+def index(request):
+    response = redirect('/home/')
+    return response
