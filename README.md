@@ -37,7 +37,7 @@ pip install django
 
 ## Push in Github
 ```bash
-git checkout development
+git checkout main
 ```
 ```bash
 git add .
@@ -46,5 +46,5 @@ git add .
 git commit -m "your work message"
 ```
 ```bash
-git push origin development
+git push origin main
 ```
