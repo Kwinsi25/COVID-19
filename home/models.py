@@ -30,3 +30,21 @@ class Bed(models.Model):
 
     def __str__(self):
         return str(self.bedNumber)
+
+class Specialization(models.Model):
+    specializationId = models.AutoField(primary_key=True)
+    specialization = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.specialization
+
+class Doctor(models.Model):
+    doctorId = models.AutoField(primary_key=True)
+    doctorName = models.CharField(max_length=24)
+    doctorUsername=models.CharField(max_length=15)
+    doctorPass=models.CharField(max_length=100)
+    doctorContact = models.IntegerField()
+    specialization = models.ForeignKey('Specialization',on_delete = models.CASCADE,null=False)
+
+    def __str__(self):
+        return self.doctorName
