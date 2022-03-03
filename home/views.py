@@ -25,3 +25,6 @@ def login(request):
 def bedAvailablity(request):
     beds = Bed.objects.all() 
     return render(request, 'bedAvailablity.html',{"beds":beds})
+
+def staffDashboard(request):
+    return render(request, 'staffDashboard.html')
