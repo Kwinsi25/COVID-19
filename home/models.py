@@ -24,9 +24,9 @@ class staff(models.Model):
     def __str__(self):
         return self.staffUserName
          
-        
+
 class Bed(models.Model):
-    bedId = models.AutoField(primary_key=True)
+    bedId = models.AutoField(primary_key=True,max_length=24)
     bedNumber = models.CharField(max_length=5)
     occupied = models.BooleanField(default=False)
 
