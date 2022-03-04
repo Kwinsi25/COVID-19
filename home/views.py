@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed
+from home.models import staff,Bed,Ward
 
 data ={}
 def firstNameCheck(value):
@@ -16,6 +16,7 @@ def passwordCheck(value):
 # Create your views here.
 def home(request):
     beds = Bed.objects.all()
+    wards = Ward.objects.all()
     bedcnt = 0
     for bed in beds:
         if bed.occupied == False:
@@ -33,7 +34,7 @@ def home(request):
         else:
             print("Not Found") 
                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds})
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"wards":wards})
 
 def login(request):
     return render(request,'login.html')

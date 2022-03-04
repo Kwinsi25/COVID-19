@@ -23,14 +23,22 @@ class staff(models.Model):
     
     def __str__(self):
         return self.staffUserName
+
+class Ward(models.Model):
+    wardId = models.AutoField(primary_key=True)
+    wardName = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.wardName
          
 class Bed(models.Model):
     bedId = models.AutoField(primary_key=True)
+    wardName = models.ForeignKey('Ward',on_delete=models.CASCADE,max_length=5,default=None)
     bedNumber = models.CharField(max_length=5)
     occupied = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.bedNumber)
+        return str(self.wardName) + str(self.bedNumber)
 
 class Specialization(models.Model):
     specializationId = models.AutoField(primary_key=True)
