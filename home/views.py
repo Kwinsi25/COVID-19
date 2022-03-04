@@ -17,6 +17,7 @@ def passwordCheck(value):
 def home(request):
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
+    wards = Ward.objects.all()
     bedcnt = 0
     for bed in beds:
         if bed.occupied == False:
