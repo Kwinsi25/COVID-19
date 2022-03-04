@@ -1,18 +1,23 @@
+body{
+    background-color: #a258ed   ;
+    
+}
 .row {
     display: flex;
     flex-wrap: wrap;
  }
- .navbar-inverse{
-    background-color: #a258ed;
+ .navbar-inverse {
+    background-color: white;
     border: none;
+
 }
 b, strong {
-    font-weight: 700;
+    font-weight: 500;
     color: black;
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
     color: #fff;
-    background-color: #a258ed;
+    background-color: white;
 }
 .caret {
     display: inline-block;
