@@ -132,146 +132,132 @@
                 </div>
             </div>     
       </div>
-	</div><br><br>
-	  <!-- bed Availablity -->
-      
-      <div id="accordion">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-1">
-                    <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="false" aria-controls="collapseOne">
-                        Ward A
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="col-sm">
-                        <table style="width:100%">
-                            <tr rowspan="2">
-                                {% for bed in beds%}
-                                {% if bed.wardName|upper == 'A' %}
-                                {% if bed.occupied == True %}
-                                <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% else %}
-                                <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
-                                        style="background-color: blueviolet;">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-                <h5 class="mb-1">
-                    <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="false" aria-controls="collapseTwo">
-                        Ward B
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="col-sm">
-                        <table style="width:100%">
-                            <tr rowspan="2">
-                                {% for bed in beds%}
-                                {% if bed.wardName|upper == 'B' %}
-                                {% if bed.occupied == True %}
-                                <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% else %}
-                                <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
-                                        style="background-color: blueviolet;">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-1">
-                    <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseThree"
-                        aria-expanded="false" aria-controls="collapseThree">
-                        Ward C
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="col-sm">
-                        <table style="width:100%">
-                            <tr rowspan="2">
-                                {% for bed in beds%}
-                                {% if bed.wardName|upper == 'C' %}
-                                {% if bed.occupied == True %}
-                                <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% else %}
-                                <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
-                                        style="background-color: blueviolet;">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-1">
-                    <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseFour"
-                        aria-expanded="false" aria-controls="collapseFour">
-                        Ward D
-                    </button>
-                </h5>
-            </div>
-            <!-- <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="col-sm">
-                        <table style="width:100%">
-                            <tr rowspan="2">
-                                {% for ward in wards%}
-                                {% for bed in beds%}
-                                {% if bed.wardName|upper == ward|upper %}
-                                {% if bed.occupied == True %}
-                                <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% else %}
-                                <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
-                                        style="background-color: blueviolet;">
-                                        {{bed.wardName}}{{bed.bedNumber}}</button></td>
-                                {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                                {% endfor %}
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-    </div>
-</div>
-        
+	</div>
+      <!-- bed Status -->
+      <br><br>
+      <div class="container my-4">
+          <div class="row">
+              <div class="col-sm">
+                  <h2><b>Bed Availability</b></h2><br><br>
+  
+              </div>
+              <div class="col-sm">
+                  <figure class="p-3 mb-0">
+                      <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked &nbsp;&nbsp;&nbsp;
+                      <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
+                          style="background-color: blueviolet;"></button> : Available
+                      &nbsp;&nbsp;&nbsp;
+                      <select id="ward" onclick="update()">
+                          <option disabled hidden selected>Select Ward</option>
+                          {% for ward in wards %}
+                          <option id="{{ward.wardName}}">{{ward.wardName}}</option>
+                          {% endfor %}
+                      </select>
+                  </figure>
+              </div>
+          </div>
+          <!-- bed Availablity -->
+          <div id="accordion">
+              <div class="card">
+                  <div class="card-header" id="headingOne">
+                      <h5 class="mb-1">
+                          <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseOne"
+                              aria-expanded="false" aria-controls="collapseOne">
+                              Ward A
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                          <div class="col-sm">
+                              <table style="width:100%">
+                                  <tr rowspan="2">
+                                      {% for bed in beds%}
+                                      {% if bed.wardName|upper == 'A' %}
+                                      {% if bed.occupied == True %}
+                                      <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% else %}
+                                      <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                              style="background-color: blueviolet;">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% endif %}
+                                      {% endif %}
+                                      {% endfor %}
+                                  </tr>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br>
+              <div class="card">
+                  <div class="card-header" id="headingTwo">
+                      <h5 class="mb-1">
+                          <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                              aria-expanded="false" aria-controls="collapseTwo">
+                              Ward B
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                      <div class="card-body">
+                          <div class="col-sm">
+                              <table style="width:100%">
+                                  <tr rowspan="2">
+                                      {% for bed in beds%}
+                                      {% if bed.wardName|upper == 'B' %}
+                                      {% if bed.occupied == True %}
+                                      <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% else %}
+                                      <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                              style="background-color: blueviolet;">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% endif %}
+                                      {% endif %}
+                                      {% endfor %}
+                                  </tr>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br>
+              <div class="card">
+                  <div class="card-header" id="headingThree">
+                      <h5 class="mb-1">
+                          <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseThree"
+                              aria-expanded="false" aria-controls="collapseThree">
+                              Ward C
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                      <div class="card-body">
+                          <div class="col-sm">
+                              <table style="width:100%">
+                                  <tr rowspan="2">
+                                      {% for bed in beds%}
+                                      {% if bed.wardName|upper == 'C' %}
+                                      {% if bed.occupied == True %}
+                                      <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% else %}
+                                      <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                              style="background-color: blueviolet;">
+                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                      {% endif %}
+                                      {% endif %}
+                                      {% endfor %}
+                                  </tr>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
         <!-- Modal HTML -->
         <div id="myModal" class="modal fade">
 	        <div class="modal-dialog modal-login">
