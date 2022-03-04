@@ -71,7 +71,7 @@
                           <div class="container">
                              <h1 class="banner_taital">Get Medical Care early</h1>
                              <p class="banner_text"></p>
-                             <div class="more_bt"><a href="#">Book Appointment</a></div>
+                             <div class="more_bt"><a href="#bookappo"data-toggle="modal">Book Appointment</a></div>
                           </div>
                        </div>
                        <div class="col-md-6">
@@ -218,7 +218,55 @@
 		        </div>
 	        </div>
         </div>    
+
+        <!-- Modal HTML -->
+        <div id="bookappo" class="modal fade text-center">
+	        <div class="modal-dialog modal-login">
+		        <div class="modal-content">
+			        <div class="modal-header">				
+				        <h4 class="modal-title">Book Appointment</h4>
+				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        </div>
+			        <div class="modal-body">
+				        <form action="#" method="post" autocomplete="off" id="newModalForm">
+                            {% csrf_token %}
+                            
+					        <div class="form-group">
+						        <input type="radio" class="form-check-input" name= "check" id="already" >
+                                <label for="already" class="form-check-label" id="alreadylabel"> Old Patient</lable>
+                                
+					        </div>
+                            <span id ="case">
+                                <div class="form-group">
+                                    <label for="caseNumber" class="form-control-label"> Case Number</lable>
+                                    <input type="number" class="form-control" name= "caseNumber" id="caseNumber" >
+                                </div>
+                            </span>
+                            
+					        <div class="form-group">
+                                <input type="radio" class="form-check-input" name= "check" id="new" >
+                                <label for="new" class="form-check-label" id="newlabel"> New Patient</lable>
+					        </div>
+					        <div class="form-group">
+						        <button type="submit" id="procced" class="btn btn-primary btn-block btn-lg loginButton" value="Login">Login</button>
+					        </div>
+                            <p class="text"></p>
+				        </form>
+			        </div>
+			        
+		        </div>
+	        </div>
+        </div>    
         <script>
+            window.onload = function() {
+                $('#case').hide();
+            }
+            $('#already').click(function(){
+                $('#case').show();
+              })
+              $('#new').click(function(){
+                $('#case').hide();
+              })
             $(function() {
                 username = document.getElementById(".username")
                 console.log(username)
