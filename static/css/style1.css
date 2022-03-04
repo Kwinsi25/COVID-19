@@ -410,6 +410,9 @@ menu_text {
     border-radius: 50px 50px 50px 50px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin: 0 auto; /* Added */
+      float: none; /* Added */
+      margin-bottom: 10px; /* Added */
   }
   .card img {
     width: 15%;
@@ -423,35 +426,6 @@ menu_text {
  
 
 
-
-  /* radio button*/
-
-.image-radio {
-    cursor: pointer;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border: 4px solid transparent;
-    margin-bottom: 0;
-    outline: 0;
-}
-.image-radio input[type="radio"] {
-    display: none;
-}
-.image-radio-checked {
-    border-color: #4783B0;
-}
-.image-radio .glyphicon {
-  position: absolute;
-  color: #4A79A3;
-  background-color: #fff;
-  padding: 10px;
-  top: 0;
-  right: 0;
-}
-.image-radio-checked .glyphicon {
-  display: block !important;
-}
 
 /* login form */
 
