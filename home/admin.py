@@ -19,7 +19,6 @@ class PatientAdmin(admin.ModelAdmin):
     inlines = [DocumentInline,SymptomInline]
 
 admin.site.register(Patient, PatientAdmin)
-# admin.site.register(Patient)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(PatientDocument)
