@@ -1,4 +1,5 @@
-
+from django.core.exceptions import ValidationError
+import random
 from django.db import models
 
 class staff(models.Model):
@@ -24,7 +25,7 @@ class staff(models.Model):
         return self.staffUserName
          
 class Bed(models.Model):
-    bedId = models.AutoField(primary_key=True,max_length=24)
+    bedId = models.AutoField(primary_key=True)
     bedNumber = models.CharField(max_length=5)
     occupied = models.BooleanField(default=False)
 
@@ -70,3 +71,110 @@ class Oxygen(models.Model):
 
     def _str_(self):
         return str(self.oxygen_Remaining)
+
+def validate_phoneNumber(value):
+    if len(str(value)) == 10:
+        return value
+    else:
+        raise ValidationError("please enter correct phonenumber with 10 digits")
+
+def validate_pincode(value):
+    if len(str(value)) == 6:
+        return value
+    else:
+        raise ValidationError("please enter correct pincode with 6 digits")
+
+
+# Create your models here.
+
+class State(models.Model):
+    stateId = models.AutoField(primary_key=True)
+    stateName = models.CharField(("State Name"),max_length=24,unique=True)
+
+    def __str__(self):
+        return self.stateName
+
+class Patient(models.Model):
+    caseNumber = models.IntegerField(('Case Number'),default=random.randint(100000,999999),unique=True)
+    patientId = models.AutoField(primary_key=True)
+    patientName = models.CharField(("Patient Name"),max_length=24)
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    phone = models.IntegerField(("Phone Number"),validators=[validate_phoneNumber],unique=True)
+    patientRelativeNumber = models.IntegerField(("Relative's Phone number"),validators=[validate_phoneNumber])
+    patientRelativeName = models.CharField(("Relative's name"),max_length=24)
+    line1 = models.CharField(("Address line1"),max_length=250)
+    line2 = models.CharField(("Address line2"),max_length=250)
+    state = models.ForeignKey('State',on_delete=models.CASCADE,null=True)
+    
+    sname = State.objects.filter(stateName = state)
+    city = models.ForeignKey('City',on_delete=models.CASCADE,null=True) #,limit_choices_to={'stateName': 1}
+    pincode = models.IntegerField(("Pincode"),validators=[validate_pincode])
+    # symptoms = models.ManyToManyField(("Symptoms"))
+    previousHistory = models.CharField(("Previous history"),max_length=250)
+    # bedNumber = models.ForeignKey('Bed',on_delete=models.CASCADE,null=True)
+    dob = models.DateField(("Date of birth"))
+    bedNumber  = models.ForeignKey('Bed',on_delete=models.CASCADE,blank=True) #,limit_choices_to={'occupied': False}
+    doctorName = models.ForeignKey('Doctor',on_delete=models.CASCADE,default=None,blank=True)
+    doctorNotes = models.CharField(("Doctor Notes"),max_length=250,default=None,blank=True)
+    doctorLastVisited = models.DateField(("Doctor last visited on"),default=None,blank=True)
+    
+    pending = 'pn'
+    critical = 'cr'
+    recovering = 'rc'
+    recovered = 'rcd'
+    deceased = 'dc'
+    PATIENT_STATUS_CHOICES = [
+        (pending,'pending'),
+        (critical, 'critical'),
+        (recovering, 'recovering'),
+        (recovered, 'recovered'),
+        (deceased, 'deceased'),]
+        
+    patientStatus = models.CharField(("Patient Status"),max_length=3,choices=PATIENT_STATUS_CHOICES,default=pending)
+
+    def save(self, *args, **kwargs):
+        cost = Bed.objects.filter(bedNumber = self.bedNumber ).update(occupied = True)
+        
+        super(Patient, self).save(*args, **kwargs)
+        print(cost)
+        
+
+    def __str__(self):
+        return self.patientName
+
+class Symptoms(models.Model):
+    symptomsId = models.AutoField(primary_key=True)
+    symptoms = models.CharField(("Symptoms"),max_length=24,unique=True)
+    active = models.BooleanField(("Active"))
+
+    def __str__(self):
+        return self.symptoms
+
+class City(models.Model):
+    cityId = models.AutoField(primary_key=True)
+    stateName = models.ForeignKey('State',on_delete=models.CASCADE,null=True)
+    cityName = models.CharField(("City Name"),max_length=24,unique=True)
+    
+    def __str__(self):
+        return self.cityName
+
+class PatientDocument(models.Model):
+    patientName = models.ForeignKey('Patient',on_delete=models.CASCADE,null=True)
+    document = models.FileField(("Document"))
+
+    def __str__(self):
+        return str(self.patientName) + "'s Document"
+
+class PatientSymptom(models.Model):
+    patientName = models.ForeignKey('Patient',on_delete=models.CASCADE,null=True)
+    Symptoms = models.OneToOneField('Symptoms',on_delete=models.CASCADE,null=True,unique=True,limit_choices_to={'active': True})
+
+    def __str__(self):
+        return str(self.patientName) + "'s Symptoms"
+
+
+
