@@ -48,3 +48,6 @@ def staffDashboard(request):
 def index(request):
     response = redirect('/home/')
     return response
+
+def patient(request):
+    return render(request, 'addPatient.html')

@@ -89,7 +89,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-3">
                 <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'heart.png' %}" class="card-img-top" alt="">
                         <div class="card-body">
@@ -98,7 +98,7 @@
                         </div>
                 </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
                 <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'coffin.png'%}" class="card-img-top" alt="">
                         <div class="card-body">
@@ -107,7 +107,7 @@
                         </div>
                 </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
                 <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'hospital-bed.png' %}" class="card-img-top" alt="">
                     <div class="card-body">
@@ -117,7 +117,7 @@
                 </div>
                 </a>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
                 <div class="card" style="width: 15rem; border-radius: 25px;">
                     <img src="{% static 'oxygenation.png' %}" class="card-img-top" alt="">
                         <div class="card-body">
@@ -220,8 +220,7 @@
         </div>    
         <script>
             $(function() {
-                username = document.getElementById(".username")
-                console.log(username)
+            
                 $("#newModalForm").validate({
                     rules: {
                         username: {
