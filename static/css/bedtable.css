@@ -25,4 +25,5 @@ select {
     font-size: 16px;
     transition: all 150ms ease;
     color: #000000;
+    float: right;
 }
