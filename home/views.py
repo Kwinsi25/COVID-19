@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed,Oxygen
+from home.models import staff,Bed,Oxygen,Ward
 
 data ={}
 def firstNameCheck(value):
