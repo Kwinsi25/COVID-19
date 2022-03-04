@@ -122,7 +122,9 @@
                     <img src="{% static 'oxygenation.png' %}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">Oxygen</h5>
-                                <h5 class="card-title">10</h5>
+                            {% for i in oxy %}
+                                <h5 class="card-title">{{i.oxygen_Remaining}} Days</h5> 
+                            {% endfor %}
                         </div>
                 </div>
             </div>     
