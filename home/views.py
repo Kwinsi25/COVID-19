@@ -1,10 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-<<<<<<< HEAD
-from home.models import staff,Bed,Ward
-=======
 from home.models import staff,Bed,Oxygen
->>>>>>> 77daea6bdf86842d65596f8f41ee2ece8a9de728
 
 data ={}
 def firstNameCheck(value):
@@ -39,11 +35,7 @@ def home(request):
         else:
             print("Not Found") 
                
-<<<<<<< HEAD
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"wards":wards})
-=======
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy})
->>>>>>> 77daea6bdf86842d65596f8f41ee2ece8a9de728
 
 def login(request):
     return render(request,'login.html')
