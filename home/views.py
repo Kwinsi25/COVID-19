@@ -35,7 +35,7 @@ def home(request):
         else:
             print("Not Found") 
                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy})
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards})
 
 def login(request):
     return render(request,'login.html')
