@@ -410,9 +410,7 @@ menu_text {
     border-radius: 50px 50px 50px 50px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    margin: 0 auto; /* Added */
-      float: none; /* Added */
-      margin-bottom: 10px; /* Added */
+   
   }
   .card img {
     width: 15%;
