@@ -10,5 +10,6 @@ urlpatterns = [
     path('doctorDashboard/',views.doctorDashboard,name='doctorDashboard'),
     path('index/',views.home,name='index'),
     path('patient/',views.patient,name="patient"),
-    path('viewPatient/',views.viewPatient,name="viewPatient"),
+    path('bookAppointment/',views.bookAppointment,name='bookAppointment'),
+    path('viewPatient/',views.viewPatient,name="viewPatient")
 ]

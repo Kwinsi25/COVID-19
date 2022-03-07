@@ -184,5 +184,18 @@ class PatientSymptom(models.Model):
     def __str__(self):
         return str(self.patientName) + "'s Symptoms"
 
+class Appointment(models.Model):
+    appointmentId = models.AutoField(primary_key=True)
+    patientName = models.CharField(("Patient Name"),max_length=24)
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    phone = models.IntegerField(("Phone Number"),validators=[validate_phoneNumber],unique=True)
+    patientRelativeNumber = models.IntegerField(("Relative's Phone number"),validators=[validate_phoneNumber])
+    patientRelativeName = models.CharField(("Relative's name"),max_length=24)
+    reason = models.CharField(("Reason"),max_length=250)
 
-
+    def __str__(self):
+        return self.patientName
