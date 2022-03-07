@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="{% static 'css/staffNav.css' %}">
     
 </head>
-<body>
-        <h1 style="text-align: center;color: white;">Patient Details</h1>
+<body >
+    <div style="margin:5%">  
+    <h1 style="text-align: center;color: white;">Patient Details</h1>
         <table id="example" class="display" style="width:100%;">
             <thead>
                 <tr>
@@ -499,7 +500,8 @@
                 </tr>
             </tbody>
         </table>
-        <script>
+</div>
+<script>
             $(document).ready(function() {
                 $('#example').DataTable();
             } );
