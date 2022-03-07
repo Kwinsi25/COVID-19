@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed,Oxygen,Ward
+from home.models import staff,Bed,Oxygen,Ward,Doctor
 
 data ={}
 def firstNameCheck(value):
@@ -34,6 +34,18 @@ def home(request):
             return redirect ('/staffDashboard')
         else:
             print("Not Found") 
+    if request.method == 'POST':
+        username = request.POST.get('username')
+       
+
+        password = request.POST.get('password') 
+        
+        doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
+        
+        if doctorDetails.count() > 0 :
+            return redirect ('/doctorDashboard')
+        else:
+            print("Not Found")
                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards})
 
@@ -47,9 +59,15 @@ def bedAvailablity(request):
 def staffDashboard(request):
     return render(request,'staffDashboard.html')
 
+def doctorDashboard(request):
+    return render(request,'doctorDashboard.html')
+
 def index(request):
     response = redirect('/home/')
     return response
 
 def patient(request):
     return render(request, 'addPatient.html')
+
+def viewPatient(request):
+    return render(request, 'viewPatient.html')
