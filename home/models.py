@@ -30,7 +30,11 @@ class Ward(models.Model):
     wardPrice = models.DecimalField(("Ward Price"),max_digits=8,decimal_places=2,default=0.00)
 
     def __str__(self):
+<<<<<<< HEAD
         return self.wardName +" - " +str(self.wardPrice)
+=======
+        return self.wardName
+>>>>>>> 9c58d21ff5f7ad00d61f0a5eef67ffcccf444897
          
 class Bed(models.Model):
     bedId = models.AutoField(primary_key=True)
