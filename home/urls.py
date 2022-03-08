@@ -11,5 +11,6 @@ urlpatterns = [
     path('index/',views.home,name='index'),
     path('patient/',views.patient,name="patient"),
     path('bookAppointment/',views.bookAppointment,name='bookAppointment'),
-    path('viewPatient/',views.viewPatient,name="viewPatient")
+    path('viewPatient/',views.viewPatient,name="viewPatient"),
+    path('getbedsajax/', views.getbedsajax, name="getbedsajax"),
 ]

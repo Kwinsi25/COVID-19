@@ -30,7 +30,7 @@ class Ward(models.Model):
     wardPrice = models.DecimalField(("Ward Price"),max_digits=8,decimal_places=2,default=0.00)
 
     def __str__(self):
-        return self.wardName + str(self.wardPrice)
+        return self.wardName +" - " +str(self.wardPrice)
          
 class Bed(models.Model):
     bedId = models.AutoField(primary_key=True)
@@ -207,4 +207,4 @@ class WardDoctor(models.Model):
     wardName = models.ForeignKey('Ward',on_delete=models.CASCADE,default=None,blank=True)
 
     def __str__(self):
-        return str(self.doctorName) + str(self.wardName)
+        return str(self.doctorName) +" - " + str(self.wardName)
