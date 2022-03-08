@@ -47,7 +47,10 @@
     
     <div class="header_section">
     {% if err is not None %}
-        <div class="alert alert-warning text-center font-weight-bold">{{err}}</div>
+        <script>
+        alert("{{err}}");
+        </script>
+       
         {% endif %}
         <div class="container-fluid">
             
@@ -134,7 +137,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Oxygen</h5>
                             {% for i in oxy %}
-                                <h5 class="card-title">{{i.oxygen_Remaining}} </h5> 
+                                <h5 class="card-title">{{i}} </h5> 
                             {% endfor %}
                         </div>
                 </div>
@@ -171,7 +174,7 @@
                       <h5 class="mb-1">
                           <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseOne"
                               aria-expanded="false" aria-controls="collapseOne">
-                              Ward A
+                              GENERAL
                           </button>
                       </h5>
                   </div>
@@ -181,14 +184,14 @@
                               <table style="width:100%">
                                   <tr rowspan="2">
                                       {% for bed in beds%}
-                                      {% if bed.wardName|upper == 'A' %}
+                                      {% if bed.wardName|upper == 'GENERAL' %}
                                       {% if bed.occupied == True %}
                                       <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                             {{bed.bedNumber}}</button></td>
                                       {% else %}
                                       <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
                                               style="background-color: blueviolet;">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                              {{bed.bedNumber}}</button></td>
                                       {% endif %}
                                       {% endif %}
                                       {% endfor %}
@@ -204,7 +207,7 @@
                       <h5 class="mb-1">
                           <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseTwo"
                               aria-expanded="false" aria-controls="collapseTwo">
-                              Ward B
+                              SPECIAL 
                           </button>
                       </h5>
                   </div>
@@ -214,14 +217,14 @@
                               <table style="width:100%">
                                   <tr rowspan="2">
                                       {% for bed in beds%}
-                                      {% if bed.wardName|upper == 'B' %}
+                                      {% if bed.wardName|upper == 'SPECIAL' %}
                                       {% if bed.occupied == True %}
                                       <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                              {{bed.bedNumber}}</button></td>
                                       {% else %}
                                       <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
                                               style="background-color: blueviolet;">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                              {{bed.bedNumber}}</button></td>
                                       {% endif %}
                                       {% endif %}
                                       {% endfor %}
@@ -237,7 +240,7 @@
                       <h5 class="mb-1">
                           <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseThree"
                               aria-expanded="false" aria-controls="collapseThree">
-                              Ward C
+                              EMERGENCY
                           </button>
                       </h5>
                   </div>
@@ -247,14 +250,14 @@
                               <table style="width:100%">
                                   <tr rowspan="2">
                                       {% for bed in beds%}
-                                      {% if bed.wardName|upper == 'C' %}
+                                      {% if bed.wardName|upper == 'EMERGENCY' %}
                                       {% if bed.occupied == True %}
                                       <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                              {{bed.bedNumber}}</button></td>
                                       {% else %}
                                       <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
                                               style="background-color: blueviolet;">
-                                              {{bed.wardName}}{{bed.bedNumber}}</button></td>
+                                              {{bed.bedNumber}}</button></td>
                                       {% endif %}
                                       {% endif %}
                                       {% endfor %}
