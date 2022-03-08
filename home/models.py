@@ -188,7 +188,9 @@ class PatientSymptom(models.Model):
 
 class Appointment(models.Model):
     appointmentId = models.AutoField(primary_key=True)
+    caseNumber = models.IntegerField(('Case Number'),null=True,blank=True)
     patientName = models.CharField(("Patient Name"),max_length=24)
+    patientEmail = models.EmailField(("Email Id"),unique=True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),

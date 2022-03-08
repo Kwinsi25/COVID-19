@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+      <title>Book Appointment</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Book Appointment</div>
+    <div class="content">
+      <form action="bookedAppointment" method="post">
+        {% csrf_token %}
+        <div class="user-details">
+          {% if caseNumber is not None %}
+          <div class="input-c">
+            <input type="text" id="caseNumber" name="caseNumber" value="{{caseNumber}}" readonly>
+          </div>
+          {% endif %}
+
+          <div class="input-box">
+            <span class="details">Patient Name</span>
+            <input type="text" id="patientName" name="patientName" placeholder="Enter Patient Name" value="{{pname}}" required>
+          </div>
+            <div class="input-box">
+                <span class="details">Phone Number</span>
+                    <input type="text" id="patientPhone" name="patientPhone" placeholder="Enter your number" value="{{pphone}}" required>
+            </div>
+            <div class="input-box">
+                <div class="gender-details">
+                    <input type="radio" name="gender" id="dot-1" value="M"  {% if pgender == "M" %} checked="checked" {% endif %}>
+                    <input type="radio" name="gender" id="dot-2" value="F" {% if pgender == "F" %} checked="checked" {% endif %}>
+                    <span class="details">Gender</span>
+                    <div class="category">
+                    <label for="dot-1">
+                    <span class="dot one"></span>
+                    <span class="gender">Male</span>
+                    </label>
+                    <label for="dot-2">
+                    <span class="dot two"></span>
+                    <span class="gender">Female</span>
+                    </label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
+              <span class="details">Email Id</span>
+                  <input type="email" id="emailId" name="emailId" placeholder="Enter Email Id" value="{{pemail}}"  required>
+            </div>
+            <div class="input-box">
+                <span class="details">Patient Relative Name</span>
+                    <input type="text" id="relativeName" name="relativeName" placeholder="Enter Patient Relative Name" value="{{rname}}"  required>
+            </div>
+            <div class="input-box">
+                <span class="details">Patient Relative Contact Number</span>
+                    <input type="text" id="relativePhone" name="relativePhone" placeholder="Enter Patient Relative Contact " value="{{rphone}}" required>
+            </div>
+            
+            <div class="text-box">
+                <span class="details">Reason</span>
+                    <textarea id="reason" name="reason" placeholder="Reason..." required></textarea>
+            </div>
+            
+      
+        </div>
+        
+        <div class="button">
+                <input type="submit" value="Book Appointment">
+        </div>
+
+        <div>
+          {% if sucess is not None %}
+          <span>{{sucess}}</span>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,Appointment
 
 
 data ={}
@@ -77,23 +77,46 @@ def bookAppointment(request):
         print(patientCheck)
         if patientCheck == "oldPatient":
             caseNumber = request.POST['caseNumber']
-            patient = Patient.objects.all().filter(caseNumber = caseNumber)
-            if patient is not None:
-                for p in patient:
-                    patientDetails = {}
-                    patientDetails['pname'] = p.patientName
-                    patientDetails['pphone'] = p.phone
-                    patientDetails['pgender'] = p.gender
-                    patientDetails['rphone'] = p.patientRelativeNumber
-                    patientDetails['rname'] = p.patientRelativeName
-                return render(request,'bookAppointment.html',context=patientDetails)
-            else:
-                return redirect ('/bookAppointment')
+            if caseNumber != '':
+                patient = Patient.objects.all().filter(caseNumber = caseNumber)
+                if patient is not None:
+                    for p in patient:
+                        patientDetails = {}
+                        patientDetails['pname'] = p.patientName
+                        patientDetails['pphone'] = p.phone
+                        patientDetails['pgender'] = p.gender
+                        patientDetails['rphone'] = p.patientRelativeNumber
+                        patientDetails['rname'] = p.patientRelativeName
+                        patientDetails['pemail'] = p.patientEmail
+                        patientDetails['caseNumber'] = p.caseNumber
+                    return render(request,'bookAppointment.html',context=patientDetails)
+                else:
+                    return redirect ('/bookAppointment')
         elif patientCheck == "newPatient":
             return redirect ('/bookAppointment')
         else:
             return redirect ('/')
 
     return render(request,'bookAppointment.html')
+
+def bookedAppointment(request):
+    data = {}
+    if request.method == 'POST':
+        caseNumber = request.POST.get('caseNumber')
+        if caseNumber == '':
+            caseNumber = None
+        patientName = request.POST['patientName']
+        patientPhone = request.POST['patientPhone']
+        gender = request.POST.get("gender")
+        patientEmail = request.POST['emailId']
+        relativeName = request.POST['relativeName']
+        relativePhone = request.POST['relativePhone']
+        reason = request.POST['reason']
+
+        appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
+        appointment.save()
+        data['sucess'] = "Your details are submitted you will get email from Hospital for Appointment Status"
+        return render(request,'bookAppointment.html',context=data)
+
 def viewPatient(request):
     return render(request, 'viewPatient.html')
