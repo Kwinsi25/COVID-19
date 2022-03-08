@@ -1,7 +1,12 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
+<<<<<<< HEAD
 from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor
 
+=======
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor
+from django.http import JsonResponse
+>>>>>>> 0d833bdd32093cc7dd394598fc97b8eb0b845c10
 
 data ={}
 def firstNameCheck(value):
@@ -69,10 +74,16 @@ def index(request):
     return response
 
 def patient(request):
+<<<<<<< HEAD
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
     return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors})
+=======
+    wards=Ward.objects.all()
+    beds=Bed.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds})
+>>>>>>> 0d833bdd32093cc7dd394598fc97b8eb0b845c10
 
 def bookAppointment(request):
     if request.method == 'POST':
@@ -100,3 +111,20 @@ def bookAppointment(request):
     return render(request,'bookAppointment.html')
 def viewPatient(request):
     return render(request, 'viewPatient.html')
+
+def getbedsajax(request):
+    
+    if request.method == "POST":
+        
+        wardname = request.POST['wardname']
+        
+        try:
+            #wardId=Ward.objects.all().filter(WardName=wardname)
+            beds = Bed.objects.all().filter(wardName=wardname)
+            
+            
+            print(beds)
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)
+        return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)

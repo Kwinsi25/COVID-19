@@ -7,6 +7,8 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
@@ -15,6 +17,7 @@
     <div class="title">Add Patient</div>
     <div class="content">
       <form action="#">
+        {% csrf_token %}
         <div class="user-details">
           <div class="input-box">
             <span class="details">Case Number</span>
@@ -102,16 +105,27 @@
                     <option disabled hidden selected>Select Bed</option>
                     {% for bed in beds %}
                     <option value="{{bed}}">{{bed}}</option>
+                <select id="wardss">
+                    <option value="">Select Ward</option>
+                    {% for i in wards %}
+                    <option value="{{i.wardId}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-box">
+<<<<<<< HEAD
                 <span class="details">Select Doctor</span>
                 <select>
                     <option disabled hidden selected>Select Doctor</option>
                     {% for doctor in doctors %}
                     <option value="{{doctor}}">{{doctor}}</option>
                     {% endfor %}
+=======
+                <span class="details">Select Bed</span>
+                <select id="beds">
+                    <option value="">select Bed</option>
+                 
+>>>>>>> 0d833bdd32093cc7dd394598fc97b8eb0b845c10
                 </select>
             </div>
             <div class="input-box">
@@ -147,4 +161,28 @@
   </div>
 
 </body>
+{% block javascript %}
+<script>
+    $("#wardss").change(function () {
+        const wardname = $(this).val();  
+        // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'getbedsajax' %}",
+            data: {
+                'wardname': wardname,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (data) {
+                    html_data += `<option value="${data.bedId}">${data.bedNumber}</option>`
+                });
+                $("#beds").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+</script>
+{% endblock javascript %}
 </html>
