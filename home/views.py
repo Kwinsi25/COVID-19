@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor
 from django.http import JsonResponse
 
 data ={}
@@ -69,9 +69,10 @@ def index(request):
     return response
 
 def patient(request):
-    wards=Ward.objects.all()
-    beds=Bed.objects.all()
-    return render(request, 'addPatient.html',{"wards":wards,"beds":beds})
+    wards = Ward.objects.all()
+    beds = Bed.objects.all()
+    doctors = WardDoctor.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors})
 
 def bookAppointment(request):
     if request.method == 'POST':
@@ -100,8 +101,10 @@ def bookAppointment(request):
 def viewPatient(request):
     return render(request, 'viewPatient.html')
 
-def getbedsajax(request):
+
     
+def getbedsajax(request):
+
     if request.method == "POST":
         
         wardname = request.POST['wardname']
@@ -116,3 +119,4 @@ def getbedsajax(request):
             data['error_message'] = 'error'
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
+        

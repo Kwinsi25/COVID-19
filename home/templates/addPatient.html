@@ -106,6 +106,16 @@
                  
                 </select>
             </div>
+
+            <div class="input-box">
+                <span class="details">Select Doctor</span>
+                <select>
+                    <option value="">select Doctor</option>
+                    {% for i in doctors %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <div class="input-box">
                 <span class="details">Doctor Notes</span>
                     <input type="text" placeholder="Notes..." required>
