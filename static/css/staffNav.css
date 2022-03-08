@@ -2,6 +2,7 @@ body{
     background-color: #a258ed   ;
     
 }
+
 .row {
     display: flex;
     flex-wrap: wrap;
