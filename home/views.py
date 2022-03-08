@@ -34,7 +34,7 @@ def home(request):
         if staffDetails.count() > 0 :
             return redirect ('/staffDashboard')
         else:
-            print("Not Found") 
+             return render(request, 'index.html',{'err':"Username and Password is not valid!"})
     if request.method == 'POST':
         username = request.POST.get('username')
        
@@ -46,7 +46,7 @@ def home(request):
         if doctorDetails.count() > 0 :
             return redirect ('/doctorDashboard')
         else:
-            print("Not Found")
+            return render(request, 'index.html',{'err':"Username and Password is not valid!"})
                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards})
 

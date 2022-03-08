@@ -43,9 +43,17 @@
     <title>COVID HOSPITAL MANAGEMENT SYSTEM</title>
 </head>
 <body>
+    
+    
     <div class="header_section">
+    {% if err is not None %}
+        <div class="alert alert-warning text-center font-weight-bold">{{err}}</div>
+        {% endif %}
         <div class="container-fluid">
+            
               <div class="main">
+
+        
                  <div class="logo"><a href=""><img src=""></a></div>
                  <div class="menu_text">
                     <ul>
