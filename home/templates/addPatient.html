@@ -92,19 +92,6 @@
             </div>
             <div class="input-box">
                 <span class="details">Select Ward</span>
-                <select>
-                    <option disabled hidden selected>Select Ward</option>
-                    {% for ward in wards %}
-                    <option value="{{ward}}">{{ward}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="input-box">
-                <span class="details">Select Bed</span>
-                <select>
-                    <option disabled hidden selected>Select Bed</option>
-                    {% for bed in beds %}
-                    <option value="{{bed}}">{{bed}}</option>
                 <select id="wardss">
                     <option value="">Select Ward</option>
                     {% for i in wards %}
@@ -113,19 +100,20 @@
                 </select>
             </div>
             <div class="input-box">
-<<<<<<< HEAD
-                <span class="details">Select Doctor</span>
-                <select>
-                    <option disabled hidden selected>Select Doctor</option>
-                    {% for doctor in doctors %}
-                    <option value="{{doctor}}">{{doctor}}</option>
-                    {% endfor %}
-=======
                 <span class="details">Select Bed</span>
                 <select id="beds">
                     <option value="">select Bed</option>
                  
->>>>>>> 0d833bdd32093cc7dd394598fc97b8eb0b845c10
+                </select>
+            </div>
+
+            <div class="input-box">
+                <span class="details">Select Doctor</span>
+                <select>
+                    <option value="">select Doctor</option>
+                    {% for i in doctors %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-box">
