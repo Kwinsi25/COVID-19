@@ -18,6 +18,16 @@ class PatientAdmin(admin.ModelAdmin):
     ]
     inlines = [DocumentInline,SymptomInline]
 
+class DoctorInline(admin.StackedInline):
+    model = WardDoctor
+    extra = 1
+
+class WardAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,{'fields': [field.name for field in Ward._meta.get_fields() if field.name != "wardId" and field.name != "doctor" and field.name != "bed" and field.name != "warddoctor"]}),    
+    ]
+    inlines = [DoctorInline]
+
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(City)
 admin.site.register(State)
@@ -30,5 +40,6 @@ admin.site.register(Specialization)
 admin.site.register(Doctor)
 admin.site.register(Equipment)
 admin.site.register(Oxygen)
-admin.site.register(Ward)
+admin.site.register(Ward,WardAdmin)
 admin.site.register(Appointment)
+admin.site.register(WardDoctor)

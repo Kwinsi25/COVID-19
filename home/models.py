@@ -26,10 +26,11 @@ class staff(models.Model):
 
 class Ward(models.Model):
     wardId = models.AutoField(primary_key=True)
-    wardName = models.CharField(max_length=5)
+    wardName = models.CharField(("Ward Name"),max_length=10)
+    wardPrice = models.DecimalField(("Ward Price"),max_digits=8,decimal_places=2,default=0.00)
 
     def __str__(self):
-        return self.wardName
+        return self.wardName + str(self.wardPrice)
          
 class Bed(models.Model):
     bedId = models.AutoField(primary_key=True)
@@ -106,6 +107,7 @@ class Patient(models.Model):
     caseNumber = models.IntegerField(('Case Number'),default=random.randint(100000,999999),unique=True)
     patientId = models.AutoField(primary_key=True)
     patientName = models.CharField(("Patient Name"),max_length=24)
+    patientEmail = models.EmailField(("Email Id"),unique=True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -179,7 +181,7 @@ class PatientDocument(models.Model):
 
 class PatientSymptom(models.Model):
     patientName = models.ForeignKey('Patient',on_delete=models.CASCADE,null=True)
-    Symptoms = models.OneToOneField('Symptoms',on_delete=models.CASCADE,null=True,unique=True,limit_choices_to={'active': True})
+    Symptoms = models.ForeignKey('Symptoms',on_delete=models.CASCADE,null=True,limit_choices_to={'active': True})
 
     def __str__(self):
         return str(self.patientName) + "'s Symptoms"
@@ -199,3 +201,10 @@ class Appointment(models.Model):
 
     def __str__(self):
         return self.patientName
+
+class WardDoctor(models.Model):
+    doctorName = models.ForeignKey('Doctor',on_delete=models.CASCADE,default=None,blank=True)
+    wardName = models.ForeignKey('Ward',on_delete=models.CASCADE,default=None,blank=True)
+
+    def __str__(self):
+        return str(self.doctorName) + str(self.wardName)
