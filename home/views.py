@@ -32,9 +32,9 @@ def home(request):
         staffDetails=staff.objects.filter(staffUserName = username,staffPassword = password)
         
         if staffDetails.count() > 0 :
-            return redirect ('/staffDashboard')
+            return render (request, 'staffDashboard.html',{'user':staffDetails.get()})
         else:
-            print("Not Found") 
+             err="Username and Password is not valid!"
     if request.method == 'POST':
         username = request.POST.get('username')
        
@@ -44,9 +44,10 @@ def home(request):
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
         
         if doctorDetails.count() > 0 :
-            return redirect ('/doctorDashboard')
+            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get()})
         else:
-            print("Not Found")
+
+            return render(request, 'index.html',{'err':err})
                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards})
 
