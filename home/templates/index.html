@@ -47,7 +47,10 @@
     
     <div class="header_section">
     {% if err is not None %}
-        <div class="alert alert-warning text-center font-weight-bold">{{err}}</div>
+        <script>
+        alert("{{err}}");
+        </script>
+       
         {% endif %}
         <div class="container-fluid">
             
