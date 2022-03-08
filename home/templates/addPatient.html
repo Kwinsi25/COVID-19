@@ -88,15 +88,30 @@
                     <input type="text" placeholder=" like Thyroid,Diabetes.." required>
             </div>
             <div class="input-box">
+                <span class="details">Select Ward</span>
+                <select>
+                    <option disabled hidden selected>Select Ward</option>
+                    {% for ward in wards %}
+                    <option value="{{ward}}">{{ward}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-box">
                 <span class="details">Select Bed</span>
                 <select>
-                    <option value="">select</option>
+                    <option disabled hidden selected>Select Bed</option>
+                    {% for bed in beds %}
+                    <option value="{{bed}}">{{bed}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-box">
                 <span class="details">Select Doctor</span>
                 <select>
-                    <option value="">select</option>
+                    <option disabled hidden selected>Select Doctor</option>
+                    {% for doctor in doctors %}
+                    <option value="{{doctor}}">{{doctor}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-box">

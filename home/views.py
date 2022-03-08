@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor
 
 
 data ={}
@@ -69,7 +69,10 @@ def index(request):
     return response
 
 def patient(request):
-    return render(request, 'addPatient.html')
+    wards = Ward.objects.all()
+    beds = Bed.objects.all()
+    doctors = WardDoctor.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors})
 
 def bookAppointment(request):
     if request.method == 'POST':
