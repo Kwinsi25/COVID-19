@@ -185,7 +185,7 @@
             success: function (data) {   // `data` is from `get_topics_ajax` view function
                 let html_data = '<option value="">---------</option>';
                 data.forEach(function (data) {
-                    html_data += `<option value="${data.doctorName}">${data.doctorName}</option>`
+                    html_data += `<option value="${data.doctorId}">${data.doctorName}</option>`
                 });
                 $("#doctors").html(html_data); // replace the contents of the topic input with the data that came from the server
                 console.log(data)

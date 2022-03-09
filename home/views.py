@@ -4,6 +4,8 @@ from django.shortcuts import redirect, render
 from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment
 from django.http import JsonResponse
 
+from django.db.models import F
+
 
 data ={}
 def firstNameCheck(value):
@@ -139,7 +141,7 @@ def getbedsajax(request):
             beds = Bed.objects.all().filter(wardName=wardname)
             
             
-            print(beds)
+            #print(beds)
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
@@ -152,10 +154,19 @@ def getdoctorsajax(request):
         doctorN = []
         try:
             doctors = WardDoctor.objects.all().filter(wardName=wardname)
-            for doctor in range(0,len(doctors)):
-                doctorN.extend(list(Doctor.objects.all().filter(doctorName=doctors[doctor].doctorName)))
-            print(doctorN)
+            #for doctor in range(0,len(doctors)):
+            #    doctorN.extend(list(Doctor.objects.all().filter(doctorName=doctors[doctor].doctorName)))
+            docs = []
+            for row in doctors:
+                docs.extend(list(Doctor.objects.filter(doctorId=row.doctorName_id)))
+                #print(row.doctorName_id)
+            doctord=Doctor.objects.all().filter(doctorName__in=docs)
+            #print(docs)
+            #print(doctord)
+            
+            
+            
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
-        return JsonResponse(list(doctors.values('doctorName', 'doctorName')), safe = False)
+        return JsonResponse(list(doctord.values('doctorId', 'doctorName')), safe = False)
