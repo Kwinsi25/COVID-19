@@ -145,3 +145,17 @@ def getbedsajax(request):
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
         
+
+def getdoctorsajax(request):
+    if request.method == "POST":
+        wardname = request.POST['wardname']
+        doctorN = []
+        try:
+            doctors = WardDoctor.objects.all().filter(wardName=wardname)
+            for doctor in range(0,len(doctors)):
+                doctorN.extend(list(Doctor.objects.all().filter(doctorName=doctors[doctor].doctorName)))
+            print(doctorN)
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)
+        return JsonResponse(list(doctors.values('doctorName', 'doctorName')), safe = False)

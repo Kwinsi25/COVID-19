@@ -32,6 +32,10 @@
                     <input type="text" placeholder="Enter your number" required>
             </div>
             <div class="input-box">
+                <span class="details">Email Id</span>
+                    <input type="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
                 <div class="gender-details">
                     <input type="radio" name="gender" id="dot-1">
                     <input type="radio" name="gender" id="dot-2">
@@ -109,11 +113,11 @@
 
             <div class="input-box">
                 <span class="details">Select Doctor</span>
-                <select>
+                <select id="doctors">
                     <option value="">select Doctor</option>
-                    {% for i in doctors %}
+                    <!-- {% for i in doctors %}
                     <option value="{{i}}">{{i}}</option>
-                    {% endfor %}
+                    {% endfor %} -->
                 </select>
             </div>
             <div class="input-box">
@@ -169,6 +173,25 @@
                 });
                 $("#beds").html(html_data); // replace the contents of the topic input with the data that came from the server
             }
+        });
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'getdoctorsajax' %}",
+            data: {
+                'wardname': wardname,      
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (data) {
+                    html_data += `<option value="${data.doctorName}">${data.doctorName}</option>`
+                });
+                $("#doctors").html(html_data); // replace the contents of the topic input with the data that came from the server
+                console.log(data)
+            },
+           
+
         });
     });
 </script>
