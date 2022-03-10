@@ -137,7 +137,7 @@ def getbedsajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']        
         try:
-            beds = Bed.objects.all().filter(wardName=wardname)
+            beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
