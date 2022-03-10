@@ -166,4 +166,16 @@ def getcitiesajax(request):
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
-        return JsonResponse(list(cities.values('cityId', 'cityName')), safe = False)        
+        return JsonResponse(list(cities.values('cityId', 'cityName')), safe = False)  
+
+def email(request):
+    if request.method=="POST":
+        
+        send_mail(
+             request.POST['Sub'],
+             request.POST['Msg'],
+             'chmsdonotreply@gmail.com',
+             ['ajpatel2468@gmail.com'],
+             fail_silently=False,
+        )
+    return render(request,"email.html")      
