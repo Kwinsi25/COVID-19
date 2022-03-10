@@ -102,7 +102,7 @@
             <div class="input-box">
                 <span class="details">Select Ward</span>
                 <select id="wardss">
-                    <option value="">Select Ward</option>
+                    <option value="" disabled selected hidden>Select Ward</option>
                     {% for i in wards %}
                     <option value="{{i.wardId}}">{{i}}</option>
                     {% endfor %}
@@ -111,7 +111,7 @@
             <div class="input-box">
                 <span class="details">Select Bed Number</span>
                 <select id="beds">
-                    <option value="">Select Bed</option>
+                    <option  value="" >Select Bed</option>
                  
                 </select>
             </div>
@@ -141,7 +141,7 @@
             <div class="input-box">
                 <span class="details">Status</span>
                 <select>
-                    <option value="pn" selected>Pending</option>
+                    <option  value="pn" selected>Pending</option>
                 </select>
             </div>
             <div class="input-box">
