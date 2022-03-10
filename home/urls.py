@@ -16,9 +16,6 @@ urlpatterns = [
     path('getbedsajax/', views.getbedsajax, name="getbedsajax"),
     path('getdoctorsajax/', views.getdoctorsajax, name="getdoctorsajax"),
     path('getcitiesajax/', views.getcitiesajax, name="getcitiesajax"),
-<<<<<<< HEAD
-=======
     path('getpricesajax/', views.getpricesajax, name="getpricesajax"),
->>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
     path('email/', views.email, name="email"),
 ]

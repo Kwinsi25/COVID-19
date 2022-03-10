@@ -47,11 +47,7 @@ class SymptomInline(admin.StackedInline):
     extra = extrafield
 
 class BedAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
-    list_per_page = 10
-=======
     list_per_page = perpage
->>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
 
 class PatientAdmin(admin.ModelAdmin):
     list_per_page = perpage
@@ -73,19 +69,6 @@ class WardAdmin(admin.ModelAdmin):
     list_display = ['wardName','wardPrice']
 
 admin.site.register(Patient, PatientAdmin)
-<<<<<<< HEAD
-admin.site.register(City)
-admin.site.register(State)
-admin.site.register(PatientDocument)
-admin.site.register(PatientSymptom)
-admin.site.register(Symptoms)
-admin.site.register(staff)
-admin.site.register(Bed,BedAdmin)
-admin.site.register(Specialization)
-admin.site.register(Doctor)
-admin.site.register(Equipment)
-admin.site.register(Oxygen)
-=======
 admin.site.register(City,CityAdmin)
 admin.site.register(State,StateAdmin)
 admin.site.register(PatientDocument,PatientDocumentAdmin)
@@ -97,6 +80,5 @@ admin.site.register(Specialization,SpecializationAdmin)
 admin.site.register(Doctor,DoctorAdmin)
 admin.site.register(Equipment,EquipmentAdmin)
 admin.site.register(Oxygen,OxygenAdmin)
->>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
 admin.site.register(Ward,WardAdmin)
 admin.site.register(Appointment,AppointmentAdmin)
