@@ -40,7 +40,7 @@ class Bed(models.Model):
     occupied = models.BooleanField(("Occupied"),default=False)
     
     def __str__(self):
-        return str(self.wardName) + " - " + str(self.bedNumber)
+        return str(self.wardName) +" - "+ str(self.bedNumber)
 
 class Specialization(models.Model):
     specializationId = models.AutoField(primary_key=True)

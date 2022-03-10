@@ -23,7 +23,7 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Case Number</span>
-            <input type="text" placeholder="" required>
+            <input type="text" id="caseNumber" placeholder="" disabled>
           </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
@@ -102,16 +102,16 @@
             <div class="input-box">
                 <span class="details">Select Ward</span>
                 <select id="wardss">
-                    <option value="">Select</option>
+                    <option value="" disabled selected hidden>Select Ward</option>
                     {% for i in wards %}
                     <option value="{{i.wardId}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-box">
-                <span class="details">Select Bed</span>
+                <span class="details">Select Bed Number</span>
                 <select id="beds">
-                    <option value="">Select</option>
+                    <option  value="" >Select Bed</option>
                  
                 </select>
             </div>
@@ -126,7 +126,7 @@
             <div class="input-box">
                 <span class="details">Select Doctor</span>
                 <select id="doctors">
-                    <option value="">Select</option>
+                    <option value="">Select Doctor</option>
 
                 </select>
             </div>
@@ -141,15 +141,19 @@
             <div class="input-box">
                 <span class="details">Status</span>
                 <select>
-                    <option value="pn" selected>Pending</option>
+                    <option  value="pn" selected>Pending</option>
                 </select>
             </div>
+            <div class="input-box">
+                <span class="details">Document</span>
+                    <input type="file" required>
+            </div>
             <div class="checkboxClass">
-                <span class="details">Symptoms</span>
-                <input type="checkbox" id="Fever" name="Fever"  >
-                <label for="Fever">Fever</label>
-                <input type="checkbox" id="Cough" name="Cough">
-                <label for="Cough">Cough</label>
+                <span class="details" id="symptoms">Symptoms</span>
+                
+                {% for i in symptoms %}
+                    <input type=checkbox id="symptoms.symptoms"> {{i}}
+                {% endfor %}
         </div>
        
       
@@ -245,6 +249,17 @@ $("#wardss").change(function () {
             }
         });
     });
+
+    function randomNumber(len) {
+            var randomNumber;
+            var n = '';
+            for (var count = 0; count < len; count++) {
+                randomNumber = Math.floor(Math.random() * 10);
+                n += randomNumber.toString();
+            }
+            return n;
+            }
+    document.getElementById("caseNumber").value = randomNumber(6);
 
 </script>
 {% endblock javascript %}

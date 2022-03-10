@@ -8,17 +8,37 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+    <!-- Responsive-->
+    <link  href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link  href="{% static 'css/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets --> 
+    <link  href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="{% static 'css/staffNav.css' %}">
 </head>
 <body > 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse text-center">
   <div class="container-fluid">
-    <p class="alert alert-success">Role:<b class="font-weight-bold">Doctor</b></p>
+   
     <ul class="nav navbar-nav">
       <li><a href="{% url 'index' %}" ><b style="font-size: large;">Home</b></a></li>
       <li><a href="#" ><b style="font-size: large;">View Patient</b></a></li>
       
+    </ul>
+    <ul class="nav navbar-nav" style="margin-left:28%;size: 12px;"></b>
+      <li><a href="#"><b style="font-size: large;" class="well well-sm font-weight-bold">Doctor Panel</b></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#" ><b style="font-size: large;"><span class="glyphicon glyphicon-user"></span>{{user}}</b></a></li>
@@ -28,5 +48,3 @@
 </nav>
 
 
-</body>
-</html>

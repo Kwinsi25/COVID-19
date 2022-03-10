@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment,State,City
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -47,9 +47,9 @@ def home(request):
         password = request.POST.get('password') 
         
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
-        
+        patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
         if doctorDetails.count() > 0 :
-            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get()})
+            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get(),'patient':patient})
         else:
 
             return render(request, 'index.html',{'err':err})
@@ -67,6 +67,8 @@ def staffDashboard(request):
     return render(request,'staffDashboard.html')
 
 def doctorDashboard(request):
+    
+    
     return render(request,'doctorDashboard.html')
 
 def index(request):
@@ -79,7 +81,8 @@ def patient(request):
     doctors = WardDoctor.objects.all()
     states = State.objects.all()
     cities = City.objects.all()
-    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities})
+    symptoms = Symptoms.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
 
 def bookAppointment(request):
     if request.method == 'POST':
@@ -137,7 +140,7 @@ def getbedsajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']        
         try:
-            beds = Bed.objects.all().filter(wardName=wardname)
+            beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)

@@ -1,3 +1,43 @@
 {% load static %}
 {% include 'doctorNav.html' %}
+
+<div class="row ">
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'hospital-bed.png' %}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Bed Available</h4>
+                <p class="card-text">15</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Oxygen</h4>
+                <p class="card-text">10</p>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'heart.png' %}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Recovered</h4>
+                <p class="card-text">15</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Deceased</h4>
+                <p class="card-text">15</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% include 'viewPatientDoctorDetails.html' %}
