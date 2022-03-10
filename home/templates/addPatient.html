@@ -102,7 +102,7 @@
             <div class="input-box">
                 <span class="details">Select Ward</span>
                 <select id="wardss">
-                    <option value="">Select Ward</option>
+                    <option value="">Select</option>
                     {% for i in wards %}
                     <option value="{{i.wardId}}">{{i}}</option>
                     {% endfor %}
@@ -111,7 +111,7 @@
             <div class="input-box">
                 <span class="details">Select Bed</span>
                 <select id="beds">
-                    <option value="">Select Bed</option>
+                    <option value="">Select</option>
                  
                 </select>
             </div>
@@ -126,7 +126,7 @@
             <div class="input-box">
                 <span class="details">Select Doctor</span>
                 <select id="doctors">
-                    <option value="">Select Doctor</option>
+                    <option value="">Select</option>
 
                 </select>
             </div>
@@ -141,10 +141,7 @@
             <div class="input-box">
                 <span class="details">Status</span>
                 <select>
-                    <option value="">Select Status</option>
-                    {% for i in status %}
-                    <option value="{{i}}">{{i.patientStatus}}</option>
-                    {% endfor %}
+                    <option value="pn" selected>Pending</option>
                 </select>
             </div>
             <div class="checkboxClass">
