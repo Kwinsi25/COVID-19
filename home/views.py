@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 
 from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment,State,City
 from django.http import JsonResponse
+from django.core.mail import send_mail
 
 from django.db.models import F
 
