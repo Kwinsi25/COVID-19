@@ -1,7 +1,11 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
+<<<<<<< HEAD
 from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment,State,City
+=======
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
+>>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -81,7 +85,12 @@ def patient(request):
     doctors = WardDoctor.objects.all()
     states = State.objects.all()
     cities = City.objects.all()
+<<<<<<< HEAD
     return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities})
+=======
+    symptoms = Symptoms.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
+>>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
 
 def bookAppointment(request):
     if request.method == 'POST':
@@ -139,12 +148,28 @@ def getbedsajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']        
         try:
+<<<<<<< HEAD
             beds = Bed.objects.all().filter(wardName=wardname)
+=======
+            beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
+>>>>>>> 746a4dffe2a1a396ab1a0b83740b853c1644deb0
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
-        
+
+def getpricesajax(request):
+    if request.method == "POST":        
+        wardname = request.POST['wardname']  
+        try:
+            print(wardname)
+            price = Ward.objects.all().filter(wardId=wardname)
+            
+            print(price.values('wardPrice'))
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)  
+        return JsonResponse(list(price.values('wardName', 'wardPrice')), safe = False)        
 
 def getdoctorsajax(request):
     if request.method == "POST":
