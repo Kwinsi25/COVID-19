@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -13,7 +14,8 @@
     </head>
     
     <body>
-        <div class="container">
+ 
+    <div class="container">
     <div class="title">Add Patient</div>
     <div class="content">
       <form action="#">
@@ -71,15 +73,18 @@
             </div>
             <div class="input-box">
                 <span class="details">Select State</span>
-                    <select>
-                        <option value="">select</option>
-                        
+                    <select id="statess">
+                        <option value="">Select</option>
+                        {% for i in states %}
+                        <option value="{{i.stateId}}">{{i}}</option>
+                        {% endfor %}
                     </select>
             </div>
             <div class="input-box">
                 <span class="details">Select City</span>
-                    <select>
-                        <option value="">select</option>
+                    <select id="cities" name="cities">
+                        <option value="">Select</option>
+
                     </select>
             </div>
             <div class="input-box">
@@ -106,18 +111,23 @@
             <div class="input-box">
                 <span class="details">Select Bed</span>
                 <select id="beds">
-                    <option value="">select Bed</option>
+                    <option value="">Select Bed</option>
                  
                 </select>
             </div>
+            <!-- <div class="input-box">
+                <span class="details">Bed Price</span>
+                <select id="beds">
+                    <option value="" selected>Price</option>
+                 
+                </select>
+            </div> -->
 
             <div class="input-box">
                 <span class="details">Select Doctor</span>
                 <select id="doctors">
-                    <option value="">select Doctor</option>
-                    <!-- {% for i in doctors %}
-                    <option value="{{i}}">{{i}}</option>
-                    {% endfor %} -->
+                    <option value="">Select Doctor</option>
+
                 </select>
             </div>
             <div class="input-box">
@@ -155,26 +165,28 @@
 </body>
 {% block javascript %}
 <script>
+
     $("#wardss").change(function () {
-        const wardname = $(this).val();  
-        // get the selected subject ID from the HTML dropdown list 
-        $.ajax({                       // initialize an AJAX request
+        const wardname = $(this).val(); 
+
+        $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getbedsajax' %}",
             data: {
-                'wardname': wardname,       // add the country id to the POST parameters
+                'wardname': wardname,           // add the wardname to the POST parameters
                 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
             },
             
-            success: function (data) {   // `data` is from `get_topics_ajax` view function
+            success: function (data) {          // `data` is from `getbedsajax` view function
                 let html_data = '<option value="">---------</option>';
                 data.forEach(function (data) {
                     html_data += `<option value="${data.bedId}">${data.bedNumber}</option>`
                 });
-                $("#beds").html(html_data); // replace the contents of the topic input with the data that came from the server
+                $("#beds").html(html_data);     // replace the contents of the topic input with the data that came from the server
             }
         });
-        $.ajax({                       // initialize an AJAX request
+
+        $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getdoctorsajax' %}",
             data: {
@@ -182,18 +194,40 @@
                 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
             },
             
-            success: function (data) {   // `data` is from `get_topics_ajax` view function
+            success: function (data) {          // `data` is from `getdoctorsajax` view function
                 let html_data = '<option value="">---------</option>';
                 data.forEach(function (data) {
                     html_data += `<option value="${data.doctorId}">${data.doctorName}</option>`
                 });
-                $("#doctors").html(html_data); // replace the contents of the topic input with the data that came from the server
+                $("#doctors").html(html_data);  // replace the contents of the topic input with the data that came from the server
                 console.log(data)
             },
            
 
         });
     });
+
+    $("#statess").change(function () {
+        const statename = $(this).val();
+          
+        $.ajax({                                // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'getcitiesajax' %}",
+            data: {
+                'statename': statename,      
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            
+            success: function (data) {          // `data` is from `getcitiesajax` view function
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (data) {
+                    html_data += `<option value="${data.cityId}">${data.cityName}</option>`
+                });
+                $("#cities").html(html_data);   // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+
 </script>
 {% endblock javascript %}
 </html>
