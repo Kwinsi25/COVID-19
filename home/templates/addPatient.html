@@ -23,7 +23,7 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Case Number</span>
-            <input type="text" placeholder="" required>
+            <input type="text" id="caseNumber" placeholder="" disabled>
           </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
@@ -144,12 +144,19 @@
                     <option value="pn" selected>Pending</option>
                 </select>
             </div>
+            <div class="input-box">
+                <span class="details">Document</span>
+                    <input type="file" required>
+            </div>
             <div class="checkboxClass">
-                <span class="details">Symptoms</span>
-                <input type="checkbox" id="Fever" name="Fever"  >
+                <span class="details" id="symptoms">Symptoms</span>
+                <!-- <input type="checkbox" id="Fever" name="Fever"  >
                 <label for="Fever">Fever</label>
                 <input type="checkbox" id="Cough" name="Cough">
-                <label for="Cough">Cough</label>
+                <label for="Cough">Cough</label> -->
+                {% for i in symptoms %}
+                    <input type=checkbox id="symptoms.symptoms"> {{i}}
+                {% endfor %}
         </div>
        
       
@@ -165,8 +172,17 @@
 </body>
 {% block javascript %}
 <script>
-
-$("#wardss").change(function () {
+function randomNumber(len) {
+            var randomNumber;
+            var n = '';
+            for (var count = 0; count < len; count++) {
+                randomNumber = Math.floor(Math.random() * 10);
+                n += randomNumber.toString();
+            }
+            return n;
+            }
+    document.getElementById("caseNumber").value = randomNumber(6);
+        $("#wardss").change(function () {
         const wardname = $(this).val(); 
 
         $.ajax({                                // initialize an AJAX request

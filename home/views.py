@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment,State,City
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -79,7 +79,8 @@ def patient(request):
     doctors = WardDoctor.objects.all()
     states = State.objects.all()
     cities = City.objects.all()
-    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities})
+    symptoms = Symptoms.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
 
 def bookAppointment(request):
     if request.method == 'POST':
