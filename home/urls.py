@@ -14,5 +14,7 @@ urlpatterns = [
     path('bookAppointment/bookedAppointment',views.bookedAppointment,name='bookedAppointment'),
     path('viewPatient/',views.viewPatient,name="viewPatient"),
     path('getbedsajax/', views.getbedsajax, name="getbedsajax"),
-    path('getdoctorsajax/', views.getdoctorsajax, name="getdoctorsajax")
+    path('getdoctorsajax/', views.getdoctorsajax, name="getdoctorsajax"),
+    path('getcitiesajax/', views.getcitiesajax, name="getcitiesajax"),
+    path('email/', views.email, name="email"),
 ]

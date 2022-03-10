@@ -14,8 +14,7 @@
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <p class="alert alert-success">Role:<b class="font-weight-bold">Staff</b></p>
-    
+   
     <ul class="nav navbar-nav">
       <li><a href="{% url 'index' %}" ><b style="font-size: large;">Home</b></a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" ><b style="font-size: large;">Patient</b><span class="caret"></span></a>
@@ -25,6 +24,9 @@
         </ul>
       </li>
       <li><a href="#" ><b style="font-size: large;">Appointment Detail</b></a></li>
+    </ul>
+    <ul class="nav navbar-nav" style="margin-left:18%;size: 12px;"></b>
+      <li><a href="#"><b style="font-size: large;" class="well well-sm font-weight-bold">Staff Panel</b></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="{% url 'patient' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-plus"></span></b></a></li>

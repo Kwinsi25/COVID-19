@@ -1,8 +1,9 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment
+from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,WardDoctor,Appointment,State,City
 from django.http import JsonResponse
+from django.core.mail import send_mail
 
 from django.db.models import F
 
@@ -46,9 +47,9 @@ def home(request):
         password = request.POST.get('password') 
         
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
-        
+        patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
         if doctorDetails.count() > 0 :
-            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get()})
+            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get(),'patient':patient})
         else:
 
             return render(request, 'index.html',{'err':err})
@@ -66,6 +67,8 @@ def staffDashboard(request):
     return render(request,'staffDashboard.html')
 
 def doctorDashboard(request):
+    
+    
     return render(request,'doctorDashboard.html')
 
 def index(request):
@@ -76,7 +79,9 @@ def patient(request):
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
-    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors})
+    states = State.objects.all()
+    cities = City.objects.all()
+    return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities})
 
 def bookAppointment(request):
     if request.method == 'POST':
@@ -131,17 +136,10 @@ def viewPatient(request):
 
     
 def getbedsajax(request):
-
-    if request.method == "POST":
-        
-        wardname = request.POST['wardname']
-        
+    if request.method == "POST":        
+        wardname = request.POST['wardname']        
         try:
-            #wardId=Ward.objects.all().filter(WardName=wardname)
             beds = Bed.objects.all().filter(wardName=wardname)
-            
-            
-            #print(beds)
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
@@ -150,23 +148,37 @@ def getbedsajax(request):
 
 def getdoctorsajax(request):
     if request.method == "POST":
-        wardname = request.POST['wardname']
-        doctorN = []
+        wardname = request.POST.get('wardname')
         try:
             doctors = WardDoctor.objects.all().filter(wardName=wardname)
-            #for doctor in range(0,len(doctors)):
-            #    doctorN.extend(list(Doctor.objects.all().filter(doctorName=doctors[doctor].doctorName)))
             docs = []
             for row in doctors:
                 docs.extend(list(Doctor.objects.filter(doctorId=row.doctorName_id)))
-                #print(row.doctorName_id)
             doctord=Doctor.objects.all().filter(doctorName__in=docs)
-            #print(docs)
-            #print(doctord)
-            
-            
-            
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
         return JsonResponse(list(doctord.values('doctorId', 'doctorName')), safe = False)
+
+def getcitiesajax(request):
+
+    if request.method == "POST":
+        stateName = request.POST['statename']
+        try:            
+            cities = City.objects.all().filter(stateName=stateName)
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)
+        return JsonResponse(list(cities.values('cityId', 'cityName')), safe = False)  
+
+def email(request):
+    if request.method=="POST":
+        
+        send_mail(
+             request.POST['Sub'],
+             request.POST['Msg'],
+             'chmsdonotreply@gmail.com',
+             ['ajpatel2468@gmail.com'],
+             fail_silently=False,
+        )
+    return render(request,"email.html")      

@@ -1,9 +1,13 @@
+
 body{
-    background-color: #a258ed   ;
+    background: url('../docs2.jpg') ;
+    background-size: cover;
+    
     
 }
 
-.row {
+
+{}.row {
     display: flex;
     flex-wrap: wrap;
  }

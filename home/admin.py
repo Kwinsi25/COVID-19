@@ -10,6 +10,8 @@ class SymptomInline(admin.StackedInline):
     model = PatientSymptom
     extra = 1
 
+class BedAdmin(admin.ModelAdmin):
+    list_per_page = 10
 
 class PatientAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -27,6 +29,7 @@ class WardAdmin(admin.ModelAdmin):
         (None,{'fields': [field.name for field in Ward._meta.get_fields() if field.name != "wardId" and field.name != "doctor" and field.name != "bed" and field.name != "warddoctor"]}),    
     ]
     inlines = [DoctorInline]
+    list_display = ['wardName','wardPrice']
 
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(City)
@@ -35,7 +38,7 @@ admin.site.register(PatientDocument)
 admin.site.register(PatientSymptom)
 admin.site.register(Symptoms)
 admin.site.register(staff)
-admin.site.register(Bed)
+admin.site.register(Bed,BedAdmin)
 admin.site.register(Specialization)
 admin.site.register(Doctor)
 admin.site.register(Equipment)
