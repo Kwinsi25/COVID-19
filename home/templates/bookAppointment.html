@@ -7,12 +7,21 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- JQuery & JQuery validations -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
+    <script src="{% static 'js/jquery-validation-ud.js' %}"></script>
+    <style>
+      .error {
+      color: red;
+   }
+    </style>
    </head>
 <body>
   <div class="container">
     <div class="title">Book Appointment</div>
     <div class="content">
-      <form action="bookedAppointment" method="post">
+      <form id="bookAppointmentForm" action="bookedAppointment" method="post">
         {% csrf_token %}
         <div class="user-details">
           {% if caseNumber is not None %}
@@ -44,7 +53,9 @@
                     <span class="gender">Female</span>
                     </label>
                     </div>
+                    <span id="mygender" name="mygender"></span>
                 </div>
+                
             </div>
             <div class="input-box">
               <span class="details">Email Id</span>

@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 import random
 from django.db import models
@@ -39,7 +40,7 @@ class Bed(models.Model):
     occupied = models.BooleanField(("Occupied"),default=False)
     
     def __str__(self):
-        return str(self.wardName) + str(self.bedNumber)
+        return str(self.wardName) + " - " + str(self.bedNumber)
 
 class Specialization(models.Model):
     specializationId = models.AutoField(primary_key=True)
@@ -131,12 +132,13 @@ class Patient(models.Model):
     doctorName = models.ForeignKey('Doctor',on_delete=models.CASCADE,default=None,blank=True)
     doctorNotes = models.CharField(("Doctor Notes"),max_length=250,default=None,blank=True)
     doctorLastVisited = models.DateField(("Doctor last visited on"),default=None,blank=True)
+    dateTime = models.DateTimeField(("Date Time"),default=now)
     
-    pending = 'pn'
-    critical = 'cr'
-    recovering = 'rc'
-    recovered = 'rcd'
-    deceased = 'dc'
+    pending = 'Pending'
+    critical = 'Critical'
+    recovering = 'Recovering'
+    recovered = 'Recovered'
+    deceased = 'Deceased'
     PATIENT_STATUS_CHOICES = [
         (pending,'pending'),
         (critical, 'critical'),
@@ -144,7 +146,7 @@ class Patient(models.Model):
         (recovered, 'recovered'),
         (deceased, 'deceased'),]
         
-    patientStatus = models.CharField(("Patient Status"),max_length=3,choices=PATIENT_STATUS_CHOICES,default=pending)
+    patientStatus = models.CharField(("Patient Status"),max_length=10,choices=PATIENT_STATUS_CHOICES,default=pending)
 
     def save(self, *args, **kwargs):
         cost = Bed.objects.filter(bedNumber = self.bedNumber ).update(occupied = True)
@@ -200,6 +202,7 @@ class Appointment(models.Model):
     patientRelativeNumber = models.IntegerField(("Relative's Phone number"),validators=[validate_phoneNumber])
     patientRelativeName = models.CharField(("Relative's name"),max_length=24)
     reason = models.CharField(("Reason"),max_length=250)
+    dateTime = models.DateTimeField(("Date Time"),default=now)
 
     def __str__(self):
         return self.patientName
