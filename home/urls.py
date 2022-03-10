@@ -16,5 +16,6 @@ urlpatterns = [
     path('getbedsajax/', views.getbedsajax, name="getbedsajax"),
     path('getdoctorsajax/', views.getdoctorsajax, name="getdoctorsajax"),
     path('getcitiesajax/', views.getcitiesajax, name="getcitiesajax"),
+    path('getpricesajax/', views.getpricesajax, name="getpricesajax"),
     path('email/', views.email, name="email"),
 ]
