@@ -3,6 +3,14 @@ from django.core.exceptions import ValidationError
 import random
 from django.db import models
 
+class configuration(models.Model):
+    configurationId = models.AutoField(primary_key=True)
+    label = models.CharField(max_length=10)
+    value = models.IntegerField()
+
+    def __str__(self):
+        return str(self.label)
+
 class staff(models.Model):
     staffId = models.AutoField(primary_key=True,default=None)
     staffUserName = models.CharField(max_length=24,default=None)
