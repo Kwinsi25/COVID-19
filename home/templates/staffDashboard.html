@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/staffNav.css' %}">
-{% block body %}
+
 <div class="container">
     <div class="row ">
         <div class="col-sm-3">
@@ -47,38 +47,7 @@
             </div>
         </div>
     </div>
-    <h1 class="text-center well well-sm  page-header"><strong>Patient List</strong></h1>
-        <table id="example" class="display" style="width:100%;">
-            <thead>
-                <tr>
-                    <th style="background-color: white;">Patient Name</th>
-                    <th style="background-color: white;">Contact Number</th>
-                    <th style="background-color: white;">Patient Relative Name</th>
-                    <th style="background-color: white;">Patient Relative Contact</th>
-                    <th style="background-color: white;">Doctor</th>
-                    <th style="background-color: white;">Status</th>
-                    <th style="background-color: white;">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in display %}
-                <tr>
-                    <td>{{i.patientName}}</td>
-                    <td>{{i.phone}}</td>
-                    <td>{{i.patientRelativeName}}</td>
-                    <td>{{i.patientRelativeNumber}}</td>
-                    <td>{{i.doctorName}}</td>
-                    <td>{{i.patientStatus}}</td>
-                    <td><i class="fa fa-edit" style="font-size:29px;color:green">&nbsp;<i class="fa fa-trash" style="font-size:30px;color:red"></i></td>
-                </tr>
-                {% endfor %}
-                
-            </tbody>
-        </table>
+
 </div>
-{% endblock %}
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            } );
-        </script>
+
+{% include 'patient.html' %} 

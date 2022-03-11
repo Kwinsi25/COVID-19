@@ -59,13 +59,16 @@ def home(request):
 def login(request):
     return render(request,'login.html')
 
+def patient(request):
+    patientDetails = Appointment.objects.all()
+    return render(request, 'patient.html',{"patientDetails":patientDetails})
+
 def bedAvailablity(request):
     beds = Bed.objects.all() 
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
 def staffDashboard(request):
-    display = Patient.objects.all()
-    return render(request,'staffDashboard.html',{"display":display})
+    return render(request,'staffDashboard.html')
 
 def doctorDashboard(request):  
     return render(request,'doctorDashboard.html')
