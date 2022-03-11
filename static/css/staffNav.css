@@ -1,13 +1,13 @@
 
 body{
-    background: url('../doc.png');
+    background: url('../doccopy.png');
     background-size: cover;
     
     
 }
 
 
-{}.row {
+.row {
     display: flex;
     flex-wrap: wrap;
  }
