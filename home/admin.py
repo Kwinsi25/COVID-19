@@ -4,10 +4,12 @@ from .models import *
 
 getdata = configuration.objects.all().values()
 for i in getdata:
-    if i['label'] == 'perpage':
+    if i['fieldname'] == 'perpage':
         perpage = i['value']
-    if i['label'] == 'extrafield':
+    if i['fieldname'] == 'extrafield':
         extrafield = i['value']
+    if i['fieldname'] == 'maxfield':
+        maxfield = i['value']
 
 class configurationAdmin(admin.ModelAdmin):
     list_display = ['label','value']
@@ -52,6 +54,7 @@ class DocumentInline(admin.StackedInline):
 class SymptomInline(admin.StackedInline):
     model = PatientSymptom
     extra = extrafield
+    max_num = maxfield
 
 class BedAdmin(admin.ModelAdmin):
     list_per_page = perpage
@@ -67,6 +70,7 @@ class PatientAdmin(admin.ModelAdmin):
 class DoctorInline(admin.StackedInline):
     model = WardDoctor
     extra = extrafield
+    max_num = maxfield
 
 class WardAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -89,4 +93,4 @@ admin.site.register(Equipment,EquipmentAdmin)
 admin.site.register(Oxygen,OxygenAdmin)
 admin.site.register(Ward,WardAdmin)
 admin.site.register(Appointment,AppointmentAdmin)
-admin.site.register(configuration)
+admin.site.register(configuration,configurationAdmin)
