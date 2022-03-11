@@ -18,4 +18,8 @@ urlpatterns = [
     path('getcitiesajax/', views.getcitiesajax, name="getcitiesajax"),
     path('getpricesajax/', views.getpricesajax, name="getpricesajax"),
     path('email/', views.email, name="email"),
+    path('message/',views.message,name="message"),
+    path('confirmationDetails/',views.confirmationDetails,name="confirmationDetails"),
+    path('confirmationDetails/confirmDetails/',views.confirmDetails,name='confirmDetails'),
+
 ]

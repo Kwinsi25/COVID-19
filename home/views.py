@@ -64,12 +64,61 @@ def bedAvailablity(request):
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
 def staffDashboard(request):
-    return render(request,'staffDashboard.html')
+    display = Patient.objects.all()
+    return render(request,'staffDashboard.html',{"display":display})
 
-def doctorDashboard(request):
-    
-    
+def doctorDashboard(request):  
     return render(request,'doctorDashboard.html')
+
+def confirmationDetails(request):
+    id = request.GET.get('id')
+    bookAppointment = Appointment.objects.all().filter(appointmentId=int(id[0]))
+    wards = Ward.objects.all()
+    beds = Bed.objects.all()
+    doctors = WardDoctor.objects.all()
+    states = State.objects.all()
+    cities = City.objects.all()
+    symptoms = Symptoms.objects.all()
+    return render(request,'approved.html',{"bookAppointment":bookAppointment,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
+
+def confirmDetails(request):
+    if request.method == 'POST':
+        caseNumber = request.POST.get('caseNumber')
+        patientName = request.POST['patientName']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        gender = request.POST['gender']
+        patientRelativeName = request.POST['patientRelativeName']
+        patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
+        line1 = request.POST['line1']
+        line2 = request.POST['line2']
+        statess = request.POST['statess']
+        cities = request.POST['cities']
+        pincode = request.POST['pincode']
+        dob = request.POST['dob']
+        history = request.POST['history']
+        wardss= request.POST['wardss']
+        beds = request.POST['beds']
+        prices = request.POST['prices']
+        doctors = request.POST['doctors']
+        notes = request.POST['notes']
+        time = request.POST['time']
+        status = request.POST['status']
+        file = request.POST['file']
+        symptoms = request.POST.get('symptoms')
+        patient = Patient(caseNumber=caseNumber ,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,sname=statess,city=cities,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        print(patient)
+        patient.save()
+        return render(request,'viewPatient.html')
+    else:
+        return render(request,'approved.html')    
+def message(request):
+    bookAppointment = Appointment.objects.all()
+    return render(request,'confirmation.html',{"bookAppointment":bookAppointment})
+
+def viewPatient(request):
+    viewData = Patient.objects.all()
+    return render(request, 'viewPatient.html',{"viewData":viewData})
 
 def index(request):
     response = redirect('/home/')
@@ -131,8 +180,6 @@ def bookedAppointment(request):
         data['sucess'] = "Your details are submitted you will get email from Hospital for Appointment Status"
         return render(request,'bookAppointment.html',context=data)
 
-def viewPatient(request):
-    return render(request, 'viewPatient.html')
 
 
     
