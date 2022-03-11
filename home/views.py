@@ -68,10 +68,22 @@ def bedAvailablity(request):
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
 def staffDashboard(request):
-    return render(request,'staffDashboard.html')
+    oxy = Oxygen.objects.all()
+    beds = Bed.objects.all()
+    bedcnt = 0
+    for bed in beds:
+        if bed.occupied == False:
+            bedcnt = bedcnt + 1
+    return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy})
 
 def doctorDashboard(request):  
-    return render(request,'doctorDashboard.html')
+    oxy = Oxygen.objects.all()
+    beds = Bed.objects.all()
+    bedcnt = 0
+    for bed in beds:
+        if bed.occupied == False:
+            bedcnt = bedcnt + 1
+    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy})
 
 def confirmationDetails(request):
     id = request.GET.get('id')

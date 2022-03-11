@@ -7,7 +7,7 @@
             <img class="card-img-top img-fluid" src="{% static 'hospital-bed.png' %}" alt="Card image cap">
             <div class="card-block">
                 <h4 class="card-title">Bed Available</h4>
-                <p class="card-text">15</p>
+                <p class="card-text">{{bedcnt}}</p>
             </div>
         </div>
     </div>
@@ -16,7 +16,9 @@
             <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
             <div class="card-block">
                 <h4 class="card-title">Oxygen</h4>
-                <p class="card-text">10</p>
+                {% for i in oxy %}                                
+                    <p class="card-text">{{i}}</p> 
+                {% endfor %}
                 
             </div>
         </div>
