@@ -24,7 +24,7 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Case Number</span>
-            <input type="text" id="caseNumber" name="caseNumber" placeholder="" value="" disabled>
+            <input type="text" id="caseNumber" name="caseNumber" placeholder=""  disabled>
           </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
@@ -41,9 +41,9 @@
             <div class="input-box">
                 <div class="gender-details">
                     {% if i.gender == 'M' %}
-                    <input type="radio"  name="gender" id="dot-1" checked>
+                    <input type="radio"  name="gender" id="dot-1" checked value="M">
                     {% else %}
-                    <input type="radio" name="gender" id="dot-2" checked>
+                    <input type="radio" name="gender" id="dot-2" checked value="F">
                     {% endif %}
                     <span class="gender-title">Gender</span>
                     <div class="category">
