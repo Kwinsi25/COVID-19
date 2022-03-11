@@ -59,8 +59,8 @@ def home(request):
 def login(request):
     return render(request,'login.html')
 
-def patient(request):
-    patientDetails = Appointment.objects.all()
+def patients(request):
+    patientDetails = Patient.objects.all()
     return render(request, 'patient.html',{"patientDetails":patientDetails})
 
 def bedAvailablity(request):
