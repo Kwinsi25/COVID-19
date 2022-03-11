@@ -37,7 +37,7 @@ def home(request):
         staffDetails=staff.objects.filter(staffUserName = username,staffPassword = password)
         
         if staffDetails.count() > 0 :
-            return render (request, 'staffDashboard.html',{'user':staffDetails.get()})
+            return redirect ( 'staffDashboard/',{'user':staffDetails.get()})
         else:
              err="Username and Password is not valid!"
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def home(request):
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
         patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
         if doctorDetails.count() > 0 :
-            return render (request, 'doctorDashboard.html',{'user':doctorDetails.get(),'patient':patient})
+            return redirect ( 'doctorDashboard/',{'user':doctorDetails.get(),'patient':patient})
         else:
 
             return render(request, 'index.html',{'err':err})
@@ -68,13 +68,14 @@ def bedAvailablity(request):
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
 def staffDashboard(request):
+    patientDetails = Patient.objects.all()
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     bedcnt = 0
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy})
+    return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"patientDetails":patientDetails})
 
 def doctorDashboard(request):  
     oxy = Oxygen.objects.all()
