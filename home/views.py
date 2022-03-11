@@ -96,20 +96,24 @@ def confirmDetails(request):
         line1 = request.POST['line1']
         line2 = request.POST['line2']
         statess = request.POST['statess']
+        stateId = State.objects.get(stateId=statess)
         cities = request.POST['cities']
+        cityId = City.objects.get(cityId=cities)
         pincode = request.POST['pincode']
         dob = request.POST['dob']
         history = request.POST['history']
         wardss= request.POST['wardss']
         beds = request.POST['beds']
+        bedId = Bed.objects.get(bedId=beds)
         prices = request.POST['prices']
         doctors = request.POST['doctors']
+        doctorId = Doctor.objects.get(doctorId=doctors)
         notes = request.POST['notes']
         time = request.POST['time']
         status = request.POST['status']
         file = request.POST['file']
         symptoms = request.POST.get('symptoms')
-        patient = Patient(caseNumber=caseNumber ,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,sname=statess,city=cities,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        patient = Patient(caseNumber=caseNumber ,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         print(patient)
         patient.save()
         return render(request,'viewPatient.html')
