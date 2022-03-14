@@ -37,7 +37,11 @@ def home(request):
         staffDetails=staff.objects.filter(staffUserName = username,staffPassword = password)
         
         if staffDetails.count() > 0 :
-            return redirect ( 'staffDashboard/',{'user':staffDetails.get()})
+            #print(staffDetails.get())
+            if "Suser" in request.session:
+                del request.session["Suser"]
+            request.session['Suser']=str(staffDetails.get())
+            return redirect ( 'staffDashboard/')
         else:
              err="Username and Password is not valid!"
     if request.method == 'POST':
@@ -49,7 +53,10 @@ def home(request):
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
         patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
         if doctorDetails.count() > 0 :
-            return redirect ( 'doctorDashboard/',{'user':doctorDetails.get(),'patient':patient})
+            if "Duser" in request.session:
+                del request.session["Duser"]
+            request.session['Duser']=str(doctorDetails.get())
+            return redirect ( 'doctorDashboard/')
         else:
 
             return render(request, 'index.html',{'err':err})
@@ -202,7 +209,19 @@ def bookedAppointment(request):
 
 
 
-    
+def logout(request):
+    try:
+        del request.session['Suser']
+        
+        
+    except KeyError:
+      
+        try:
+            del request.session['Duser']
+        except KeyError:
+            pass
+        
+    return redirect ('/')
 def getbedsajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']        

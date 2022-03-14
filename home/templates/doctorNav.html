@@ -1,4 +1,10 @@
 {% load static %}
+{% if "Duser" not in request.session %}
+<script>
+ 
+    location.replace("/")
+  </script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +47,8 @@
       <li><a href="#"><b style="font-size: large;" class="well well-sm font-weight-bold">Doctor Panel</b></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" ><b style="font-size: large;"><span class="glyphicon glyphicon-user"></span>{{user}}</b></a></li>
-      <li><a href="{% url 'index' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-log-out"></span> Logout</b></a></li>
+      <li><a href="#" ><b style="font-size: large;"><span class="glyphicon glyphicon-user"></span>{{request.session.Duser}}</b></a></li>
+      <li><a href="{% url 'logout' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-log-out"></span> Logout</b></a></li>
     </ul>
   </div>
 </nav>
