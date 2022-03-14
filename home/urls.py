@@ -21,5 +21,5 @@ urlpatterns = [
     path('message/',views.message,name="message"),
     path('confirmationDetails/',views.confirmationDetails,name="confirmationDetails"),
     path('confirmationDetails/confirmDetails/',views.confirmDetails,name='confirmDetails'),
-
+    path('patient/confirmDetails/',views.confirmDetails,name='confirmDetails'),
 ]
