@@ -106,7 +106,7 @@ def confirmationDetails(request):
 
 def confirmDetails(request):
     if request.method == 'POST':
-        # caseNumber = request.POST['caseNumber']
+        caseNumber = request.POST['caseNumber']
         patientName = request.POST['patientName']
         phone = request.POST['phone']
         email = request.POST['email']
@@ -133,7 +133,7 @@ def confirmDetails(request):
         status = request.POST['status']
         file = request.POST['file']
         symptoms = request.POST.get('symptoms')
-        patient = Patient(caseNumber=123457,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         print(patient)
         patient.save()
         return redirect ('/viewPatient')

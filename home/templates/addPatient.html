@@ -21,10 +21,10 @@
       <form action="confirmDetails/" method="post">
         {% csrf_token %}
         <div class="user-details">
-          <div class="input-box">
-            <span class="details">Case Number</span>
-            <input type="text" id="caseNumber" placeholder="" disabled>
-          </div>
+            <div class="input-box">
+                <span class="details">Case Number</span>
+                <input type="text" id="caseNumber" name="caseNumber" placeholder=""  readonly>
+              </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
             <input type="text" id="patientName" name="patientName" placeholder="Enter Patient Name" required>
