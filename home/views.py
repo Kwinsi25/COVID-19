@@ -24,7 +24,15 @@ def home(request):
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     wards = Ward.objects.all()
+    patients = Patient.objects.all() 
+    recovered = 0
+    deceased = 0
     bedcnt = 0
+    for p in patients:
+        if p.patientStatus == 'Recovered':
+            recovered = recovered + 1
+        elif p.patientStatus == 'Deceased':
+            deceased = deceased + 1  
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
@@ -61,7 +69,7 @@ def home(request):
 
             return render(request, 'index.html',{'err':err})
                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards})
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased})
 
 def login(request):
     return render(request,'login.html')
@@ -78,20 +86,46 @@ def staffDashboard(request):
     patientDetails = Patient.objects.all()
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
+    patients = Patient.objects.all()
+    recovered = 0
+    deceased = 0
     bedcnt = 0
+    for p in patients:
+        if p.patientStatus == 'Recovered':
+            recovered = recovered + 1
+        elif p.patientStatus == 'Deceased':
+            deceased = deceased + 1
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"patientDetails":patientDetails})
+    return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"patientDetails":patientDetails,"recovered":recovered,"deceased":deceased})
 
 def doctorDashboard(request):  
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
+    doctors = Doctor.objects.all()
+    patients = Patient.objects.all()
+    doctors = Doctor.objects.all()
+    recovered = 0
+    recovering = 0
+    critical = 0
+    deceased = 0
     bedcnt = 0
+    for d in doctors:
+        for p in patients:
+            if d == p.doctorName :
+                if p.patientStatus == 'Recovered':
+                    recovered = recovered + 1    
+                elif p.patientStatus == 'Recovering':
+                    recovering = recovering + 1  
+                elif p.patientStatus == 'Critical':
+                    critical = critical + 1  
+                elif p.patientStatus == 'Deceased':
+                    deceased = deceased + 1 
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy})
+    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"recovering":recovering,"critical":critical,"deceased":deceased})
 
 def confirmationDetails(request):
     id = request.GET.get('id')
