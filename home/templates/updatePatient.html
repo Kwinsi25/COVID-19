@@ -20,27 +20,31 @@
     <div class="content">
       <form action="#" method="post">
         {% csrf_token %}
+        {% for i in patient %}
         <div class="user-details">
             <div class="input-box">
                 <span class="details">Case Number</span>
-                <input type="text" id="caseNumber" name="caseNumber" placeholder=""  readonly>
+                <input type="text" id="caseNumber" name="caseNumber" value="{{i.caseNumber}}" placeholder=""  readonly>
               </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
-            <input type="text" id="patientName" name="patientName" placeholder="Enter Patient Name" required>
+            <input type="text" id="patientName" name="patientName" value="{{i.patientName}}" placeholder="Enter Patient Name" required>
           </div>
             <div class="input-box">
                 <span class="details">Phone Number</span>
-                    <input type="text" id="phone" name="phone" placeholder="Enter your number" required>
+                    <input type="text" id="phone" name="phone" value="{{i.phone}}" placeholder="Enter your number" required>
             </div>
             <div class="input-box">
                 <span class="details">Email Id</span>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" value="{{i.patientEmail}}"placeholder="Enter your email" required>
             </div>
             <div class="input-box">
                 <div class="gender-details">
-                    <input type="radio" name="gender" id="dot-1" value="M">
-                    <input type="radio" name="gender" id="dot-2" value="F">
+                    {% if i.gender == 'M' %}
+                    <input type="radio"  name="gender" id="dot-1" checked value="M">
+                    {% else %}
+                    <input type="radio" name="gender" id="dot-2" checked value="F">
+                    {% endif %}
                     <span class="gender-title">Gender</span>
                     <div class="category">
                     <label for="dot-1">
@@ -56,23 +60,23 @@
             </div>
             <div class="input-box">
                 <span class="details">Patient Relative Name</span>
-                    <input type="text" id="patientRelativeName" name="patientRelativeName" placeholder="Enter Patient Relative Name" required>
+                    <input type="text"  id="patientRelativeName" name="patientRelativeName" value="{{i.patientRelativeName}}" placeholder="Enter Patient Relative Name" required>
             </div>
             <div class="input-box">
                 <span class="details">Patient Relative Contact Number</span>
-                    <input type="text"  id="patientRelativeContactNumber" name="patientRelativeContactNumber" placeholder="Enter Patient Relative Contact " required>
+                    <input type="text"  id="patientRelativeContactNumber" name="patientRelativeContactNumber" value="{{i.patientRelativeNumber}}" placeholder="Enter Patient Relative Contact " required>
             </div>
             <div class="input-box">
                 <span class="details">Line1</span>
-                    <input type="text" id="line1" name="line1" placeholder="Enter Address " required>
+                    <input type="text" id="line1" name="line1" value="{{i.line1}}" placeholder="Enter Address " required>
             </div>
             <div class="input-box">
                 <span class="details">Line2</span>
-                    <input type="text" id="line2" name="line2" placeholder="Enter Address " required>
+                    <input type="text" id="line2" name="line2" value="{{i.line2}}" placeholder="Enter Address " required>
             </div>
             <div class="input-box">
                 <span class="details">Select State</span>
-                    <select id="statess"name="statess">
+                    <select id="statess"name="statess" >
                         <option value="">Select</option>
                         {% for i in states %}
                         <option value="{{i.stateId}}">{{i}}</option>
@@ -88,15 +92,15 @@
             </div>
             <div class="input-box">
                 <span class="details">Pincode</span>
-                    <input type="text"  id="pincode"  name="pincode" placeholder="Enter Pincode" required>
+                    <input type="text"  id="pincode" value="{{i.pincode}}" name="pincode" placeholder="Enter Pincode" required>
             </div>
             <div class="input-box">
                 <span class="details">Date of birth</span>
-                    <input type="date" id="dob" name="dob" required>
+                    <input type="date" id="dob"  name="dob" required>
             </div>
             <div class="input-box">
                 <span class="details">Any Previous History</span>
-                    <input type="text" id="history" name="history" placeholder=" like Thyroid,Diabetes.." required>
+                    <input type="text" id="history" value="{{i.previousHistory}}" name="history" placeholder=" like Thyroid,Diabetes.." required>
             </div>
             <div class="input-box">
                 <span class="details">Select Ward</span>
@@ -131,7 +135,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Notes</span>
-                    <input type="text" id="notes" name="notes" placeholder="Notes..." required>
+                    <input type="text" id="notes" name="notes" value="{{i.doctorNotes}}" placeholder="Notes..." required>
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
@@ -145,7 +149,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Document</span>
-                    <input type="file" id="file" name="file" required>
+                    <input type="file" id="file" name="file"  required>
             </div>
             <div class="checkboxClass">
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
@@ -159,8 +163,9 @@
         </div>
         
         <div class="button">
-                <input type="submit" value="Add Patient">
+                <input type="submit" value="Update Patient">
         </div>
+        {% endfor %}
       </form>
     </div>
   </div>
@@ -249,16 +254,16 @@ $("#wardss").change(function () {
         });
     });
 
-    function randomNumber(len) {
-            var randomNumber;
-            var n = '';
-            for (var count = 0; count < len; count++) {
-                randomNumber = Math.floor(Math.random() * 10);
-                n += randomNumber.toString();
-            }
-            return n;
-            }
-    document.getElementById("caseNumber").value = randomNumber(6);
+    // function randomNumber(len) {
+    //         var randomNumber;
+    //         var n = '';
+    //         for (var count = 0; count < len; count++) {
+    //             randomNumber = Math.floor(Math.random() * 10);
+    //             n += randomNumber.toString();
+    //         }
+    //         return n;
+    //         }
+    // document.getElementById("caseNumber").value = randomNumber(6);
 
 </script>
 {% endblock javascript %}

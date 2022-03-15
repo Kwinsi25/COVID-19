@@ -328,10 +328,11 @@ def email(request):
 def updatePatient(request):
     id = request.GET.get('id')
     updatePatient = Patient.objects.all().filter(patientId=int(id[0]))
+    patient = Patient.objects.all()
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
     states = State.objects.all()
     cities = City.objects.all()
     symptoms = Symptoms.objects.all()
-    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})   
+    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})   
