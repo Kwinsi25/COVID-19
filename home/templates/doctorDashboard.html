@@ -1,64 +1,36 @@
 {% load static %}
 {% include 'doctorNav.html' %}
 
-<div class="row ">
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'heart.png' %}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Recovered</h4>
-                <p class="card-text">{{recovered}}</p>
+<div class="container">
+    <div class="row ">
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'heart.png' %}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Recovered</h4>
+                    <p class="card-text">{{recovered}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Total Appointment</h4>   
+                    <p class="card-text">{{appointments}}</p> 
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Today's Appointment</h4>
+                    <p class="card-text">{{tappointments}}</p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Active</h4>
-                <p class="card-text">{{recovering}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'heart.png' %}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Critical</h4>
-                <p class="card-text">{{critical}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Deceased</h4>
-                <p class="card-text">{{deceased}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'hospital-bed.png' %}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Bed Available</h4>
-                <p class="card-text">{{bedcnt}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Oxygen</h4>
-                {% for i in oxy %}                                
-                    <p class="card-text">{{i}}</p> 
-                {% endfor %}
-                
-            </div>
-        </div>
-    </div>
-    
 </div>
+
 {% include 'viewPatientDoctorDetails.html' %}

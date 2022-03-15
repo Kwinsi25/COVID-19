@@ -155,10 +155,10 @@
                     <input type="file" id="file" name="file" required>
             </div>
             <div class="checkboxClass">
-                <span class="details" id="symptoms" name="symptoms" >Symptoms</span>
+                <span class="details" >Symptoms</span>
                 
                 {% for i in symptoms %}
-                    <input type=checkbox id="symptoms.symptoms"> {{i}}<br>
+                    <input type=checkbox id="symptoms" name="symptoms" value="{{i.symptomsId}}"> {{i}}<br>
                 {% endfor %}
         </div>
        
