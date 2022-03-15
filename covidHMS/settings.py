@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,3 +132,64 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'chmsdonotreply@gmail.com'
 EMAIL_HOST_PASSWORD = 'Chms@9876'
 EMAIL_USE_TLS = True
+
+JAZZMIN_SETTINGS = {
+    "site_title": "COVID-19",
+    "site_header": "COVID-19",
+    "copyright": "COVID-19",
+    "navigation_expanded": True,
+    "related_modal_active": False,
+    "icons": {
+        "home.configuration": "fa fa-bookmark",
+        "home.state": "fas fa-city",
+        "home.city": "fa fa-city",
+        "home.Appointment": "fa fa-calendar",
+        "home.Bed": "fa fa-bed",
+        "home.Doctor": "fa fa-user-md",
+        "home.Equipment": "fa fa-medkit custom",
+        "home.staff": "fas fa-user-nurse",
+        "home.Oxygen": "fas fa-dolly",
+        "home.PatientDocument": "fa fa-file",
+        "home.PatientSymptom": "fas fa-viruses",
+        "home.Patient": "fas fa-head-side-cough",
+        "home.Specialization": "fa fa-certificate",
+        "home.Symptoms": "fas fa-viruses",
+        "home.Ward": "fas fa-door-open",
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+    },
+}
+JAZZMIN_SETTINGS["show_ui_builder"] = True
+JAZZMIN_UI_TWEAKS = {
+    "no_navbar_border": True,
+    "navbar_small_text": False,
+    "footer_small_text": True,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-purple",
+    "accent": "accent-purple",
+    "navbar": "navbar-purple navbar-dark",
+    "no_navbar_border": True,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-light-purple",
+    "sidebar_nav_small_text": True,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": True,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
+    }
+}

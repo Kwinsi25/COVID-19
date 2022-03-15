@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
-admin.site.site_header = "Admin Login"
+admin.site.site_header = "COVID-19"
 admin.site.index_title = "Welcome to Admin Dashboard"
 
 urlpatterns = [
