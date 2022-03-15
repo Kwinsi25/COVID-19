@@ -17,11 +17,6 @@
                 <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
                 <div class="card-block">
                     <h4 class="card-title">Total Appointment</h4>   
-                    {% for d in doctors %}
-                    {% ifequal d request.session.Duser %} 
-                    username == d
-                    {% endifequal %}
-                    {% endfor %}                    
                     <p class="card-text">{{appointments}}</p> 
                 </div>
             </div>

@@ -38,7 +38,7 @@
       <li><a href="{% url 'patient' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-plus"></span></b></a></li>
       <li><a href="{% url 'message' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-bell"></span>Message</b></a></li>
       <li><a href="#" ><b style="font-size: large;"><span class="glyphicon glyphicon-user"></span>{{request.session.Suser}}</b></a></li>
-      <li><a href="/" ><b style="font-size: large;"><span class="glyphicon glyphicon-log-out"></span> Logout</b></a></li>
+      <li><a href="{% url 'logout' %}" ><b style="font-size: large;"><span class="glyphicon glyphicon-log-out"></span> Logout</b></a></li>
     </ul>
   </div>
 </nav>
