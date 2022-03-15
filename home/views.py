@@ -86,11 +86,10 @@ def staffDashboard(request):
     patientDetails = Patient.objects.all()
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
-    patients = Patient.objects.all()
     recovered = 0
     deceased = 0
     bedcnt = 0
-    for p in patients:
+    for p in patientDetails:
         if p.patientStatus == 'Recovered':
             recovered = recovered + 1
         elif p.patientStatus == 'Deceased':
@@ -107,25 +106,26 @@ def doctorDashboard(request):
     patients = Patient.objects.all()
     doctors = Doctor.objects.all()
     recovered = 0
-    recovering = 0
-    critical = 0
-    deceased = 0
     bedcnt = 0
+    appointments = 0
+    tappointments = 0
+    username = None
+    username = request.session["Duser"]
+    print(username)
     for d in doctors:
-        for p in patients:
-            if d == p.doctorName :
-                if p.patientStatus == 'Recovered':
-                    recovered = recovered + 1    
-                elif p.patientStatus == 'Recovering':
-                    recovering = recovering + 1  
-                elif p.patientStatus == 'Critical':
-                    critical = critical + 1  
-                elif p.patientStatus == 'Deceased':
-                    deceased = deceased + 1 
+        if d.doctorName == username:
+            for p in patients:
+                if d == p.doctorName:
+                    print(d)
+                    print(p.doctorName)
+                    appointments = appointments + 1
+                    if p.patientStatus == 'Recovered':
+                        recovered = recovered + 1 
+                        
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"recovering":recovering,"critical":critical,"deceased":deceased})
+    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
 
 def confirmationDetails(request):
     id = request.GET.get('id')
