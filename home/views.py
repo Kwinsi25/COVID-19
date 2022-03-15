@@ -178,7 +178,16 @@ def confirmDetails(request):
             patientId = Patient.objects.get(patientName=patientName)
             PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
             PatientSymptoms.save()
+        
+        send_mail(
+             "Appointment Booked",
+             "Hello " + patientName + " your appointment is booked",
+             'chmsdonotreply@gmail.com',
+             [email],
+             fail_silently=False,
+        )
         return redirect ('/viewPatient')
+        
     else:
         return render(request,'approved.html')    
 def message(request):
@@ -247,8 +256,15 @@ def bookedAppointment(request):
 
         appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
         appointment.save()
+        send_mail(
+             "New Appointment",
+             patientName+" trying to book an appointment",
+             'chmsdonotreply@gmail.com',
+             ['ajpatel2468@gmail.com'],
+             fail_silently=False,
+        )
         data['sucess'] = "Your details are submitted you will get email from Hospital for Appointment Status"
-        return render(request,'bookAppointment.html',context=data)
+        return redirect ('/',context=data)
 
 
 
