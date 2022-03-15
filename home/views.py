@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
+from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -165,11 +165,19 @@ def confirmDetails(request):
         notes = request.POST['notes']
         time = request.POST['time']
         status = request.POST['status']
-        file = request.POST['file']
-        symptoms = request.POST.get('symptoms')
+        file = request.POST.getlist('file')
         patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
-        print(patient)
         patient.save()
+        for i in range(len(file)):
+            patientId = Patient.objects.get(patientName=patientName) 
+            patientDocument = PatientDocument(patientName=patientId,document=file[i])
+            patientDocument.save()
+        symptoms = request.POST.getlist('symptoms')
+        for i in symptoms:
+            symptomsId = Symptoms.objects.get(symptomsId=int(i))
+            patientId = Patient.objects.get(patientName=patientName)
+            PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+            PatientSymptoms.save()
         return redirect ('/viewPatient')
     else:
         return render(request,'approved.html')    
@@ -315,4 +323,15 @@ def email(request):
              ['ajpatel2468@gmail.com'],
              fail_silently=False,
         )
-    return render(request,"email.html")      
+    return render(request,"email.html")   
+
+def updatePatient(request):
+    id = request.GET.get('id')
+    updatePatient = Patient.objects.all().filter(patientId=int(id[0]))
+    wards = Ward.objects.all()
+    beds = Bed.objects.all()
+    doctors = WardDoctor.objects.all()
+    states = State.objects.all()
+    cities = City.objects.all()
+    symptoms = Symptoms.objects.all()
+    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})   

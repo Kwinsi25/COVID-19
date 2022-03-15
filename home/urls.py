@@ -22,6 +22,7 @@ urlpatterns = [
     path('confirmationDetails/',views.confirmationDetails,name="confirmationDetails"),
     path('confirmationDetails/confirmDetails/',views.confirmDetails,name='confirmDetails'),
     path('patient/confirmDetails/',views.confirmDetails,name='confirmDetails'),
+    path('updatePatient/',views.updatePatient,name='updatePatient'),
     path('logout/',views.logout,name="logout"),
 
 ]

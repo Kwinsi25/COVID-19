@@ -16,9 +16,9 @@
     <body>
  
     <div class="container">
-    <div class="title">Add Patient</div>
+    <div class="title">Update Patient</div>
     <div class="content">
-      <form action="confirmDetails/" method="post">
+      <form action="#" method="post">
         {% csrf_token %}
         <div class="user-details">
             <div class="input-box">
@@ -145,12 +145,13 @@
             </div>
             <div class="input-box">
                 <span class="details">Document</span>
-                    <input type="file" id="file" name="file" multiple required>
+                    <input type="file" id="file" name="file" required>
             </div>
             <div class="checkboxClass">
-                <span class="details"  >Symptoms</span>
+                <span class="details" id="symptoms" name="symptoms">Symptoms</span>
+                
                 {% for i in symptoms %}
-                    <input type=checkbox id="symptoms" name="symptoms" value="{{i.symptomsId}}"> {{i}}<br>
+                    <input type=checkbox id="symptoms.symptoms"> {{i}}<br>
                 {% endfor %}
         </div>
        
