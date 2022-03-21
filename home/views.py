@@ -38,34 +38,27 @@ def home(request):
             bedcnt = bedcnt + 1
     if request.method == 'POST':
         username = request.POST.get('username')
-       
-
         password = request.POST.get('password') 
-        
-        staffDetails=staff.objects.filter(staffUserName = username,staffPassword = password)
-        
-        if staffDetails.count() > 0 :
-            #print(staffDetails.get())
-            if "Suser" in request.session:
-                del request.session["Suser"]
-            request.session['Suser']=str(staffDetails.get())
-            return redirect ( 'staffDashboard/')
-        else:
-             err="Username and Password is not valid!"
-             return render(request, 'index.html',{'err':err})
-    if request.method == 'POST':
-        username = request.POST.get('dusername')
-       
-
-        password = request.POST.get('dpassword') 
-        
-        doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
-        patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
-        if doctorDetails.count() > 0 :
-            if "Duser" in request.session:
-                del request.session["Duser"]
-            request.session['Duser']=str(doctorDetails.get())
-            return render ( request,'doctorDashboard.html',{'patient':patient})
+        if request.POST.get("role")=="Staff":
+            Details=staff.objects.filter(staffUserName = username,staffPassword = password)
+        if request.POST.get("role")=="Doctor":
+            Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
+        if Details.count() > 0 :
+            if request.POST.get("role")=="Staff":
+                #print(staffDetails.get())
+                if "Suser" in request.session:
+                    del request.session["Suser"]
+                request.session['Suser']=str(Details.get())
+                return redirect ( 'staffDashboard/')
+            
+ 
+            if request.POST.get("role")=="Doctor":
+                patient=Patient.objects.all().filter(doctorName=Details.get())
+                if "Duser" in request.session:
+                    del request.session["Duser"]
+                request.session['Duser']=str(Details.get())
+    
+                return render ( request,'doctorDashboard.html',{'patient':patient})
         else:
             err="Username and Password is not valid!"
             return render(request, 'index.html',{'err':err})

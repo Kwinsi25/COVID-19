@@ -64,8 +64,7 @@
                        <div class="togle_">
                           <div class="menu_main">
                              <ul>
-                                <li><a href="#staffModal"data-toggle="modal">Staff Login</a></li>
-                                <li><a href="#doctorModal"data-toggle="modal">Doctor Login</a></li>
+                                  <li><a href="#myModal" class="alert alert-light" data-toggle="modal">Doctor/Staff Login</a></li>
                              </ul>
                           </div>
                        </div>
@@ -271,16 +270,22 @@
           </div>
       </div>
         <!-- Modal HTML -->
-        <div id="staffModal" class="modal fade">
+        <div id="myModal" class="modal fade text-center">
 	        <div class="modal-dialog modal-login">
 		        <div class="modal-content">
 			        <div class="modal-header">				
-				        <h4 class="modal-title">Staff Login</h4>
+				        <h4 class="modal-title">Login</h4>
 				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			        </div>
 			        <div class="modal-body">
 				        <form action="#" method="post" autocomplete="off" id="newModalForm">
                             {% csrf_token %}
+                            <div class="form-group" id="err">
+						        <label id="role">Role:</label>
+						            <input type="radio" class="" name= "role" id="role" Value="Staff" > Staff
+                                    <input type="radio" class="" name= "role" id="role" Value="Doctor" > Doctor<br>
+                                    
+					        </div>
 					        <div class="form-group">
 						        <i class="fa fa-user"></i>
 						            <input type="text" class="form-control " name= "username" id="username" placeholder="Username" >
@@ -302,39 +307,7 @@
 			        </div>
 		        </div>
 	        </div>
-        </div>    
-        <div id="doctorModal" class="modal fade">
-	        <div class="modal-dialog modal-login">
-		        <div class="modal-content">
-			        <div class="modal-header">				
-				        <h4 class="modal-title">Doctor Login</h4>
-				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        </div>
-			        <div class="modal-body">
-				        <form action="#" method="post" autocomplete="off" id="newModalForm">
-                            {% csrf_token %}
-					        <div class="form-group">
-						        <i class="fa fa-user"></i>
-						            <input type="text" class="form-control " name= "dusername" id="username" placeholder="Username" >
-
-					        </div>
-                            
-					        <div class="form-group">
-						        <i class="fa fa-lock"></i>
-						            <input type="password" class="form-control " name="dpassword" id="password" placeholder="Password" >					
-					        </div>
-					        <div class="form-group">
-						        <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-lg loginButton" value="Login">Login</button>
-					        </div>
-                            <p class="text"></p>
-				        </form>
-			        </div>
-			        <div class="modal-footer">
-				        <a href="#">Forgot Password?</a>
-			        </div>
-		        </div>
-	        </div>
-        </div>
+        </div> 
         <!-- Modal HTML -->
         <div id="bookappo" class="modal fade text-center">
 	        <div class="modal-dialog modal-login">
