@@ -123,7 +123,7 @@ def doctorDashboard(request):
 
 def confirmationDetails(request):
     id = request.GET.get('id')
-    bookAppointment = Appointment.objects.all().filter(appointmentId=int(id[0]))
+    bookAppointment = Appointment.objects.all().filter(appointmentId=int(id[:-1]))
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
@@ -337,7 +337,7 @@ def email(request):
 
 def updatePatient(request):
     id = request.GET.get('id')
-    updatePatient = Patient.objects.all().filter(patientId=int(id[0]))
+    updatePatient = Patient.objects.all().filter(patientId=int(id[:-1]))
     patient = Patient.objects.all()
     wards = Ward.objects.all()
     beds = Bed.objects.all()
