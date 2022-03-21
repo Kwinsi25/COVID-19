@@ -67,17 +67,23 @@
             <div class="input-box">
                 <span class="details">Select State</span>
                     <select id="statess"name="statess" >
-                        <option value="">Select</option>
-                        {% for i in states %}
-                        <option value="{{i.stateId}}">{{i}}</option>
+                        {% if i.state is not none %}
+                            <option value="{{i.stateId}}" selected>{{i.state}}</option>
+                        {% endif %}
+                        {% for j in states %}
+                            {% if i.state != j %}
+                                <option value="{{j.stateId}}">{{j}}</option>
+                            {% endif %}
                         {% endfor %}
+
                     </select>
             </div>
             <div class="input-box">
                 <span class="details">Select City</span>
                     <select id="cities" name="cities">
-                        <option value="">Select</option>
-
+                        {% if i.city is not none %}
+                            <option value="{{i.cityId}}" selected>{{i.city}}</option>
+                        {% endif %}
                     </select>
             </div>
             <div class="input-box">
@@ -134,7 +140,10 @@
             <div class="input-box">
                 <span class="details">Status</span>
                 <select id="status" name="status">
-                    <option  value="Pending" selected>Pending</option>
+                        <!-- <option  value="Pending" selected>Pending</option> -->
+                    {% for j in updatePatient %}
+                        <option value="{{ j.patientStatus }}" selected>{{ j.patientStatus }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-box">
@@ -145,7 +154,7 @@
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
                 
                 {% for i in symptoms %}
-                    <input type=checkbox id="symptoms.symptoms"> {{i}}<br>
+                    <input type=checkbox id="symptoms.symptoms" > {{i}}<br>
                 {% endfor %}
         </div>
        
@@ -224,6 +233,7 @@ $("#wardss").change(function () {
     });
 
     $("#statess").change(function () {
+
         const statename = $(this).val();
           
         $.ajax({                                // initialize an AJAX request
