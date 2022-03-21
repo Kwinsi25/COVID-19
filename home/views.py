@@ -52,11 +52,12 @@ def home(request):
             return redirect ( 'staffDashboard/')
         else:
              err="Username and Password is not valid!"
+             return render(request, 'index.html',{'err':err})
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('dusername')
        
 
-        password = request.POST.get('password') 
+        password = request.POST.get('dpassword') 
         
         doctorDetails=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
         patient=Patient.objects.all().filter(doctorName=doctorDetails.get())
@@ -64,9 +65,9 @@ def home(request):
             if "Duser" in request.session:
                 del request.session["Duser"]
             request.session['Duser']=str(doctorDetails.get())
-            return redirect ( 'doctorDashboard/')
+            return render ( request,'doctorDashboard.html',{'patient':patient})
         else:
-
+            err="Username and Password is not valid!"
             return render(request, 'index.html',{'err':err})
                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased})
