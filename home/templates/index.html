@@ -360,6 +360,7 @@
               $('#new').click(function(){
                 $('#case').hide();
               })
+            
             $(function() {
             
                 $("#newModalForm").validate({
@@ -367,14 +368,26 @@
                         username: {
                             required: true,
                         },
-                        password: "required"
+                        password: "required",
+                        role:"required"
                     },
                     messages: {
                         username: {
                             required: "Please enter username",
                         },
-                        password: "Please provide password"
+                        password: "Please provide password",
+                        role:"Role is Required"
+                    },
+                    errorPlacement:
+                    function( error, element ){
+                    if(element.is( ":radio" )){
+                    // error append here
+                    error.appendTo('#err');
                     }
+                    else {
+                    error.insertAfter(element);
+                    }
+                    },
                 });
             });
 
