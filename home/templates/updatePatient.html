@@ -82,7 +82,15 @@
                 <span class="details">Select City</span>
                     <select id="cities" name="cities">
                         {% if i.city is not none %}
-                            <option value="{{i.cityId}}" selected>{{i.city}}</option>
+                            {% for j in cities %}
+                            {% if j.stateName == i.state %}
+                            {% if j.cityName == i.city.cityName %}
+                            <option value="{{j.cityId}}" selected>{{j.cityName}}</option>
+                            {% else %}
+                            <option value="{{j.cityId}}" >{{j.cityName}}</option>
+                            {%endif%}
+                            {%endif%}
+                            {%endfor%}
                         {% endif %}
                     </select>
             </div>

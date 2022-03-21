@@ -342,7 +342,10 @@ def updatePatient(request):
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
+    
     states = State.objects.all()
+    
     cities = City.objects.all()
+    
     symptoms = Symptoms.objects.all()
     return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})   
