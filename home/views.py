@@ -58,7 +58,7 @@ def home(request):
                     del request.session["Duser"]
                 request.session['Duser']=str(Details.get())
     
-                return render ( request,'doctorDashboard.html',{'patient':patient})
+                return redirect ("doctorDashboard/")
         else:
             err="Username and Password is not valid!"
             return render(request, 'index.html',{'err':err})
@@ -97,7 +97,8 @@ def doctorDashboard(request):
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     doctors = Doctor.objects.all()
-    patients = Patient.objects.all()
+    patient = Patient.objects.all()
+    #patient=Patient.objects.all().filter(doctorName=Details.get())
     doctors = Doctor.objects.all()
     recovered = 0
     bedcnt = 0
@@ -108,7 +109,7 @@ def doctorDashboard(request):
     print(username)
     for d in doctors:
         if d.doctorName == username:
-            for p in patients:
+            for p in patient:
                 if d == p.doctorName:
                     print(d)
                     print(p.doctorName)
@@ -119,7 +120,7 @@ def doctorDashboard(request):
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'doctorDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
+    return render(request,'doctorDashboard.html',{"patient":patient,"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
 
 def confirmationDetails(request):
     id = request.GET.get('id')
@@ -366,7 +367,10 @@ def updatePatient(request):
     patientName = id[:-1]
     # patientId = PatientSymptom.objects.get(patientName=patientName)
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
+    var=[]
+    
     for i in updateSymptoms:
-        print(i.Symptoms)
-    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms})   
+        var.append(i.Symptoms.symptoms)
+    print(var)
+    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms,"var":var})   
 

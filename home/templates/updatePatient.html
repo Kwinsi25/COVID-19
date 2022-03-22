@@ -195,21 +195,24 @@
             </div>
             <div class="checkboxClass">
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
+                {% for j in symptoms %}
                 
-                {% for k in updateSymptoms %}
+               
+                
                     
                 <!-- {% for j in symptoms %}
                 
                     <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}"> {{j}}<br>
                 {% endfor %} -->
-                {% if k.Symptoms is not none %}
-                <input type=checkbox id="symptoms" name="symptoms" value="{{k.Symptoms}}" checked> {{k.Symptoms}}<br>
-                {% endif %}
-                {% for j in symptoms %}
-                {% if k.Symptoms != j %}
-                <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}"> {{j}}<br>
-                {% endif %}
-                {% endfor %}
+                {% if j.symptoms in var %}
+                <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
+                {% else %}
+
+                <input type=checkbox id="symptoms" name="symptoms" value="{{j.SymptomsId}}" > {{j}}<br>
+                
+                {%endif%}
+            
+                
                 {% endfor %}
         </div>
        

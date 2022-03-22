@@ -3,7 +3,43 @@
 
 <div class="container">
     <div class="row ">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'hospital-bed.png' %}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Bed Available</h4>
+                    <p class="card-text">{{bedcnt}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Oxygen</h4>
+                    {% for i in oxy %}                                
+                        <p class="card-text">{{i}}</p> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Deceased</h4>
+                    <p class="card-text">{{deceased}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<div 
+<div class="row text-center">
+<h1 class="text-center well well-sm"><strong>Doctor Specific</strong></h1>
+</div>
+    <div class="row ">
+        <div class="col-sm-4">
             <div class="card">
                 <img class="card-img-top img-fluid" src="{% static 'heart.png' %}" alt="Card image cap">
                 <div class="card-block">
@@ -12,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="card">
                 <img class="card-img-top img-fluid" src="{% static 'oxygenation.png' %}" alt="Card image cap">
                 <div class="card-block">
@@ -21,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="card">
                 <img class="card-img-top img-fluid" src="{% static 'coffin.png'%}" alt="Card image cap">
                 <div class="card-block">
