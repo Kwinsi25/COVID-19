@@ -23,7 +23,7 @@
                     <td>{{i.doctorName}}</td>
                     <td>{{i.patientStatus}}</td>
                     <td><a href="/updatePatient?id={{i.patientId}}/"><i class="fa fa-edit" style="font-size:29px;color:green"></i></a>&nbsp;
-                        <a href="/deletePatient?id={{i.patientId}}/"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
+                        <a href="/deletePatient?id={{i.patientId}}/" onclick="showAlert();"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
                 </tr>
                 {% endfor %}
                 
@@ -34,10 +34,6 @@
                 $('#example').DataTable();
             } );
             function showAlert(){
-                // let confirmAction = confirm("Are you sure you want to delete patient?");
-                // if (confirmAction) {
-                //     alert("Patient Deleted successfully ");
-                // }
                 alert("Are you sure you want to delete patient?");
             }
         </script>
