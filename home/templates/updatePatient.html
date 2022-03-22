@@ -148,9 +148,17 @@
             <div class="input-box">
                 <span class="details">Select Doctor</span>
                 <select id="doctors" name="doctors">
-                    <option value="">Select Doctor</option>
-
-                </select>
+                    {% if i.doctorName is not none %}
+                    {% for j in doctors %}
+                    {% if j.wardName == i.wardName %}
+                    {% if j.doctorName == i.doctorName.doctorName %}
+                    <option value="{{j.doctorId}}" selected>{{j.doctorName}}</option>
+                    {% else %}
+                    <option value="{{j.doctorId}}" >{{j.doctorName}}</option>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                {% endif %}                                 </select>
             </div>
             <div class="input-box">
                 <span class="details">Doctor Notes</span>
@@ -164,9 +172,9 @@
                 <span class="details">Status</span>
                 <select id="status" name="status">
                         <!-- <option  value="Pending" selected>Pending</option> -->
-                    {% for j in updatePatient %}
-                        <option value="{{ j.patientStatus }}" selected>{{ j.patientStatus }}</option>
-                    {% endfor %}
+                    {% if i.patientStatus is not none %}
+                        <option value="{{ i.patientStatus }}" selected>{{ i.patientStatus }}</option>
+                    {% endif %}
                 </select>
             </div>
             <div class="input-box">
