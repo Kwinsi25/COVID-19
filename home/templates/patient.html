@@ -1,34 +1,35 @@
 <h1 class="text-center well well-sm  page-header"><strong>Patient List</strong></h1>
-        <table id="example" class="display" style="width:100%;">
-            <thead>
+        <table class="display" style="width:100%;background-color: white;">
+            <thead >
                 <tr>
-                    <th style="background-color: white;">Patient Name</th>
-                    <th style="background-color: white;">Contact Number</th>
-                    <th style="background-color: white;">Email</th>
-                    <th style="background-color: white;">Patient Relative Name</th>
-                    <th style="background-color: white;">Patient Relative Contact</th>
-                    <th style="background-color: white;">Doctor</th>
-                    <th style="background-color: white;">Status</th>
-                    <th style="background-color: white;">Action</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Patient Name</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Contact Number</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Email</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Patient Relative Name</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Patient Relative Contact</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Doctor</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Status</th>
+                    <th style="background-color: white;padding: 10px;border-bottom: 1px black solid;">Action</th>
                 </tr>
             </thead>
             <tbody> 
                 {% for i in patientDetails %}
                 <tr>
-                    <td>{{i.patientName}}</td>
-                    <td>{{i.phone}}</td>
-                    <td>{{i.patientEmail}}</td>
-                    <td>{{i.patientRelativeName}}</td>
-                    <td>{{i.patientRelativeNumber}}</td>
-                    <td>{{i.doctorName}}</td>
-                    <td>{{i.patientStatus}}</td>
-                    <td><a href="/updatePatient?id={{i.patientId}}/"><i class="fa fa-edit" style="font-size:29px;color:green"></i></a>&nbsp;
+                    <td style="padding: 10px;">{{i.patientName}}</td>
+                    <td style="padding: 10px;">{{i.phone}}</td>
+                    <td style="padding: 10px;">{{i.patientEmail}}</td>
+                    <td style="padding: 10px;">{{i.patientRelativeName}}</td>
+                    <td style="padding: 10px;">{{i.patientRelativeNumber}}</td>
+                    <td style="padding: 10px;">{{i.doctorName}}</td>
+                    <td style="padding: 10px;">{{i.patientStatus}}</td>
+                    <td style="padding: 10px;"><a href="/updatePatient?id={{i.patientId}}/"><i class="fa fa-edit" style="font-size:29px;color:green"></i></a>&nbsp;
                         <a href="/deletePatient?id={{i.patientId}}/" onclick="showAlert();"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
                 </tr>
                 {% endfor %}
                 
             </tbody>
         </table>
+        <a href="{% url 'viewPatient' %}" style="float: right;color: white;font-size: medium;">view more...</a>
         <script>
             $(document).ready(function() {
                 $('#example').DataTable();

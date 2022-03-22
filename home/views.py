@@ -77,7 +77,7 @@ def bedAvailablity(request):
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
 def staffDashboard(request):
-    patientDetails = Patient.objects.all()
+    patientDetails = Patient.objects.all().order_by('dateTime')[:5]
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     recovered = 0
