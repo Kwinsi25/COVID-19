@@ -43,7 +43,17 @@
     <title>COVID HOSPITAL MANAGEMENT SYSTEM</title>
 </head>
 <body>
-    
+    <div class="fixed-header">
+        <div class="container" id="container1">
+            <nav>
+                <a href="#">Home</a>
+                <a href="/bookAppointment">Book Appointment</a>
+                <a href="/aboutUs">About Us</a>
+                <a href="/contactUs">Contact Us</a>
+                <a href="#myModal" data-toggle="modal">Login</a>
+            </nav>
+        </div>
+    </div>
     
     <div class="header_section">
     {% if err is not None %}
@@ -52,7 +62,7 @@
         </script>
        
         {% endif %}
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             
               <div class="main">
 
@@ -65,9 +75,6 @@
                           <div class="menu_main">
                              <ul>
                                   <li><a href="#myModal" class="alert alert-light" data-toggle="modal">Doctor/Staff Login</a></li>
-                                  <li><a href="/termsConditions">T & C</a></li>
-                                  <li><a href="/aboutUs">About Us</a></li>
-                                  <li><a href="/contactUs">Contact Us</a></li>
                              </ul>
                           </div>
                        </div>
@@ -76,7 +83,7 @@
                  </div>
               </div>
            </div>
-    
+     -->
      <!-- banner section start -->
      <div class="banner_section layout_padding">
         <div class="container">
@@ -86,7 +93,7 @@
                     <div class="row">
                        <div class="col-md-6">
                           <div class="container">
-                             <h1 class="banner_taital">Get Medical Care early</h1>
+                             <h1 class="banner_taital">Get Medical Care early </h1>
                              <p class="banner_text"></p>
                              <div class="more_bt"><a href="#bookappo"data-toggle="modal">Book Appointment</a></div>
                           </div>
@@ -160,7 +167,6 @@
                       <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked &nbsp;&nbsp;&nbsp;
                       <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
                           style="background-color: blueviolet;"></button> : Available
-                      &nbsp;&nbsp;&nbsp;
                       <select id="ward" onclick="update()">
                           <option disabled hidden selected>Select Ward</option>
                           {% for ward in wards %}
@@ -349,7 +355,7 @@
 		        </div>
 	        </div>
         </div>    
-
+        {% include 'footer.html'%}
         
 
         <script>

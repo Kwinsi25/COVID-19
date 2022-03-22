@@ -497,3 +497,23 @@ menu_text {
 	display: inline-block;
 	margin: 100px auto;
 }
+
+/* Header Of Index */
+
+.fixed-header{
+    top: 0;
+    width: auto;
+    padding: 10px 0;    
+    background: #a258ed;
+    color: rgb(196, 4, 154);
+}    
+.fixed-header a:hover {
+color: #070401;
+text-decoration: none;
+}
+nav a{
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 25px;
+    display: inline-block;
+}
