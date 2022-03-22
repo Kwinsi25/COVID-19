@@ -143,6 +143,8 @@ def confirmDetails(request):
         patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
         line1 = request.POST['line1']
         line2 = request.POST['line2']
+        wardss = request.POST['wardss']        
+        wardId = Ward.objects.get(wardId=wardss)
         statess = request.POST['statess']
         stateId = State.objects.get(stateId=statess)
         cities = request.POST['cities']
@@ -160,7 +162,7 @@ def confirmDetails(request):
         time = request.POST['time']
         status = request.POST['status']
         file = request.POST.getlist('file')
-        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         patient.save()
         for i in range(len(file)):
             patientId = Patient.objects.get(patientName=patientName) 

@@ -133,10 +133,9 @@ class Patient(models.Model):
     sname = State.objects.filter(stateName = state)
     city = models.ForeignKey('City',on_delete=models.CASCADE,null=True) #,limit_choices_to={'stateName': 1}
     pincode = models.IntegerField(("Pincode"),validators=[validate_pincode])
-    # symptoms = models.ManyToManyField(("Symptoms"))
     previousHistory = models.CharField(("Previous history"),max_length=250)
-    # bedNumber = models.ForeignKey('Bed',on_delete=models.CASCADE,null=True)
     dob = models.DateField(("Date of birth"))
+    wardName = models.ForeignKey('Ward',on_delete=models.CASCADE,blank=True,default="")
     bedNumber  = models.ForeignKey('Bed',on_delete=models.CASCADE,blank=True) #,limit_choices_to={'occupied': False}
     doctorName = models.ForeignKey('Doctor',on_delete=models.CASCADE,default=None,blank=True)
     doctorNotes = models.CharField(("Doctor Notes"),max_length=250,default=None,blank=True)

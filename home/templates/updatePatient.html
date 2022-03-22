@@ -110,16 +110,31 @@
                 <span class="details">Select Ward</span>
                 <select id="wardss" name="wardss">
                     <option value="" disabled selected hidden>Select Ward</option>
-                    {% for i in wards %}
-                    <option value="{{i.wardId}}">{{i}}</option>
+                    {% if i.wardName is not none %}
+                            <option value="{{i.wardId}}" selected>{{i.wardName}}</option>
+                    {% endif %}
+                    {% for j in wards %}
+                            {% if i.wardName != j %}
+                                <option value="{{j.wardId}}">{{j}}</option>
+                            {% endif %}
                     {% endfor %}
+
                 </select>
             </div>
             <div class="input-box">
                 <span class="details">Select Bed Number</span>
                 <select id="beds" name="beds">
-                    <option  value="" >Select Bed</option>
-                 
+                    {% if i.wardName is not none %}
+                    {% for j in beds %}
+                    {% if j.wardName == i.wardName %}
+                    {% if j.bedNumber == i.bedNumber.bedNumber %}
+                    <option value="{{j.bedId}}" selected>{{j.bedNumber}}</option>
+                    {% else %}
+                    <option value="{{j.bedId}}" >{{j.bedNumber}}</option>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                {% endif %}                 
                 </select>
             </div>
             <div class="input-box">
