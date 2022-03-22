@@ -337,6 +337,13 @@ def email(request):
         )
     return render(request,"email.html")   
 
+def deletePatient(request):
+    id = request.GET.get('id')
+    p = Patient.objects.get(patientId = id[:-1])
+    print("----------",id)
+    p.delete()
+    return redirect("/staffDashboard")
+
 def updatePatient(request):
     id = request.GET.get('id')
     updatePatient = Patient.objects.all().filter(patientId=int(id[:-1]))
@@ -350,4 +357,11 @@ def updatePatient(request):
     cities = City.objects.all()
     
     symptoms = Symptoms.objects.all()
-    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})   
+
+    patientName = id[:-1]
+    # patientId = PatientSymptom.objects.get(patientName=patientName)
+    updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
+    for i in updateSymptoms:
+        print(i.Symptoms)
+    return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms})   
+

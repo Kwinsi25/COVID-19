@@ -48,7 +48,9 @@
                     <td>{{i.gender}}</td>
                     <td>{{i.dateTime}}</td>
                     
-                    <td><a href="/confirmationDetails?id={{i.appointmentId}}/"><i class="fa fa-check" style="font-size:30px;color:green"></i></a><i class="fa fa-trash" style="font-size:30px;color:red"></i></td>
+                    <td><a href="/confirmationDetails?id={{i.appointmentId}}/"><i class="fa fa-check" style="font-size:30px;color:green"></i></a>
+                        
+                        <a href="#"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

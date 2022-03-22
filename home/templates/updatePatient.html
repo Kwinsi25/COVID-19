@@ -3,6 +3,10 @@
 {% include "staffNav.html" %}
 <head>
     <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     </head>
  
     <div class="container">
@@ -100,7 +104,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Date of birth</span>
-                    <input type="date" id="dob"  name="dob" required>
+                <input type="text" id="datepicker" name="time" value="{{i.dob}}">
             </div>
             <div class="input-box">
                 <span class="details">Any Previous History</span>
@@ -140,7 +144,13 @@
             <div class="input-box">
                 <span class="details">Bed Price</span>
                 <select id="prices" name="prices">
-                    <option value="">Price</option>
+                    {% if i.wardName is not none %}
+                    {% for j in wards %}
+                    {% if j.wardName == i.wardName.wardName %}
+                    <option value="{{j.wardPrice}}">{{j.wardPrice}}</option>
+                    {%endif%}
+                    {%endfor%}
+                {% endif %}                 
                    
                 </select>
             </div>
@@ -158,7 +168,8 @@
                     {%endif%}
                     {%endif%}
                     {%endfor%}
-                {% endif %}                                 </select>
+                {% endif %}                                 
+            </select>
             </div>
             <div class="input-box">
                 <span class="details">Doctor Notes</span>
@@ -166,7 +177,8 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
-                    <input type="date" id="time" name="time" required>
+                    <input type="text" id="datepicker" name="time" value="{{i.doctorLastVisited}}">
+                    
             </div>
             <div class="input-box">
                 <span class="details">Status</span>
@@ -184,8 +196,20 @@
             <div class="checkboxClass">
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
                 
-                {% for i in symptoms %}
-                    <input type=checkbox id="symptoms.symptoms" > {{i}}<br>
+                {% for k in updateSymptoms %}
+                    
+                <!-- {% for j in symptoms %}
+                
+                    <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}"> {{j}}<br>
+                {% endfor %} -->
+                {% if k.Symptoms is not none %}
+                <input type=checkbox id="symptoms" name="symptoms" value="{{k.Symptoms}}" checked> {{k.Symptoms}}<br>
+                {% endif %}
+                {% for j in symptoms %}
+                {% if k.Symptoms != j %}
+                <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}"> {{j}}<br>
+                {% endif %}
+                {% endfor %}
                 {% endfor %}
         </div>
        
@@ -203,7 +227,9 @@
 </body>
 {% block javascript %}
 <script>
-
+$( function() {
+    $( "#datepicker" ).datepicker();
+  } );
 $("#wardss").change(function () {
         const wardname = $(this).val(); 
 

@@ -87,7 +87,7 @@ class DoctorInline(admin.StackedInline):
 
 class WardAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,{'fields': [field.name for field in Ward._meta.get_fields() if field.name != "wardId" and field.name != "doctor" and field.name != "bed" and field.name != "warddoctor"]}),    
+        (None,{'fields': [field.name for field in Ward._meta.get_fields() if field.name != "wardId" and field.name != "doctor" and field.name != "bed" and field.name != "warddoctor" and field.name != "patient"]}),    
     ]
     inlines = [DoctorInline]
     list_display = ['wardName','wardPrice']
