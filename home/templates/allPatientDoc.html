@@ -1,0 +1,50 @@
+{% load static %}
+{% include 'doctorNav.html' %}
+<style>
+
+    #example th{
+        background:white;
+        color:black;
+        font-weight:bold;
+ 
+    }
+    </style>
+    <div style="margin:5%">  
+    <h1 class="text-center well well-sm  page-header"><strong>Patient List</strong></h1>
+    <h3 class="well well-sm">Recent Patient List</h3>
+        <table id="example"  class="table table-hover table-bordered" >
+            <thead  >
+                <tr >
+                    <th >Case Number</th>
+                    <th >Name</th>
+                    <th >Gender</th>
+                    <th >Previous history</th>
+                    <th >Ward - Bed</th>
+                    <th >Patient Status</th>
+                    <th >Date Of CheckUp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in psp %}
+            <tr>
+                <td>{{i.caseNumber}}</td>
+                <td>{{i.patientName}}</td>
+                <td>{{i.gender}}</td>
+                <td>{{i.previousHistory}}</td>
+                <td>{{i.bedNumber}}</td>
+                <td>{{i.patientStatus}}</td>
+                <td>{{i.doctorLastVisited}}</td>
+            </tr>   
+            {% endfor %}
+            </tbody>
+           
+        </table>
+</div>
+<script>
+            $(document).ready(function() {
+                $('#example').DataTable();
+            } );
+        </script>
+</body>
+
+</html>

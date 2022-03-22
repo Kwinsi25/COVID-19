@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 
 from django.db.models import F
-
+from datetime import date
 
 data ={}
 def firstNameCheck(value):
@@ -97,7 +97,8 @@ def doctorDashboard(request):
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     doctors = Doctor.objects.all()
-    patient = Patient.objects.all()
+   
+    
     #patient=Patient.objects.all().filter(doctorName=Details.get())
     doctors = Doctor.objects.all()
     recovered = 0
@@ -106,13 +107,23 @@ def doctorDashboard(request):
     tappointments = 0
     username = None
     username = request.session["Duser"]
-    print(username)
+    docId=0
+    for i in doctors:
+        if i.doctorName==username:
+            docId=i.doctorId
+
+    print(date.today())
+
+    patient = Patient.objects.all().filter(doctorName=docId)
+    psp=Patient.objects.all().filter(doctorName=docId).order_by('-dateTime')[:5]
+    for i in patient:
+        if i.doctorLastVisited==date.today():
+            tappointments=tappointments+1
     for d in doctors:
         if d.doctorName == username:
             for p in patient:
                 if d == p.doctorName:
-                    print(d)
-                    print(p.doctorName)
+                 
                     appointments = appointments + 1
                     if p.patientStatus == 'Recovered':
                         recovered = recovered + 1 
@@ -120,8 +131,17 @@ def doctorDashboard(request):
     for bed in beds:
         if bed.occupied == False:
             bedcnt = bedcnt + 1
-    return render(request,'doctorDashboard.html',{"patient":patient,"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
-
+    return render(request,'doctorDashboard.html',{"patient":patient,"psp":psp,"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
+def allPatientDoc(request):
+    doctors = Doctor.objects.all()
+    username = None
+    username = request.session["Duser"]
+    docId=0
+    for i in doctors:
+        if i.doctorName==username:
+            docId=i.doctorId
+    psp = Patient.objects.all().filter(doctorName=docId)
+    return render(request,"allPatientDoc.html",{"psp":psp})
 def confirmationDetails(request):
     id = request.GET.get('id')
     bookAppointment = Appointment.objects.all().filter(appointmentId=int(id[:-1]))
