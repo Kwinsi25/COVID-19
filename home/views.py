@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City
+from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City,page,block
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -393,4 +393,26 @@ def updatePatient(request):
         var.append(i.Symptoms.symptoms)
     print(var)
     return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms,"var":var})   
+
+def terms(request):
+    getdata = page.objects.all().values()
+    for i in getdata:
+        if i['fieldname'] == 'termConditions' and i['status'] == 'enabled':
+            termConditions = i['body']
+            return render(request, 'termsConditions.html',{"termConditions":termConditions})
+    return redirect('/')
+
+def aboutUs(request):
+    getdata = block.objects.all().values()
+    for i in getdata:
+        if i['fieldname'] == 'dr1':
+            dr1 = i['content']
+        elif i['fieldname'] == 'dr2':
+            dr2 = i['content']
+        elif i['fieldname'] == 'dr3':
+            dr3 = i['content']     
+    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3})
+
+def contactUs(request):
+    return render(request, 'contactUs.html')
 

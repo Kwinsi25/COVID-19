@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <title>Terms and Conditions | Covid-19 HMS</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+<style>
+    /* Add some padding on document's body to prevent the content
+    to go underneath the header and footer */
+    body{        
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+    #container1{
+        width: 80%;
+        margin: 0 auto; /* Center the DIV horizontally */
+    }
+    .fixed-header, .fixed-footer{
+        width: 100%;    
+        background: rgb(72, 26, 116);
+        padding: 10px 0;
+        color: #fff;
+    }
+    .fixed-header{        
+        position: fixed;    
+        top: 0;
+    }
+    .fixed-footer{
+        bottom: 0;
+    }    
+    .fixed-header a:hover {
+    color: #03394e;
+    text-decoration: none;
+    }
+    #cu a:hover {
+        text-decoration: none;
+    }
+    nav a{
+        color: #fff;
+        text-decoration: none;
+        padding: 7px 25px;
+        display: inline-block;
+    }
+    #container1 p{
+        line-height: 200px; /* Create scrollbar to test positioning */
+    }
+    ul #cu{
+        display: inline;
+        margin: 130px;
+    }
+
+    .fa {  
+  padding: 20px;  
+  text-align: center;  
+  margin: 5px 5px;  
+  font-size: 30px;  
+  width: 80px;  
+  border-radius: 10px;
+}  
+
+.fa-facebook {  
+  background: #3B5998;  
+  color: white;  
+}  
+.fa-twitter {  
+  background: #55ACEE;  
+  color: white;  
+} 
+.fa-instagram {  
+  background: linear-gradient(
+            to top right, orange,rgb(155, 4, 87));  
+  color: white;  
+}  
+</style>
+</head>
+<body>
+    <div class="fixed-header">
+        <div class="container" id="container1">
+            <nav><center>
+                <a href="#">Home</a>
+                <a href="/bookAppointment">Book Appointment</a>
+                <a href="/aboutUs">About Us</a>
+                <a href="/contactUs">Contact Us</a></center>
+            </nav>
+        </div>
+    </div>
+<body>
+<div class="container">
+
+    <br><center><h1>Terms and Conditions</h1></center>  <br><br>                          
+    <p>{{termConditions|safe}}</p>
+    <br><br><br>
+
+    <center><h2 id="contact">Contact Us</h2></center><br><br>
+    <ul>
+        <li id="cu"><a href="#" class="fa fa-facebook"></a></li>
+        <li id="cu"><a href="#" class="fa fa-twitter"></a></li>
+        <li id="cu"><a href="#" class="fa fa-instagram"></a></li>
+    </ul>
+    </div>          
+<div class="fixed-footer">
+    <center><div class="container" id="container1">Copyright &copy; 2022 Covid-19 HMS <em style="font-size: 13px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All rights reservered</em></div></center>
+</div>
+</body>
+</html>

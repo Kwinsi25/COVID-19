@@ -2,6 +2,7 @@ from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 import random
 from django.db import models
+from tinymce import models as tinymce_models
 
 class configuration(models.Model):
     configurationId = models.AutoField(primary_key=True)
@@ -11,6 +12,29 @@ class configuration(models.Model):
 
     def __str__(self):
         return str(self.label)
+
+class page(models.Model):
+    pageId = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    fieldname = models.CharField(max_length=100,unique=True,default=None)
+    statusChoice = (
+        ('enabled','Enabled'),
+        ('disabled','Disabled'),
+    )
+    status = models.CharField(max_length=10,choices=statusChoice,default='enabled')
+    body = tinymce_models.HTMLField()
+
+    def __str__(self):
+        return str(self.title)        
+
+class block(models.Model):
+    blockId = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    fieldname = models.CharField(max_length=100,unique=True,default=None)
+    content = tinymce_models.HTMLField()
+
+    def __str__(self):
+        return str(self.title) 
 
 class staff(models.Model):
     staffId = models.AutoField(primary_key=True,default=None)

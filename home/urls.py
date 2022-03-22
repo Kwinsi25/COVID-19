@@ -27,5 +27,8 @@ urlpatterns = [
     path('deleteAppointment/',views.deleteAppointment,name='deleteAppointment'),
     path('allPatientDoc.html/',views.allPatientDoc,name="allPatientDoc"),
     path('logout/',views.logout,name="logout"),
+    path('termsConditions/',views.terms,name="termsConditions"),
+    path('aboutUs/',views.aboutUs,name="aboutUs"),
+    path('contactUs/',views.contactUs,name="contactUs")
 
 ]
