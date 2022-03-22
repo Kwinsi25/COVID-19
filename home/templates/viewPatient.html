@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{% static 'css/staffNav.css' %}">
     
 </head>
-<body>
+<body >
     <h1 class="text-center well well-sm  page-header"><strong>Patient List</strong></h1>
         <table id="example" class="display" style="width:100%;">
             <thead>
@@ -53,7 +53,8 @@
                     <td>{{i.patientRelativeNumber}}</td>
                     <td>{{i.doctorName}}</td>
                     <td>{{i.patientStatus}}</td>
-                    <td><i class="fa fa-edit" style="font-size:29px;color:green">&nbsp;<i class="fa fa-trash" style="font-size:30px;color:red"></i></td>
+                    <td><a href="/updatePatient?id={{i.patientId}}/"><i class="fa fa-edit" style="font-size:29px;color:green"></i></a>&nbsp;
+                        <a href="/deletePatient?id={{i.patientId}}/" onclick="showAlert();"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
                 </tr>
                 {% endfor %}
                 

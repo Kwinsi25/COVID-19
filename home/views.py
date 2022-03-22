@@ -340,9 +340,14 @@ def email(request):
 def deletePatient(request):
     id = request.GET.get('id')
     p = Patient.objects.get(patientId = id[:-1])
-    print("----------",id)
     p.delete()
     return redirect("/staffDashboard")
+
+def deleteAppointment(request):
+    id = request.GET.get('id')
+    p = Appointment.objects.get(appointmentId = id[:-1])
+    p.delete()
+    return redirect("/message")
 
 def updatePatient(request):
     id = request.GET.get('id')

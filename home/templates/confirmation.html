@@ -49,8 +49,7 @@
                     <td>{{i.dateTime}}</td>
                     
                     <td><a href="/confirmationDetails?id={{i.appointmentId}}/"><i class="fa fa-check" style="font-size:30px;color:green"></i></a>
-                        
-                        <a href="#"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
+                        <a href="/deleteAppointment?id={{i.appointmentId}}/" onclick="showAlert();"><i class="fa fa-trash" style="font-size:30px;color:red"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -58,7 +57,11 @@
         <script>
             $(document).ready(function() {
                 $('#example').DataTable();
+                
             } );
+            function showAlert(){
+                alert("Are you sure you want to reject this appointment?");
+            }   
         </script>
 </body>
 
