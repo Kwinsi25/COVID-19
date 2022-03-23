@@ -29,6 +29,6 @@ urlpatterns = [
     path('logout/',views.logout,name="logout"),
     path('termsConditions/',views.terms,name="termsConditions"),
     path('aboutUs/',views.aboutUs,name="aboutUs"),
-    path('contactUs/',views.contactUs,name="contactUs")
-
+    path('contactUs/',views.contactUs,name="contactUs"),
+    path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate")
 ]

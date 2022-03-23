@@ -196,6 +196,7 @@ def confirmDetails(request):
             PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
             PatientSymptoms.save()
         
+        
         send_mail(
              "Appointment Booked",
              "Hello " + patientName + " your appointment is booked",
@@ -377,21 +378,14 @@ def updatePatient(request):
     wards = Ward.objects.all()
     beds = Bed.objects.all()
     doctors = WardDoctor.objects.all()
-    
     states = State.objects.all()
-    
     cities = City.objects.all()
-    
     symptoms = Symptoms.objects.all()
-
     patientName = id[:-1]
-    # patientId = PatientSymptom.objects.get(patientName=patientName)
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
     var=[]
-    
     for i in updateSymptoms:
         var.append(i.Symptoms.symptoms)
-    print(var)
     return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms,"var":var})   
 
 def terms(request):
@@ -416,3 +410,48 @@ def aboutUs(request):
 def contactUs(request):
     return render(request, 'contactUs.html')
 
+def PatientUpdate(request):
+    
+   if request.method == 'POST':
+        
+        patientId = request.POST['id']  
+        caseNumber = request.POST['caseNumber']
+        patientName = request.POST['patientName']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        gender = request.POST['gender']
+        patientRelativeName = request.POST['patientRelativeName']
+        patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
+        line1 = request.POST['line1']
+        line2 = request.POST['line2']
+        wardss = request.POST['wardss']
+        wardId = Ward.objects.get(wardName=wardss)
+        statess = request.POST['statess']
+        stateId = State.objects.get(stateName=statess)
+        cities = request.POST['cities']
+        cityId = City.objects.get(cityName=cities)
+        pincode = request.POST['pincode']
+        dob = request.POST['datepicker']
+        history = request.POST['history']
+        beds = request.POST['beds']
+        bedId = Bed.objects.get(bedNumber=beds)
+        prices = request.POST['prices']
+        doctors = request.POST['doctors']
+        doctorId = Doctor.objects.get(doctorName=doctors)
+        notes = request.POST['notes']
+        time = request.POST['time']
+        status = request.POST['status']
+        file1 = request.POST.getlist('file1')
+
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        
+        for i in range(len(file1)):
+            patientId = Patient.objects.get(patientName=patientName) 
+            PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
+            
+        symptoms = request.POST.getlist('symptoms')
+        for i in symptoms:
+            symptomsId = Symptoms.objects.get(symptomsId=int(i))
+            patientId = Patient.objects.get(patientName=patientName)
+            PatientSymptom.objects.filter(patientName=patientId).update(patientName=patientId,Symptoms=symptomsId)
+        return redirect('/staffDashboard')    
