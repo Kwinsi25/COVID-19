@@ -233,14 +233,14 @@
         <div class="col-md-7">
           <h2 class="featurette-heading">Contact Us</h2><br>
           <p>
-            <form>
+            <form method="POST">{% csrf_token %}
               <div>
                 <input type = "text" class = "form-control" name="name" placeholder="Name">
               </div>
               <div>
                 <input type = "email" class = "form-control" name="email" placeholder="E-mail">
               </div>
-              <textarea rows = "5" placeholder="Message" class = "form-control"></textarea>
+              <textarea rows = "5" placeholder="Message" name="msg" class = "form-control"></textarea>
               <br>
               <input type = "submit" class = "send-btn" value = "send message">
             </form>

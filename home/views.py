@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
-from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City,page,block
+from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City,page,block,ContactUs
 from django.http import JsonResponse
 from django.core.mail import send_mail
 
@@ -417,11 +417,19 @@ def aboutUs(request):
 
 def contactUs(request):
     getdata = block.objects.all().values()
+    contectus = ContactUs.objects.all()
     for i in getdata:
         if i['slug'] == 'contact':
             contact = i['content']
         if i['slug'] == 'email':
-            email = i['content']    
+            email = i['content'] 
+    if request.method == "POST":
+        name = request.POST['name']
+        emailid = request.POST['email']
+        msg = request.POST['msg']
+
+        contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
+        contactusform.save()
     return render(request, 'contactUs.html',{"contact":contact,"email":email})
 
 class TC(DetailView):

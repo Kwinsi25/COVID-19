@@ -251,3 +251,13 @@ class WardDoctor(models.Model):
 
     def __str__(self):
         return str(self.doctorName) +" - " + str(self.wardName)
+
+class ContactUs(models.Model):
+    contactId = models.AutoField(primary_key=True)
+    contactName = models.CharField(("Name"),max_length=24,null=False)
+    contactEmail = models.EmailField(("Email"),max_length=24,null=False)
+    contactMsg = models.CharField(("Massage"),max_length=100)
+    replyMsg = models.CharField(("Your Reply"),max_length=24,null=True)
+
+    def __str__(self):
+        return str(self.contactName) +" - " + str(self.contactEmail) +" - " + str(self.contactMsg)
