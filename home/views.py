@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 
@@ -8,6 +9,10 @@ from django.core.mail import send_mail
 from django.db.models import F
 from datetime import date
 from django.views.generic import DetailView
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string 
+from django.utils.html import strip_tags
 
 data ={}
 def firstNameCheck(value):
@@ -253,7 +258,7 @@ def bookAppointment(request):
                 else:
                     return redirect ('/bookAppointment')
         elif patientCheck == "newPatient":
-            return redirect ('/bookAppointment')
+            return redirect ('bookAppointment')
         else:
             return redirect ('/')
 
@@ -275,13 +280,25 @@ def bookedAppointment(request):
 
         appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
         appointment.save()
-        send_mail(
-             "New Appointment",
-             patientName+" trying to book an appointment",
-             'chmsdonotreply@gmail.com',
-             ['ajpatel2468@gmail.com'],
-             fail_silently=False,
+        # send_mail(
+        #      "New Appointment",
+        #      patientName+" trying to book an appointment",
+        #      'chmsdonotreply@gmail.com',
+        #      ['ajpatel2468@gmail.com'],
+        #      fail_silently=False,
+        # )
+
+        msg = patientName + " trying to book an appointment"
+        html_content = render_to_string("basic.html",{'title':'New Appointment','content':msg,'Name':'Admin','Uname':patientName,'gender':gender,'reason':reason})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "New",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['ajpatel2468@gmail.com'],
         )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
         data['sucess'] = "Your details are submitted you will get email from Hospital for Appointment Status"
         return redirect ('/',context=data)
 
@@ -351,13 +368,24 @@ def getcitiesajax(request):
 def email(request):
     if request.method=="POST":
         
-        send_mail(
-             request.POST['Sub'],
-             request.POST['Msg'],
-             'chmsdonotreply@gmail.com',
-             ['ajpatel2468@gmail.com'],
-             fail_silently=False,
+        # send_mail(
+        #      request.POST['Sub'],
+        #      request.POST['Msg'],
+        #      'chmsdonotreply@gmail.com',
+        #      ['ajpatel2468@gmail.com'],
+        #      fail_silently=False,
+        # )
+
+        html_content = render_to_string("basic.html",{'title':'test Email','content':request.POST['Msg'],'Name':request.POST['Name']})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "testing",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['ajpatel2468@gmail.com'],
         )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
     return render(request,"email.html")   
 
 def deletePatient(request):
