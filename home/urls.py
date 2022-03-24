@@ -31,6 +31,6 @@ urlpatterns = [
     path('<slug:slug>',TC.as_view(),name="termsConditions"),
     path('termsConditions/',views.terms,name="termsConditions"),
     path('aboutUs/',views.aboutUs,name="aboutUs"),
-    path('contactUs/',views.contactUs,name="contactUs")
-
+    path('contactUs/',views.contactUs,name="contactUs"),
+    path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate")
 ]
