@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 
 from django.db.models import F
 from datetime import date
+from django.views.generic import ListView, DetailView
 
 data ={}
 def firstNameCheck(value):
@@ -397,9 +398,9 @@ def updatePatient(request):
 def terms(request):
     getdata = page.objects.all().values()
     for i in getdata:
-        if i['fieldname'] == 'termConditions' and i['status'] == 'enabled':
-            termConditions = i['body']
-            return render(request, 'termsConditions.html',{"termConditions":termConditions})
+        if i['fieldname'] == 'termsConditions' and i['status'] == 'enabled':
+            slug = i['slug']
+            return render(request, 'index.html',{"slug":slug})
     return redirect('/')
 
 def aboutUs(request):
@@ -410,9 +411,25 @@ def aboutUs(request):
         elif i['fieldname'] == 'dr2':
             dr2 = i['content']
         elif i['fieldname'] == 'dr3':
-            dr3 = i['content']     
-    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3})
+            dr3 = i['content']
+        elif i['fieldname'] == 'covidServices':
+            covidServices = i['content']
+        elif i['fieldname'] == 'modernScience':
+            modernScience = i['content']
+                 
+    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience})
 
 def contactUs(request):
-    return render(request, 'contactUs.html')
+    getdata = block.objects.all().values()
+    for i in getdata:
+        if i['fieldname'] == 'contact':
+            contact = i['content']
+        if i['fieldname'] == 'email':
+            email = i['content']    
+    return render(request, 'contactUs.html',{"contact":contact,"email":email})
 
+class TC(DetailView):
+    model = page
+    context_object_name = 'page'
+    template_name = "termsConditions.html"
+    

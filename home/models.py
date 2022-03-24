@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from django.db import models
 from tinymce import models as tinymce_models
+from django.urls import reverse
 
 class configuration(models.Model):
     configurationId = models.AutoField(primary_key=True)
@@ -23,9 +24,14 @@ class page(models.Model):
     )
     status = models.CharField(max_length=10,choices=statusChoice,default='enabled')
     body = tinymce_models.HTMLField()
+    slug = models.SlugField(null=True, unique=True)
 
     def __str__(self):
-        return str(self.title)        
+        return str(self.title)   
+
+    def get_absolute_url(self):
+        return reverse("termsConditions", kwargs={"slug": self.slug})    
+        
 
 class block(models.Model):
     blockId = models.AutoField(primary_key=True)

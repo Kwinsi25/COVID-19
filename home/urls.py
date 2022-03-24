@@ -2,6 +2,7 @@ from unicodedata import name
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+from .views import TC
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('deleteAppointment/',views.deleteAppointment,name='deleteAppointment'),
     path('allPatientDoc.html/',views.allPatientDoc,name="allPatientDoc"),
     path('logout/',views.logout,name="logout"),
+    path('<slug:slug>',TC.as_view(),name="termsConditions"),
     path('termsConditions/',views.terms,name="termsConditions"),
     path('aboutUs/',views.aboutUs,name="aboutUs"),
     path('contactUs/',views.contactUs,name="contactUs")

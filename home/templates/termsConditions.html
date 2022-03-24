@@ -9,7 +9,6 @@
     to go underneath the header and footer */
     body{        
         padding-top: 60px;
-        padding-bottom: 40px;
     }
     #container1{
         width: 80%;
@@ -87,8 +86,8 @@
 <body>
 <div class="container">
 
-    <br><center><h1>Terms and Conditions</h1></center>  <br><br>                          
-    <p>{{termConditions|safe}}</p>
+    <br><center><h1>{{page.title}}</h1></center>  <br><br>                          
+    <p>{{page.body|safe}}</p>
     <br><br><br>
 
     <center><h2 id="contact">Contact Us</h2></center><br><br>
