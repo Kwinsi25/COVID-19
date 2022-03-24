@@ -36,7 +36,7 @@ class page(models.Model):
 class block(models.Model):
     blockId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    fieldname = models.CharField(max_length=100,unique=True,default=None)
+    slug = models.CharField(max_length=100,unique=True,default=None)
     content = tinymce_models.HTMLField()
 
     def __str__(self):

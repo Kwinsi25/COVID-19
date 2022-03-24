@@ -393,32 +393,34 @@ def terms(request):
     getdata = page.objects.all().values()
     for i in getdata:
         if i['fieldname'] == 'termsConditions' and i['status'] == 'enabled':
-            slug = i['slug']
-            return render(request, 'index.html',{"slug":slug})
+            termConditions = i['body']
+            return render(request, 'index.html',{"termConditions":termConditions})
     return redirect('/')
 
 def aboutUs(request):
     getdata = block.objects.all().values()
     for i in getdata:
-        if i['fieldname'] == 'dr1':
+        if i['slug'] == 'dr1':
             dr1 = i['content']
-        elif i['fieldname'] == 'dr2':
+        elif i['slug'] == 'dr2':
             dr2 = i['content']
-        elif i['fieldname'] == 'dr3':
+        elif i['slug'] == 'dr3':
             dr3 = i['content']
-        elif i['fieldname'] == 'covidServices':
+        elif i['slug'] == 'covidServices':
             covidServices = i['content']
-        elif i['fieldname'] == 'modernScience':
+        elif i['slug'] == 'modernScience':
             modernScience = i['content']
+        elif i['slug'] == 'entrustHealth':
+            entrustHealth = i['content']    
                  
-    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience})
+    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
 
 def contactUs(request):
     getdata = block.objects.all().values()
     for i in getdata:
-        if i['fieldname'] == 'contact':
+        if i['slug'] == 'contact':
             contact = i['content']
-        if i['fieldname'] == 'email':
+        if i['slug'] == 'email':
             email = i['content']    
     return render(request, 'contactUs.html',{"contact":contact,"email":email})
 
