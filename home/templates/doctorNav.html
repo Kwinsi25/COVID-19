@@ -23,7 +23,7 @@
     <!-- Scrollbar Custom CSS -->
     <link  href="{% static 'css/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
     <!-- Tweaks for older IEs-->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> -->
     <!-- owl stylesheets --> 
     <link  href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
     <!-- <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet"> -->
@@ -41,6 +41,7 @@
     <ul class="nav navbar-nav">
       <li><a href="{% url 'doctorDashboard' %}" ><b style="font-size: large;">Home</b></a></li>
       <li><a href="#" ><b style="font-size: large;">View Patient</b></a></li>
+      <li><a href="{%  url 'showBed' %}" ><b style="font-size: large;">View Beds</b></a></li>
       
     </ul>
     <ul class="nav navbar-nav" style="margin-left:28%;size: 12px;"></b>

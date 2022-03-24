@@ -474,3 +474,12 @@ def PatientUpdate(request):
             patientId = Patient.objects.get(patientName=patientName)
             PatientSymptom.objects.filter(patientName=patientId).update(patientName=patientId,Symptoms=symptomsId)
         return redirect('/staffDashboard')    
+
+def showBed(request):
+    beds = Bed.objects.all()
+    wards = Ward.objects.all()
+    bedcnt = 0
+    for bed in beds:
+        if bed.occupied == False:
+            bedcnt = bedcnt + 1
+    return render(request, 'showBed.html',{"bedcnt":bedcnt,"beds":beds})

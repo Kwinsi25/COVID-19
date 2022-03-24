@@ -1,0 +1,109 @@
+{% load static %}
+{%if request.session.Duser%}
+{% include 'doctorNav.html' %}
+{%endif%}
+
+{%if request.session.Suser%}
+{% include 'staffNav.html' %}
+{%endif%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Show Bed</title>
+    <style>
+        table {
+            width: 100%;
+        }
+
+        table td {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+        .header{
+            text-align:right;
+        }
+    </style>
+</head>
+
+<body><br><br>
+    <div class="container my-4">
+        <div class="card shadow-sm" style="border-radius: 10px;"><br>
+            <h2><b class="title">Bed Availability</b></h2>
+            <br>
+            <div class="card-body">
+
+                <table>
+                    <tr>
+                        <td class="header"> <b class="title">GENERAL: </b></td>
+                        {% for bed in beds%}
+                        {% if bed.wardName|upper == 'GENERAL' %}
+                        {% if bed.occupied == True %}
+                        <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                {{bed.bedNumber}}</button></td>
+                        {% else %}
+                        <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                style="background-color: blueviolet; color: white">
+                                {{bed.bedNumber}}</button></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="header"> <b class="title">SPECIAL: </b></td>
+                        {% for bed in beds%}
+                        {% if bed.wardName|upper == 'SPECIAL' %}
+                        {% if bed.occupied == True %}
+                        <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                {{bed.bedNumber}}</button></td>
+                        {% else %}
+                        <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                style="background-color: blueviolet; color: white">
+                                {{bed.bedNumber}}</button></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="header"> <b class="title">EMERGENCY: </b></td>
+                        {% for bed in beds%}
+                        {% if bed.wardName|upper == 'EMERGENCY' %}
+                        {% if bed.occupied == True %}
+                        <td><button type="button" class="btn btn-danger btn-lg fa fa-bed">
+                                {{bed.bedNumber}}</button></td>
+                        {% else %}
+                        <td><button type="button" class="btn btn-secondary btn-lg fa fa-bed" name="bedfalse"
+                                style="background-color: blueviolet; color: white">
+                                {{bed.bedNumber}}</button></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                </table>
+                <br><br>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <table style="text-align: center;">
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm fa fa-bed"></button> : Booked
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary btn-sm fa fa-bed"
+                                    style="background-color: blueviolet; color: white;"></button> : Available
+                            </td>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
