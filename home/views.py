@@ -27,6 +27,7 @@ def passwordCheck(value):
     return errorMessage,value
 # Create your views here.
 def home(request):
+    slug = terms()
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     wards = Ward.objects.all()
@@ -69,7 +70,7 @@ def home(request):
             err="Username and Password is not valid!"
             return render(request, 'index.html',{'err':err})
                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased})
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"slug":slug})
 
 def login(request):
     return render(request,'login.html')
@@ -417,13 +418,22 @@ def updatePatient(request):
         var.append(i.Symptoms.symptoms)
     return render(request,"updatePatient.html",{"updatePatient":updatePatient,"patient":patient,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms,"updateSymptoms":updateSymptoms,"var":var})   
 
-def terms(request):
+# def terms(request):
+#     getdata = page.objects.all().values()
+#     for i in getdata:
+#         if i['fieldname'] == 'termsConditions' and i['status'] == 'enabled':
+#             termConditions = i['body']
+#             return render(request, 'index.html',{"termConditions":termConditions})
+#     return redirect('/')
+
+def terms():
     getdata = page.objects.all().values()
     for i in getdata:
-        if i['fieldname'] == 'termsConditions' and i['status'] == 'enabled':
-            termConditions = i['body']
-            return render(request, 'index.html',{"termConditions":termConditions})
-    return redirect('/')
+        if i['fieldname'] == 'termConditions' and i['status'] == 'enabled':
+            slug = i['slug']
+            return slug
+        else:
+            return None
 
 def aboutUs(request):
     getdata = block.objects.all().values()
@@ -449,8 +459,10 @@ def contactUs(request):
     for i in getdata:
         if i['slug'] == 'contact':
             contact = i['content']
-        if i['slug'] == 'email':
+        elif i['slug'] == 'email':
             email = i['content'] 
+        elif i['slug'] == 'address':
+            address = i['content']     
     if request.method == "POST":
         name = request.POST['name']
         emailid = request.POST['email']
@@ -458,7 +470,7 @@ def contactUs(request):
 
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"contact":contact,"email":email})
+    return render(request, 'contactUs.html',{"contact":contact,"email":email,"address":address})
 
 class TC(DetailView):
     model = page

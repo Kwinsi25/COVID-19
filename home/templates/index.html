@@ -22,6 +22,7 @@
     <!-- Scrollbar Custom CSS -->
     <link  href="{% static 'css/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
     <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- owl stylesheets --> 
     <link  href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
@@ -51,7 +52,7 @@
                 <a href="#bookappo"data-toggle="modal">Book Appointment</a>
                 <a href="/aboutUs">About Us</a>
                 <a href="/contactUs">Contact Us</a>
-                <a href="/termsConditions">Terms & Conditions</a>
+                <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
                 <a href="#myModal" data-toggle="modal">Login</a>
             </nav>
         </div>
