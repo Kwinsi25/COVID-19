@@ -33,5 +33,5 @@ urlpatterns = [
     path('contactUs/',views.contactUs,name="contactUs"),
     path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate"),
     path('showBed/',views.showBed,name="showBed"),
-    path('<slug:slug>/',TC.as_view(),name="termsConditions"),
+    path('<slug:slug>/',TC.as_view(),name="termsConditions")
 ]

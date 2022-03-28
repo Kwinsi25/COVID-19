@@ -21,5 +21,6 @@ admin.site.index_title = "Welcome to Admin Dashboard"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home.urls'))
+    path('',include('home.urls')),
+    path('tinymce/', include('tinymce.urls'))
 ]
