@@ -436,6 +436,7 @@ def terms():
             return None
 
 def aboutUs(request):
+    slug = terms()
     getdata = block.objects.all().values()
     for i in getdata:
         if i['slug'] == 'dr1':
@@ -451,9 +452,10 @@ def aboutUs(request):
         elif i['slug'] == 'entrustHealth':
             entrustHealth = i['content']    
                  
-    return render(request, 'aboutUs.html',{"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
+    return render(request, 'aboutUs.html',{"slug":slug,"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
 
 def contactUs(request):
+    slug = terms()
     getdata = block.objects.all().values()
     contectus = ContactUs.objects.all()
     for i in getdata:
@@ -470,7 +472,7 @@ def contactUs(request):
 
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"contact":contact,"email":email,"address":address})
+    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address})
 
 class TC(DetailView):
     model = page
