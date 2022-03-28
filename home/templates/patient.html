@@ -28,8 +28,12 @@
                 {% endfor %}
                 
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="8"><a href="{% url 'viewPatient' %}">Show All Patient</a></th>
+                </tr>
+            </tfoot>
         </table>
-        <a href="{% url 'viewPatient' %}" style="float: right;color: white;font-size: medium;">view more...</a>
         <script>
             $(document).ready(function() {
                 $('#example').DataTable();
