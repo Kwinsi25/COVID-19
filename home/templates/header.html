@@ -1,14 +1,134 @@
 {% load static %}
-<div class="fixed-header">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Js     -->
+    <script src="{% static 'Js/bed.js' %}"></script>
+    <!-- bootstrap css -->
+    <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- style css -->
+    <link href="{% static 'css/style1.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bedtable.css' %}" rel="stylesheet">
+    <!-- Responsive-->
+    <link  href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link  href="{% static 'css/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets --> 
+    <link  href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    
+    <!-- login -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    <!-- login form validation -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<div class="fixed-header" id="fixed-header-bookAppo">
     <div class="container" id="container1">
         <nav>
             <img src="{% static 'corona.png' %}" height="50px" width="50px">
             <a href="/">Home</a>
             <a href="#bookappo"data-toggle="modal">Book Appointment</a>
-            <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>About Us</a>
+            <a href="/aboutUs">About Us</a>
             <a href="/contactUs">Contact Us</a>
             <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
             <a href="#myModal" data-toggle="modal">Login</a>
         </nav>
     </div>
 </div>
+
+
+
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade text-center">
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <h4 class="modal-title">Login</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" autocomplete="off" id="newModalForm">
+                    {% csrf_token %}
+                    <div class="form-group" id="err">
+                        <label id="role"></label>
+                            <input type="radio" class="" name= "role" id="role" Value="Staff" > Staff
+                            <input type="radio" class="" name= "role" id="role" Value="Doctor" > Doctor<br>
+                            
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-user"></i>
+                            <input type="text" class="form-control " name= "username" id="username" placeholder="Username" >
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <i class="fa fa-lock"></i>
+                            <input type="password" class="form-control " name="password" id="password" placeholder="Password" >					
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-lg loginButton" value="Login">Login</button>
+                    </div>
+                    <p class="text"></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Modal HTML -->
+<div id="bookappo" class="modal fade text-center">
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <h4 class="modal-title">Book Appointment</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="bookAppointment/" method="post" autocomplete="off" id="bookAppointment">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <input type="radio" class="form-check-input" name= "check" id="already" value="oldPatient" >
+                        <label for="already" class="form-check-label" id="alreadylabel"> Old Patient</lable>
+                        
+                    </div>
+                    <span id ="case">
+                        <div class="form-group">
+                            <label for="caseNumber" class="form-control-label"> Case Number</lable>
+                            <input type="number" class="form-control" name= "caseNumber" id="caseNumber" >
+                        </div>
+                    </span>
+                    
+                    <div class="form-group">
+                        <input type="radio" class="form-check-input" name= "check" id="new" value="newPatient">
+                        <label for="new" class="form-check-label" id="newlabel"> New Patient</lable>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="proceed" class="btn btn-primary btn-block btn-lg loginButton" value="proceed">Proceed</button>
+                    </div>
+                    <p class="text"></p>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>    

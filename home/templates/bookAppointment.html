@@ -1,33 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
-
-<html lang="en" dir="ltr">
-  <head>
-      <title>Book Appointment</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- JQuery & JQuery validations -->
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
-    <script src="{% static 'js/jquery-validation-ud.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/formBody.css' %}">
-    <style>
-    /* #footer {
-    padding-top: 150px;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:60px;
-} */
-      .error {
-      color: red;
-   }
-    </style>
-   </head>
+<html>
+  <title>Book Appointment</title>
+<link rel="stylesheet" href="{% static 'css/bookAppointment.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/style1.css' %}"> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<!-- JQuery & JQuery validations -->
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
+<script src="{% static 'js/jquery-validation-ud.js' %}"></script>
+  
+<style>
+  .error {
+  color: red;
+}
+</style>
+</head>
 <body>
-  <div class="container">
-  <div class="container">
+    
+    {% include 'header.html' %}
+
+  <div class="container" id="containerform">
     <div class="title">Book Appointment</div>
     <div class="content">
       <form id="bookAppointmentForm" action="bookedAppointment" method="post">
@@ -97,12 +94,10 @@
           {% endif %}
         </div>
       </form>
-    </div>
-    
   </div>
-  
- 
-</div> 
+    </div>
+{% include 'footer.html'%}
 
 </body>
 </html>
+

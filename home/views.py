@@ -240,7 +240,6 @@ def patient(request):
 def bookAppointment(request):
     if request.method == 'POST':
         patientCheck = request.POST.get('check')
-        print(patientCheck)
         if patientCheck == "oldPatient":
             caseNumber = request.POST['caseNumber']
             if caseNumber != '':
@@ -432,6 +431,9 @@ def terms():
         if i['fieldname'] == 'termConditions' and i['status'] == 'enabled':
             slug = i['slug']
             return slug
+        elif i['fieldname'] == 'aboutUs' and i['status'] == 'enabled':
+            slug = i['slug']
+            return slug    
         else:
             return None
 
