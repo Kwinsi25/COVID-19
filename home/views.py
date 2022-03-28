@@ -323,8 +323,9 @@ def getbedsajax(request):
         wardname = request.POST['wardname']        
         try:
             beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
-        except Exception:
-            data['error_message'] = 'error'
+            print(beds)
+        except Exception as e:
+            data['error_message'] = e
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
 

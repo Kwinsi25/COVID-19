@@ -75,11 +75,11 @@
                 <span class="details">Select State</span>
                     <select id="statess"name="statess" >
                         {% if i.state is not none %}
-                            <option value="{{i.state}}" selected>{{i.state}}</option>
+                            <option value="{{i.stateId}}" selected>{{i.state}}</option>
                         {% endif %}
                         {% for j in states %}
                             {% if i.state != j %}
-                                <option value="{{j.state}}">{{j}}</option>
+                                <option value="{{j.stateId}}">{{j}}</option>
                             {% endif %}
                         {% endfor %}
 
@@ -118,11 +118,11 @@
                 <select id="wardss" name="wardss">
                     <option value="" disabled selected hidden>Select Ward</option>
                     {% if i.wardName is not none %}
-                            <option value="{{i.wardName}}" selected>{{i.wardName}}</option>
+                            <option value="{{i.wardId}}" selected>{{i.wardName}}</option>
                     {% endif %}
                     {% for j in wards %}
                             {% if i.wardName != j %}
-                                <option value="{{j.wardName}}">{{j}}</option>
+                                <option value="{{j.wardId}}">{{j}}</option>
                             {% endif %}
                     {% endfor %}
 
@@ -135,14 +135,15 @@
                     {% for j in beds %}
                     {% if j.wardName == i.wardName %}
                     {% if j.bedNumber == i.bedNumber.bedNumber %}
-                    <option value="{{j.bedNumber}}" selected>{{j.bedNumber}}</option>
+                    <option value="{{j.bedd}}" selected>{{j.bedNumber}}</option>
                     {% else %}
-                    <option value="{{j.bedNumber}}" >{{j.bedNumber}}</option>
+                    <option value="{{j.bedId}}" >{{j.bedNumber}}</option>
                     {%endif%}
                     {%endif%}
                     {%endfor%}
                 {% endif %}                 
                 </select>
+             
             </div>
             <div class="input-box">
                 <span class="details">Bed Price</span>
@@ -239,7 +240,7 @@ $( function() {
 
 $("#wardss").change(function () {
         const wardname = $(this).val(); 
-
+        
         $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getbedsajax' %}",
@@ -253,10 +254,10 @@ $("#wardss").change(function () {
                 data.forEach(function (data) {
                     html_data += `<option value="${data.bedId}">${data.bedNumber}</option>`
                 });
+               
                 $("#beds").html(html_data);     // replace the contents of the topic input with the data that came from the server
             }
         });
-
         $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getpricesajax' %}",
@@ -295,6 +296,7 @@ $("#wardss").change(function () {
 
         });
     });
+
 
     $("#statess").change(function () {
 
