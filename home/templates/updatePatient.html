@@ -187,10 +187,10 @@
                 <span class="details">Status</span>
                 <select id="status" name="status">
                         <option  value="Pending" selected>Pending</option>
-                        <option  value="critical" >Critical</option>
-                        <option  value="recovering" >Recovering</option>
-                        <option  value="recovered" >Recovered</option>
-                        <option  value="deceased" >Deceased</option>
+                        <option  value="Critical" >Critical</option>
+                        <option  value="Recovering" >Recovering</option>
+                        <option  value="Recovered" >Recovered</option>
+                        <option  value="Deceased" >Deceased</option>
                 </select>
             </div>
             <div class="input-box">
@@ -201,10 +201,10 @@
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
                 {% for j in symptoms %}
                 {% if j.symptoms in var %}
-                <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
+                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
                 {% else %}
 
-                <input type=checkbox id="symptoms" name="symptoms" value="{{j.SymptomsId}}" > {{j}}<br>
+                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" > {{j}}{{j.symptomsId}}<br>
                 
                 {%endif%}
             
@@ -317,18 +317,6 @@ $("#wardss").change(function () {
             }
         });
     });
-
-    // function randomNumber(len) {
-    //         var randomNumber;
-    //         var n = '';
-    //         for (var count = 0; count < len; count++) {
-    //             randomNumber = Math.floor(Math.random() * 10);
-    //             n += randomNumber.toString();
-    //         }
-    //         return n;
-    //         }
-    // document.getElementById("caseNumber").value = randomNumber(6);
-
 </script>
 {% endblock javascript %}
 </html>

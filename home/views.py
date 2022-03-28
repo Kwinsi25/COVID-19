@@ -515,15 +515,21 @@ def PatientUpdate(request):
         Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         
         for i in range(len(file1)):
-            patientId = Patient.objects.get(patientName=patientName) 
+            # patientId = Patient.objects.latest('patientId')
+            # print("hjjsjsjvjs",patientId)
+            # patientId = Patient.objects.get(patientName=patientName) 
             PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
             
         symptoms = request.POST.getlist('symptoms')
+        PatientSymptom.objects.filter(patientName = patientId).delete()
+        
         for i in symptoms:
             symptomsId = Symptoms.objects.get(symptomsId=int(i))
             patientId = Patient.objects.get(patientName=patientName)
-            PatientSymptom.objects.filter(patientName=patientId).update(patientName=patientId,Symptoms=symptomsId)
-        return redirect('/staffDashboard')    
+            patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+            patientSymptoms.save()
+            # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
+        return redirect('/staffDashboard')      
 
 def showBed(request):
     beds = Bed.objects.all()
