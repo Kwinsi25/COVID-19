@@ -1,10 +1,14 @@
 {% load static %}
 {% include "staffNav.html" %}   
 <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <div class="container">
     <div class="title">Add Patient</div>
     <div class="content">
-      <form action="confirmDetails/" method="post">
+      <form action="confirmDetails/" method="post" autocomplete="off">
         {% csrf_token %}
         <div class="user-details">
             <div class="input-box">
@@ -78,7 +82,8 @@
             </div>
             <div class="input-box">
                 <span class="details">Date of birth</span>
-                    <input type="date" id="dob" name="dob" required>
+                    <!-- <input type="date" id="dob" name="dob" required> -->
+                    <input type="text" id="datepicker" name="dob" required>
             </div>
             <div class="input-box">
                 <span class="details">Any Previous History</span>
@@ -121,7 +126,8 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
-                    <input type="date" id="time" name="time" required>
+                    <!-- <input type="date" id="time" name="time" required> -->
+                    <input type="text" id="datepicker1" name="time" required>
             </div>
             <div class="input-box">
                 <span class="details">Status</span>
@@ -153,6 +159,16 @@
 </body>
 {% block javascript %}
 <script>
+$( function() {
+    $( "#datepicker" ).datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+  } );
+  $( function() {
+    $( "#datepicker1" ).datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+  } );
 
 $("#wardss").change(function () {
         const wardname = $(this).val(); 

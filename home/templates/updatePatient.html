@@ -180,7 +180,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
-                    <input type="text" id="datepicker" name="time" value="{{i.doctorLastVisited}}">
+                    <input type="text" id="datepicker1" name="time" value="{{i.doctorLastVisited}}">
                     
             </div>
             <div class="input-box">
@@ -231,6 +231,12 @@ $( function() {
         dateFormat: 'yy-mm-dd'
     });
   } );
+  $( function() {
+    $( "#datepicker1" ).datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+  } );
+
 $("#wardss").change(function () {
         const wardname = $(this).val(); 
 

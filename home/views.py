@@ -501,7 +501,7 @@ def PatientUpdate(request):
         dob = request.POST['datepicker']
         history = request.POST['history']
         beds = request.POST['beds']
-        bedId = Bed.objects.get(bedNumber=beds)
+        bedId = Bed.objects.get(bedId=beds)
         prices = request.POST['prices']
         doctors = request.POST['doctors']
         doctorId = Doctor.objects.get(doctorName=doctors)
