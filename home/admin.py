@@ -21,6 +21,10 @@ for i in getdata:
 class configurationAdmin(admin.ModelAdmin):
     list_display = ['label','value']
 
+class contectusAdmin(admin.ModelAdmin):
+    list_per_page = perpage
+    list_display = ['contactName','contactEmail','contactMsg','replyMsg']
+
 class CityAdmin(admin.ModelAdmin):
     list_per_page = perpage
     list_display = ['stateName','cityName']
@@ -116,4 +120,4 @@ admin.site.register(Appointment,AppointmentAdmin)
 admin.site.register(configuration,configurationAdmin)
 admin.site.register(page,PageAdmin)
 admin.site.register(block)
-admin.site.register(ContactUs)
+admin.site.register(ContactUs,contectusAdmin)

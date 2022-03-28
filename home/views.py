@@ -322,8 +322,9 @@ def getbedsajax(request):
         wardname = request.POST['wardname']        
         try:
             beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
-        except Exception:
-            data['error_message'] = 'error'
+            print(beds)
+        except Exception as e:
+            data['error_message'] = e
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
 
@@ -467,14 +468,28 @@ def contactUs(request):
             email = i['content'] 
         elif i['slug'] == 'address':
             address = i['content']     
+    name=""
+    emailid=""
+    msg=""
     if request.method == "POST":
         name = request.POST['name']
         emailid = request.POST['email']
         msg = request.POST['msg']
 
+        html_content = render_to_string("contactusemail.html",{'title':'Hello Admin,','msg':request.POST['msg'],'Name':request.POST['name'],'Email':request.POST['email']})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "testing",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['omipatel213@gmail.com'],
+        )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
+
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address})
+    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
 
 class TC(DetailView):
     model = page
@@ -496,36 +511,42 @@ def PatientUpdate(request):
         line1 = request.POST['line1']
         line2 = request.POST['line2']
         wardss = request.POST['wardss']
-        wardId = Ward.objects.get(wardName=wardss)
+        # wardId = Ward.objects.get(wardName=wardss)
         statess = request.POST['statess']
-        stateId = State.objects.get(stateName=statess)
+        # stateId = State.objects.get(stateName=statess)
         cities = request.POST['cities']
         cityId = City.objects.get(cityName=cities)
         pincode = request.POST['pincode']
         dob = request.POST['datepicker']
         history = request.POST['history']
         beds = request.POST['beds']
-        bedId = Bed.objects.get(bedNumber=beds)
+        bedId = Bed.objects.get(bedId=beds)
         prices = request.POST['prices']
         doctors = request.POST['doctors']
-        doctorId = Doctor.objects.get(doctorName=doctors)
+        # doctorId = Doctor.objects.get(doctorName=doctors)
         notes = request.POST['notes']
         time = request.POST['time']
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
 
-        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctors,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         
         for i in range(len(file1)):
-            patientId = Patient.objects.get(patientName=patientName) 
+            # patientId = Patient.objects.latest('patientId')
+            # print("hjjsjsjvjs",patientId)
+            # patientId = Patient.objects.get(patientName=patientName) 
             PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
             
         symptoms = request.POST.getlist('symptoms')
+        PatientSymptom.objects.filter(patientName = patientId).delete()
+        
         for i in symptoms:
             symptomsId = Symptoms.objects.get(symptomsId=int(i))
             patientId = Patient.objects.get(patientName=patientName)
-            PatientSymptom.objects.filter(patientName=patientId).update(patientName=patientId,Symptoms=symptomsId)
-        return redirect('/staffDashboard')    
+            patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+            patientSymptoms.save()
+            # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
+        return redirect('/staffDashboard')      
 
 def showBed(request):
     beds = Bed.objects.all()
