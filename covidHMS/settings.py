@@ -142,6 +142,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "COVID-19",
     "navigation_expanded": True,
     "related_modal_active": False,
+    "custom_css": "static\css\admin.css",
     "icons": {
         "home.configuration": "fa fa-bookmark",
         "home.state": "fas fa-city",

@@ -33,5 +33,5 @@ urlpatterns = [
     path('aboutUs/',views.aboutUs,name="aboutUs"),
     path('contactUs/',views.contactUs,name="contactUs"),
     path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate"),
-    path('showBed/',views.showBed,name="showBed")
+    path('showBed/',views.showBed,name="showBed"),
 ]

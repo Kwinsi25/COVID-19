@@ -463,14 +463,28 @@ def contactUs(request):
             email = i['content'] 
         elif i['slug'] == 'address':
             address = i['content']     
+    name=""
+    emailid=""
+    msg=""
     if request.method == "POST":
         name = request.POST['name']
         emailid = request.POST['email']
         msg = request.POST['msg']
 
+        html_content = render_to_string("contactusemail.html",{'title':'Hello Admin,','msg':request.POST['msg'],'Name':request.POST['name'],'Email':request.POST['email']})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "testing",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['omipatel213@gmail.com'],
+        )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
+
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"contact":contact,"email":email,"address":address})
+    return render(request, 'contactUs.html',{"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
 
 class TC(DetailView):
     model = page
