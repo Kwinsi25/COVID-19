@@ -205,7 +205,7 @@
                 <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
                 {% else %}
 
-                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" > {{j}}{{j.symptomsId}}<br>
+                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" > {{j}}<br>
                 
                 {%endif%}
             
@@ -227,19 +227,20 @@
 </body>
 {% block javascript %}
 <script>
-$( function() {
-    $( "#datepicker" ).datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-  } );
-  $( function() {
-    $( "#datepicker1" ).datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-  } );
+        $( function() {
+            $( "#datepicker" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                
+            });
+        } );
+        $( function() {
+            $( "#datepicker1" ).datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+        } );
 
-$("#wardss").change(function () {
-        const wardname = $(this).val(); 
+        $("#wardss").change(function () {
+            const wardname = $(this).val(); 
         
         $.ajax({                                // initialize an AJAX request
             type: "POST",

@@ -414,6 +414,8 @@ def updatePatient(request):
     symptoms = Symptoms.objects.all()
     patientName = id[:-1]
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
+    # for i in patient: 
+    #     print("date",i.doctorLastVisited)
     var=[]
     for i in updateSymptoms:
         var.append(i.Symptoms.symptoms)
@@ -526,7 +528,7 @@ def PatientUpdate(request):
         time = request.POST['time']
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
-
+        
         Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctors,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
         
         for i in range(len(file1)):
