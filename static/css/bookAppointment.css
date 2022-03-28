@@ -1,0 +1,278 @@
+  body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    height: auto;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px; */
+    background: url('../doc1copy.png') no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #666666;
+    font-size: 14px;
+    font-family: Poppins;
+    line-height: 1.80857;
+    font-weight: normal;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    padding-right: 0px !important;
+  }
+  label {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  form .input-box span.details {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  form .gender-details .gender-title {
+    font-size: 18px !important;
+    font-weight: 500;
+  }
+  form .checkboxClass span.details {
+    font-size: 18px !important;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+    #containerform{
+      margin-top: 25px;
+      text-align: left;
+      max-width: 700px;
+      /* width: 100%;
+      height: 100%; */
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    }
+  .container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+  .container .title::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+  }
+  .content form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  form .user-details .input-box{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+  }
+  
+  form .user-details .input-c{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  form .user-details .text-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  form .text-box span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  form .input-box span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    
+  }
+  
+  form .input-c span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size:x-large;
+  }
+  
+  form .checkboxClass span.details{
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+  .user-details .input-box input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-details .input-c input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  
+  .user-details .text-box textarea{
+    height: 45px;
+    width: 100%;
+    height: 100px;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-details .input-box select{
+      height: 45px;
+      width: 100%;
+      outline: none;
+      font-size: 16px;
+      border-radius: 5px;
+      padding-left: 15px;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+  }
+  
+  select option{
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid{
+    border-color: #9b59b6;
+  }
+   form .gender-details .gender-title{
+    font-size: 20px;
+    font-weight: 500;
+   }
+   form .category{
+     display: flex;
+     width: 80%;
+     margin: 14px 0 ;
+     justify-content: space-between;
+   }
+   form .category label{
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+   }
+   form .category label .dot{
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+  }
+   #dot-1:checked ~ .category label .one,
+   #dot-2:checked ~ .category label .two,
+   #dot-3:checked ~ .category label .three{
+     background: #9b59b6;
+     border-color: #d9d9d9;
+   }
+   form input[type="radio"]{
+     display: none;
+   }
+   form .button{
+     height: 45px;  
+     margin: 35px 0
+   }
+   form .button input{
+     height: 100%;
+     width: 100%;
+     border-radius: 5px;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     letter-spacing: 1px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     background: linear-gradient(135deg, #71b7e6, #9b59b6);
+   }
+   form .button input:hover{
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+    }
+   @media(max-width: 584px){
+   .container{
+    max-width: 100%;
+  }
+  form .user-details .input-box{
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    form .category{
+      width: 100%;
+    }
+    .content form .user-details{
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .user-details::-webkit-scrollbar{
+      width: 5px;
+    }
+    }
+    @media(max-width: 459px){
+    .container .content .category{
+      flex-direction: column;
+    }
+  }
+
+.fixed-header{
+    /* top: 0; */
+    width: auto;
+    padding: 10px 0;    
+    background: #a258ed;
+    color: rgb(196, 4, 154);
+}    
+.fixed-header a:hover {
+color: #070401;
+text-decoration: none;
+}
+nav a{
+    color: #fff;
+    text-decoration: none;
+    padding: 0px 25px;
+    display: inline-block;
+}   
+
+#footer-link{
+    margin-top: 100px;
+}
+#footer {
+    bottom:0;
+    width:100%;
+    height:60px;
+}
+#header{
+    top:0;
+    margin-bottom: 150px;
+    position:absolute;
+    width:100%;
+    height:60px;
+}

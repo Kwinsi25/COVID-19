@@ -44,19 +44,8 @@
     <title>COVID HOSPITAL MANAGEMENT SYSTEM</title>
 </head>
 <body>
-    <div class="fixed-header">
-        <div class="container" id="container1">
-            <nav>
-                <img src="{% static 'corona.png' %}" height="50px" width="50px">
-                <a href="#">Home</a>
-                <a href="#bookappo"data-toggle="modal">Book Appointment</a>
-                <a href="/aboutUs">About Us</a>
-                <a href="/contactUs">Contact Us</a>
-                <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
-                <a href="#myModal" data-toggle="modal">Login</a>
-            </nav>
-        </div>
-    </div>
+    
+    {% include 'header.html' %}
     
   
     <div class="header_section">
@@ -261,83 +250,7 @@
               </div>
           </div>
       </div>
-        <!-- Modal HTML -->
-        <div id="myModal" class="modal fade text-center">
-	        <div class="modal-dialog modal-login">
-		        <div class="modal-content">
-			        <div class="modal-header">				
-				        <h4 class="modal-title">Login</h4>
-				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        </div>
-			        <div class="modal-body">
-				        <form action="#" method="post" autocomplete="off" id="newModalForm">
-                            {% csrf_token %}
-                            <div class="form-group" id="err">
-						        <label id="role">Role:</label>
-						            <input type="radio" class="" name= "role" id="role" Value="Staff" > Staff
-                                    <input type="radio" class="" name= "role" id="role" Value="Doctor" > Doctor<br>
-                                    
-					        </div>
-					        <div class="form-group">
-						        <i class="fa fa-user"></i>
-						            <input type="text" class="form-control " name= "username" id="username" placeholder="Username" >
-
-					        </div>
-                            
-					        <div class="form-group">
-						        <i class="fa fa-lock"></i>
-						            <input type="password" class="form-control " name="password" id="password" placeholder="Password" >					
-					        </div>
-					        <div class="form-group">
-						        <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-lg loginButton" value="Login">Login</button>
-					        </div>
-                            <p class="text"></p>
-				        </form>
-			        </div>
-			        <div class="modal-footer">
-				        <a href="#">Forgot Password?</a>
-			        </div>
-		        </div>
-	        </div>
-        </div> 
-        <!-- Modal HTML -->
-        <div id="bookappo" class="modal fade text-center">
-	        <div class="modal-dialog modal-login">
-		        <div class="modal-content">
-			        <div class="modal-header">				
-				        <h4 class="modal-title">Book Appointment</h4>
-				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        </div>
-			        <div class="modal-body">
-				        <form action="bookAppointment/" method="post" autocomplete="off" id="bookAppointment">
-                            {% csrf_token %}
-                            
-					        <div class="form-group">
-						        <input type="radio" class="form-check-input" name= "check" id="already" value="oldPatient" >
-                                <label for="already" class="form-check-label" id="alreadylabel"> Old Patient</lable>
-                                
-					        </div>
-                            <span id ="case">
-                                <div class="form-group">
-                                    <label for="caseNumber" class="form-control-label"> Case Number</lable>
-                                    <input type="number" class="form-control" name= "caseNumber" id="caseNumber" >
-                                </div>
-                            </span>
-                            
-					        <div class="form-group">
-                                <input type="radio" class="form-check-input" name= "check" id="new" value="newPatient">
-                                <label for="new" class="form-check-label" id="newlabel"> New Patient</lable>
-					        </div>
-					        <div class="form-group">
-						        <button type="submit" id="proceed" class="btn btn-primary btn-block btn-lg loginButton" value="proceed">Proceed</button>
-					        </div>
-                            <p class="text"></p>
-				        </form>
-			        </div>
-			        
-		        </div>
-	        </div>
-        </div>    
+           
         {% include 'footer.html'%}
         
 
