@@ -1,6 +1,13 @@
 from django.contrib import admin
 from .models import *
+from tinymce.widgets import TinyMCE
 # Register your models here.
+
+class PageAdmin(admin.ModelAdmin):
+
+    formfield_overides = {
+        models.TextField : {'widget':TinyMCE()},
+    }
 
 getdata = configuration.objects.all().values()
 for i in getdata:
@@ -111,6 +118,6 @@ admin.site.register(Oxygen,OxygenAdmin)
 admin.site.register(Ward,WardAdmin)
 admin.site.register(Appointment,AppointmentAdmin)
 admin.site.register(configuration,configurationAdmin)
-admin.site.register(page)
+admin.site.register(page,PageAdmin)
 admin.site.register(block)
 admin.site.register(ContactUs,contectusAdmin)

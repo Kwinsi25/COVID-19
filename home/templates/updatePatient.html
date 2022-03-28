@@ -75,11 +75,11 @@
                 <span class="details">Select State</span>
                     <select id="statess"name="statess" >
                         {% if i.state is not none %}
-                            <option value="{{i.state}}" selected>{{i.state}}</option>
+                            <option value="{{i.stateId}}" selected>{{i.state}}</option>
                         {% endif %}
                         {% for j in states %}
                             {% if i.state != j %}
-                                <option value="{{j.state}}">{{j}}</option>
+                                <option value="{{j.stateId}}">{{j}}</option>
                             {% endif %}
                         {% endfor %}
 
@@ -118,11 +118,11 @@
                 <select id="wardss" name="wardss">
                     <option value="" disabled selected hidden>Select Ward</option>
                     {% if i.wardName is not none %}
-                            <option value="{{i.wardName}}" selected>{{i.wardName}}</option>
+                            <option value="{{i.wardId}}" selected>{{i.wardName}}</option>
                     {% endif %}
                     {% for j in wards %}
                             {% if i.wardName != j %}
-                                <option value="{{j.wardName}}">{{j}}</option>
+                                <option value="{{j.wardId}}">{{j}}</option>
                             {% endif %}
                     {% endfor %}
 
@@ -135,14 +135,15 @@
                     {% for j in beds %}
                     {% if j.wardName == i.wardName %}
                     {% if j.bedNumber == i.bedNumber.bedNumber %}
-                    <option value="{{j.bedNumber}}" selected>{{j.bedNumber}}</option>
+                    <option value="{{j.bedd}}" selected>{{j.bedNumber}}</option>
                     {% else %}
-                    <option value="{{j.bedNumber}}" >{{j.bedNumber}}</option>
+                    <option value="{{j.bedId}}" >{{j.bedNumber}}</option>
                     {%endif%}
                     {%endif%}
                     {%endfor%}
                 {% endif %}                 
                 </select>
+             
             </div>
             <div class="input-box">
                 <span class="details">Bed Price</span>
@@ -180,17 +181,17 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
-                    <input type="text" id="datepicker" name="time" value="{{i.doctorLastVisited}}">
+                    <input type="text" id="datepicker1" name="time" value="{{i.doctorLastVisited}}">
                     
             </div>
             <div class="input-box">
                 <span class="details">Status</span>
                 <select id="status" name="status">
                         <option  value="Pending" selected>Pending</option>
-                        <option  value="critical" >Critical</option>
-                        <option  value="recovering" >Recovering</option>
-                        <option  value="recovered" >Recovered</option>
-                        <option  value="deceased" >Deceased</option>
+                        <option  value="Critical" >Critical</option>
+                        <option  value="Recovering" >Recovering</option>
+                        <option  value="Recovered" >Recovered</option>
+                        <option  value="Deceased" >Deceased</option>
                 </select>
             </div>
             <div class="input-box">
@@ -201,10 +202,10 @@
                 <span class="details" id="symptoms" name="symptoms">Symptoms</span>
                 {% for j in symptoms %}
                 {% if j.symptoms in var %}
-                <input type=checkbox id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
+                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" checked> {{j}}<br>
                 {% else %}
 
-                <input type=checkbox id="symptoms" name="symptoms" value="{{j.SymptomsId}}" > {{j}}<br>
+                <input type="checkbox" id="symptoms" name="symptoms" value="{{j.symptomsId}}" > {{j}}{{j.symptomsId}}<br>
                 
                 {%endif%}
             
@@ -231,9 +232,15 @@ $( function() {
         dateFormat: 'yy-mm-dd'
     });
   } );
+  $( function() {
+    $( "#datepicker1" ).datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+  } );
+
 $("#wardss").change(function () {
         const wardname = $(this).val(); 
-
+        
         $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getbedsajax' %}",
@@ -247,10 +254,10 @@ $("#wardss").change(function () {
                 data.forEach(function (data) {
                     html_data += `<option value="${data.bedId}">${data.bedNumber}</option>`
                 });
+               
                 $("#beds").html(html_data);     // replace the contents of the topic input with the data that came from the server
             }
         });
-
         $.ajax({                                // initialize an AJAX request
             type: "POST",
             url: "{% url 'getpricesajax' %}",
@@ -290,6 +297,7 @@ $("#wardss").change(function () {
         });
     });
 
+
     $("#statess").change(function () {
 
         const statename = $(this).val();
@@ -311,18 +319,6 @@ $("#wardss").change(function () {
             }
         });
     });
-
-    // function randomNumber(len) {
-    //         var randomNumber;
-    //         var n = '';
-    //         for (var count = 0; count < len; count++) {
-    //             randomNumber = Math.floor(Math.random() * 10);
-    //             n += randomNumber.toString();
-    //         }
-    //         return n;
-    //         }
-    // document.getElementById("caseNumber").value = randomNumber(6);
-
 </script>
 {% endblock javascript %}
 </html>

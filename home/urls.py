@@ -28,10 +28,10 @@ urlpatterns = [
     path('deleteAppointment/',views.deleteAppointment,name='deleteAppointment'),
     path('allPatientDoc.html/',views.allPatientDoc,name="allPatientDoc"),
     path('logout/',views.logout,name="logout"),
-    path('<slug:slug>',TC.as_view(),name="termsConditions"),
     path('termsConditions/',views.terms,name="termsConditions"),
     path('aboutUs/',views.aboutUs,name="aboutUs"),
     path('contactUs/',views.contactUs,name="contactUs"),
     path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate"),
     path('showBed/',views.showBed,name="showBed"),
+    path('<slug:slug>/',TC.as_view(),name="termsConditions")
 ]
