@@ -124,7 +124,7 @@ def doctorDashboard(request):
     patient = Patient.objects.all().filter(doctorName=docId)
     psp=Patient.objects.all().filter(doctorName=docId).order_by('-dateTime')[:5]
     for i in patient:
-        if i.doctorLastVisited==date.today():
+        if i.doctorVisitingTime==date.today():
             tappointments=tappointments+1
     for d in doctors:
         if d.doctorName == username:
@@ -190,7 +190,7 @@ def confirmDetails(request):
         time = request.POST['time']
         status = request.POST['status']
         file = request.POST.getlist('file')
-        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         patient.save()
         for i in range(len(file)):
             patientId = Patient.objects.get(patientName=patientName) 
@@ -519,7 +519,7 @@ def PatientUpdate(request):
         cities = request.POST['cities']
         cityId = City.objects.get(cityName=cities)
         pincode = request.POST['pincode']
-        dob = request.POST['datepicker']
+        dob = request.POST['dob']
         history = request.POST['history']
         beds = request.POST['beds']
         bedId = Bed.objects.get(bedId=beds)
@@ -531,7 +531,7 @@ def PatientUpdate(request):
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
         
-        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctors,doctorNotes=notes,doctorLastVisited=time,patientStatus=status)
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         
         for i in range(len(file1)):
             # patientId = Patient.objects.latest('patientId')

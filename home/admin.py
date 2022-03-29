@@ -88,7 +88,7 @@ class PatientAdmin(admin.ModelAdmin):
         
     ]
     inlines = [DocumentInline,SymptomInline]
-    list_display = ['caseNumber','patientName','phone','patientRelativeNumber','bedNumber','doctorName','doctorLastVisited']
+    list_display = ['caseNumber','patientName','phone','patientRelativeNumber','bedNumber','doctorName','doctorVisitingTime']
 
 class DoctorInline(admin.StackedInline):
     model = WardDoctor
