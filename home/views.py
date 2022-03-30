@@ -23,6 +23,11 @@ def passwordCheck(value):
         errorMessage = "Password field is empty"
     return errorMessage,value
 
+def  Identifygender(value):
+    if value == "M":
+        return "Male"
+    else:
+        return "Female"
 # Create your views here.
 
 # index
@@ -170,6 +175,7 @@ def confirmDetails(request):
         phone = request.POST['phone']
         email = request.POST['email']
         gender = request.POST['gender']
+        genderName = Identifygender(gender)
         patientRelativeName = request.POST['patientRelativeName']
         patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
         line1 = request.POST['line1']
@@ -211,19 +217,39 @@ def confirmDetails(request):
             patientId = Patient.objects.get(patientId=pId.patientId)
             PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
             PatientSymptoms.save()
-        
-        
-        send_mail(
-             "Appointment Booked",
-             "Hello " + patientName + " your appointment is booked",
-             'chmsdonotreply@gmail.com',
-             [email],
-             fail_silently=False,
+            html_content = render_to_string("confirmdetailsemailadmin.html",{'title':'Hello Admin,','msg':"Patient's Appointment is confirm by the Staff!",
+        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
+        "line1":line1,"line2":line2,"wardss":wardss,"wardId":wardId,"statess":statess,"stateId":stateId,"cities":cities,
+        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId,"prices":prices,"doctors":doctors,
+        "doctorId":doctorId,"notes":notes,"time":time,"status":status,"file":file})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "New Patient is added!",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ["omipatel213@gmail.com"],
         )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
+    
         
         return redirect ('/viewPatient')
         
     else:
+        html_content = render_to_string("approvedemail.html",{'title':'Hello','msg':"Your Appointment is confirm by the Staff!",
+        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
+        "line1":line1,"line2":line2,"wardss":wardss,"wardId":wardId,"statess":statess,"stateId":stateId,"cities":cities,
+        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId,"prices":prices,"doctors":doctors,
+        "doctorId":doctorId,"notes":notes,"time":time,"status":status,"file":file})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "Your Appopintment is Approved!",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['omipatel213@gmail.com'],
+        )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
         return render(request,'approved.html')    
 
 # message
@@ -296,26 +322,16 @@ def bookedAppointment(request):
 
         appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
         appointment.save()
-        # send_mail(
-        #      "New Appointment",
-        #      patientName+" trying to book an appointment",
-        #      'chmsdonotreply@gmail.com',
-        #      ['ajpatel2468@gmail.com'],
-        #      fail_silently=False,
-        # )
-
-        msg = patientName + " trying to book an appointment"
-        html_content = render_to_string("basic.html",{'title':'New Appointment','content':msg,'Name':'Admin','Uname':patientName,'gender':gender,'reason':reason})
+        html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':genderName,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
         text_content = strip_tags(html_content)
         email = EmailMultiAlternatives(
-            "New",
+            "Appointment is Booked!",
             text_content,
             settings.EMAIL_HOST_USER,
-            ['ajpatel2468@gmail.com'],
+            ['omipatel213@gmail.com'],
         )
         email.attach_alternative(html_content,"text/html")
         email.send()
-        data['sucess'] = "Your details are submitted you will get email from Hospital for Appointment Status"
         return redirect ('/',context=data)
 
 
@@ -523,25 +539,27 @@ def contactUs(request):
             else:
                 address=""    
              
+    
     name=""
     emailid=""
+    number=""
     msg=""
     if request.method == "POST":
         name = request.POST['name']
         emailid = request.POST['email']
+        number = request.POST['number']
         msg = request.POST['msg']
 
-        html_content = render_to_string("contactusemail.html",{'title':'Hello Admin,','msg':request.POST['msg'],'Name':request.POST['name'],'Email':request.POST['email']})
+        html_content = render_to_string("contactusemail.html",{'title':'Hello Admin,','msg':request.POST['msg'],'Name':request.POST['name'],'Email':request.POST['email'],'number':number})
         text_content = strip_tags(html_content)
         email = EmailMultiAlternatives(
-            "testing",
+            "You have a new massage",
             text_content,
             settings.EMAIL_HOST_USER,
             ['omipatel213@gmail.com'],
         )
         email.attach_alternative(html_content,"text/html")
         email.send()
-
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
     return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,"openingHours":openingHours,'name':name,'emailid':emailid,'Msg':msg})

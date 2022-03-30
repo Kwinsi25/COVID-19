@@ -248,19 +248,24 @@
         <div class="col-md-7">
           <h2 class="featurette-heading" style="color: blueviolet;">Contact Us</h2><br>
           <p>
-          <form method="POST" id="form" name="form">{% csrf_token %}
-            <div>
-              <input type="text" class="form-control" name="name" id="name" value="{{name}}" placeholder="Name">
-            </div>
-            <div>
-              <input type="email" class="form-control" name="email" id="email" value="{{emailid}}" placeholder="E-mail">
-            </div>
-            <textarea rows="5" placeholder="Message" maxlength="100" name="msg" id="msg" value="{{Msg}}"
-              class="form-control"></textarea>
-              <span id='remainingChar'></span><br>
-            <br>
-            <input type="submit" class="send-btn" value="send message" name="msgsend" id="msgsend" onclick="sendSuccessfully()">
-          </form>
+            <form method="POST" id="form" name="form">{% csrf_token %}
+              <div class="alert alert-success" role="alert" id="success" name="success" hidden>
+                Send Successfully!
+              </div>
+              <div>
+                <input type="text" class="form-control" name="name" id="name" value="{{name}}" placeholder="Name">
+              </div>
+              <div>
+                <input type="email" class="form-control" name="email" id="email" value="{{emailid}}" placeholder="E-mail">
+              </div>
+              <div>
+                <input type="number" class="form-control" name="number" id="number" value="{{number}}" placeholder="Phone">
+              </div>
+              <textarea rows="5" placeholder="Message" name="msg" id="msg" value="{{Msg}}"
+                class="form-control"></textarea>
+              <br>
+              <input type="submit" class="send-btn" value="send message" name="msgsend" id="msgsend">
+            </form>
           </p>
         </div>
         <div class="col-md-5">
