@@ -322,7 +322,7 @@ def bookedAppointment(request):
 
         appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
         appointment.save()
-        html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':genderName,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
+        html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':gender,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
         text_content = strip_tags(html_content)
         email = EmailMultiAlternatives(
             "Appointment is Booked!",
