@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    </head>
+  
+   </head>
  
     <div class="container">
     <div class="title">Update Patient</div>
     <div class="content">
-      <form action="PatientUpdate/" method="post">
+      <form action="PatientUpdate/" method="post" autocomplete="off">
         {% csrf_token %}
         {% for i in updatePatient %}
         <div class="user-details">
@@ -107,8 +108,8 @@
             </div>
             <div class="input-box">
                 <span class="details">Date of birth</span>
-                <input type='date' id='dob' name='dob' value="{{i.dob}}">
-                <!-- <input type="text" id="datepicker" name="datepicker" value="{{i.dob}}"> -->
+                <!-- <input type='date' id='dob' name='dob' value="{{i.dob}}"> -->
+                <input type="text" id="datepicker" name="datepicker" value="{{i.dob|date:'Y-m-d'}}">
             </div>
             <div class="input-box">
                 <span class="details">Any Previous History</span>
@@ -167,9 +168,9 @@
                     {% for j in doctors %}
                     {% if j.wardName == i.wardName %}
                     {% if j.doctorName == i.doctorName.doctorName %}
-                    <option value="{{j.doctorName}}" selected>{{j.doctorName}}</option>
+                    <option value="{{j.doctorId}}" selected>{{j.doctorName}}</option>
                     {% else %}
-                    <option value="{{j.doctorName}}" >{{j.doctorName}}</option>
+                    <option value="{{j.doctorId}}" >{{j.doctorName}}</option>
                     {%endif%}
                     {%endif%}
                     {%endfor%}
@@ -182,8 +183,8 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span>
-                    <input type="datetime-local" id="time" name="time" value="{{i.doctorVisitingTime}}">
-                    <!-- <input type="text" id="datepicker1" name="time" value="{{i.doctorLastVisited}}"> -->
+                    <!-- <input type="datetime-local" id="time" name="time" value="{{i.doctorVisitingTime}}"> -->
+                    <input type="text" id="datetime" name="time" value="{{i.doctorVisitingTime}}">
                     
             </div>
             <div class="input-box">
@@ -231,13 +232,14 @@
 <script>
         $( function() {
             $( "#datepicker" ).datepicker({
-                dateFormat: 'yy-mm-dd',
+             dateFormat: 'yy-mm-dd',
                 
             });
         } );
         $( function() {
-            $( "#datepicker1" ).datepicker({
-                dateFormat: 'yy-mm-dd'
+            $( "#datetime" ).datetimepicker({
+             
+            
             });
         } );
 

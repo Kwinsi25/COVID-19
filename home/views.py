@@ -1,15 +1,12 @@
 from django.conf import settings
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
-
 from home.models import PatientDocument, PatientSymptom, staff,Bed,Oxygen,Ward,Patient,Doctor,Symptoms,WardDoctor,Appointment,State,City,page,block,ContactUs
 from django.http import JsonResponse
 from django.core.mail import send_mail
-
 from django.db.models import F
 from datetime import date
 from django.views.generic import DetailView
-
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
@@ -25,7 +22,10 @@ def passwordCheck(value):
     if value == "":
         errorMessage = "Password field is empty"
     return errorMessage,value
+
 # Create your views here.
+
+# index
 def home(request):
     slug = terms()
     oxy = Oxygen.objects.all()
@@ -52,7 +52,7 @@ def home(request):
             Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
         if Details.count() > 0 :
             if request.POST.get("role")=="Staff":
-                #print(staffDetails.get())
+    
                 if "Suser" in request.session:
                     del request.session["Suser"]
                 request.session['Suser']=str(Details.get())
@@ -72,17 +72,18 @@ def home(request):
                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"slug":slug})
 
-def login(request):
-    return render(request,'login.html')
 
+# staffDAshboard patient list
 def patients(request):
     patientDetails = Patient.objects.all()
     return render(request, 'patient.html',{"patientDetails":patientDetails})
 
+# bed availability
 def bedAvailablity(request):
     beds = Bed.objects.all() 
     return render(request, 'bedAvailablity.html',{"beds":beds})
 
+# staffdashboard
 def staffDashboard(request):
     patientDetails = Patient.objects.all().order_by('dateTime')[:5]
     oxy = Oxygen.objects.all()
@@ -100,12 +101,10 @@ def staffDashboard(request):
             bedcnt = bedcnt + 1
     return render(request,'staffDashboard.html',{"bedcnt":bedcnt,"oxy":oxy,"patientDetails":patientDetails,"recovered":recovered,"deceased":deceased})
 
+# doctor dashboard
 def doctorDashboard(request):  
     oxy = Oxygen.objects.all()
-    beds = Bed.objects.all()
-    doctors = Doctor.objects.all()
-   
-    
+    beds = Bed.objects.all() 
     #patient=Patient.objects.all().filter(doctorName=Details.get())
     doctors = Doctor.objects.all()
     recovered = 0
@@ -118,8 +117,6 @@ def doctorDashboard(request):
     for i in doctors:
         if i.doctorName==username:
             docId=i.doctorId
-
-    print(date.today())
 
     patient = Patient.objects.all().filter(doctorName=docId)
     psp=Patient.objects.all().filter(doctorName=docId).order_by('-dateTime')[:5]
@@ -139,6 +136,8 @@ def doctorDashboard(request):
         if bed.occupied == False:
             bedcnt = bedcnt + 1
     return render(request,'doctorDashboard.html',{"patient":patient,"psp":psp,"bedcnt":bedcnt,"oxy":oxy,"recovered":recovered,"appointments":appointments,"tappointments":tappointments})
+
+# doctor vise patient
 def allPatientDoc(request):
     doctors = Doctor.objects.all()
     username = None
@@ -149,6 +148,8 @@ def allPatientDoc(request):
             docId=i.doctorId
     psp = Patient.objects.all().filter(doctorName=docId)
     return render(request,"allPatientDoc.html",{"psp":psp})
+
+# approved appointment
 def confirmationDetails(request):
     id = request.GET.get('id')
     bookAppointment = Appointment.objects.all().filter(appointmentId=int(id[:-1]))
@@ -160,10 +161,14 @@ def confirmationDetails(request):
     symptoms = Symptoms.objects.all()
     return render(request,'approved.html',{"bookAppointment":bookAppointment,"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
 
+# appointment data and patient data added in patient
 def confirmDetails(request):
     if request.method == 'POST':
         caseNumber = request.POST['caseNumber']
+        
         patientName = request.POST['patientName']
+        
+
         phone = request.POST['phone']
         email = request.POST['email']
         gender = request.POST['gender']
@@ -211,22 +216,28 @@ def confirmDetails(request):
              [email],
              fail_silently=False,
         )
+        
         return redirect ('/viewPatient')
         
     else:
         return render(request,'approved.html')    
+
+# message
 def message(request):
     bookAppointment = Appointment.objects.all()
     return render(request,'confirmation.html',{"bookAppointment":bookAppointment})
 
+# view patient
 def viewPatient(request):
     viewData = Patient.objects.all()
     return render(request, 'viewPatient.html',{"viewData":viewData})
 
+# return index
 def index(request):
     response = redirect('/home/')
     return response
 
+#In add patient from data pass
 def patient(request):
     wards = Ward.objects.all()
     beds = Bed.objects.all()
@@ -236,7 +247,7 @@ def patient(request):
     symptoms = Symptoms.objects.all()
     return render(request, 'addPatient.html',{"wards":wards,"beds":beds,"doctors":doctors,"states":states,"cities":cities,"symptoms":symptoms})
 
-
+# book appointment
 def bookAppointment(request):
     if request.method == 'POST':
         patientCheck = request.POST.get('check')
@@ -264,6 +275,7 @@ def bookAppointment(request):
 
     return render(request,'bookAppointment.html')
 
+# book appointment done
 def bookedAppointment(request):
     data = {}
     if request.method == 'POST':
@@ -303,44 +315,44 @@ def bookedAppointment(request):
         return redirect ('/',context=data)
 
 
-
+# logout
 def logout(request):
     try:
         del request.session['Suser']
-        
-        
     except KeyError:
-      
         try:
             del request.session['Duser']
         except KeyError:
             pass
-        
     return redirect ('/')
+
+# bed ajax
 def getbedsajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']        
         try:
             beds = Bed.objects.all().filter(wardName=wardname,occupied=False)
-            print(beds)
+            
         except Exception as e:
             data['error_message'] = e
             return JsonResponse(data)
         return JsonResponse(list(beds.values('bedId', 'bedNumber')), safe = False)
 
+# price ajax
 def getpricesajax(request):
     if request.method == "POST":        
         wardname = request.POST['wardname']  
         try:
-            print(wardname)
+            
             price = Ward.objects.all().filter(wardId=wardname)
             
-            print(price.values('wardPrice'))
+           
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)  
         return JsonResponse(list(price.values('wardName', 'wardPrice')), safe = False)        
 
+# doctor ajax
 def getdoctorsajax(request):
     if request.method == "POST":
         wardname = request.POST.get('wardname')
@@ -355,8 +367,8 @@ def getdoctorsajax(request):
             return JsonResponse(data)
         return JsonResponse(list(doctord.values('doctorId', 'doctorName')), safe = False)
 
+# city ajax
 def getcitiesajax(request):
-
     if request.method == "POST":
         stateName = request.POST['statename']
         try:            
@@ -366,6 +378,7 @@ def getcitiesajax(request):
             return JsonResponse(data)
         return JsonResponse(list(cities.values('cityId', 'cityName')), safe = False)  
 
+# email
 def email(request):
     if request.method=="POST":
         
@@ -389,18 +402,21 @@ def email(request):
         email.send()
     return render(request,"email.html")   
 
+# delete patient
 def deletePatient(request):
     id = request.GET.get('id')
     p = Patient.objects.get(patientId = id[:-1])
     p.delete()
     return redirect("/staffDashboard")
 
+# reject apoointment
 def deleteAppointment(request):
     id = request.GET.get('id')
     p = Appointment.objects.get(appointmentId = id[:-1])
     p.delete()
     return redirect("/message")
 
+# update patient data fetch
 def updatePatient(request):
     id = request.GET.get('id')
     updatePatient = Patient.objects.all().filter(patientId=int(id[:-1]))
@@ -413,8 +429,7 @@ def updatePatient(request):
     symptoms = Symptoms.objects.all()
     patientName = id[:-1]
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
-    # for i in patient: 
-    #     print("date",i.doctorLastVisited)
+    
     var=[]
     for i in updateSymptoms:
         var.append(i.Symptoms.symptoms)
@@ -428,6 +443,7 @@ def updatePatient(request):
 #             return render(request, 'index.html',{"termConditions":termConditions})
 #     return redirect('/')
 
+# terms and condition
 def terms():
     getdata = page.objects.all().values()
     for i in getdata:
@@ -440,6 +456,7 @@ def terms():
         else:
             return None
 
+# about us
 def aboutUs(request):
     slug = terms()
     getdata = block.objects.all().values()
@@ -459,6 +476,7 @@ def aboutUs(request):
                  
     return render(request, 'aboutUs.html',{"slug":slug,"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
 
+# contact us
 def contactUs(request):
     slug = terms()
     getdata = block.objects.all().values()
@@ -498,6 +516,8 @@ class TC(DetailView):
     context_object_name = 'page'
     template_name = "termsConditions.html"
     
+
+# patient update
 def PatientUpdate(request):
     
    if request.method == 'POST':
@@ -519,10 +539,10 @@ def PatientUpdate(request):
         cities = request.POST['cities']
         cityId = City.objects.get(cityName=cities)
         pincode = request.POST['pincode']
-        dob = request.POST['dob']
+        dob = request.POST['datepicker']
         history = request.POST['history']
         beds = request.POST['beds']
-        bedId = Bed.objects.get(bedId=beds)
+        # bedId = Bed.objects.get(bedId=beds)
         prices = request.POST['prices']
         doctors = request.POST['doctors']
         # doctorId = Doctor.objects.get(doctorName=doctors)
@@ -531,12 +551,9 @@ def PatientUpdate(request):
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
         
-        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         
         for i in range(len(file1)):
-            # patientId = Patient.objects.latest('patientId')
-            # print("hjjsjsjvjs",patientId)
-            # patientId = Patient.objects.get(patientName=patientName) 
             PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
             
         symptoms = request.POST.getlist('symptoms')
@@ -550,6 +567,7 @@ def PatientUpdate(request):
             # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
         return redirect('/staffDashboard')      
 
+# display bed
 def showBed(request):
     beds = Bed.objects.all()
     wards = Ward.objects.all()
