@@ -175,7 +175,7 @@ class Patient(models.Model):
     bedNumber  = models.ForeignKey('Bed',on_delete=models.CASCADE,blank=True) #,limit_choices_to={'occupied': False}
     doctorName = models.ForeignKey('Doctor',on_delete=models.CASCADE,default=None,blank=True)
     doctorNotes = models.CharField(("Doctor Notes"),max_length=250,default=None,blank=True)
-    doctorLastVisited = models.DateField(("Doctor last visited on"),default=None,blank=True)
+    doctorVisitingTime = models.DateTimeField(("Doctor Visiting Time"),default=None,blank=True)
     dateTime = models.DateTimeField(("Date Time"),default=now)
     
     pending = 'Pending'
