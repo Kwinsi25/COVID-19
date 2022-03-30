@@ -3,6 +3,10 @@
 {% include "staffNav.html" %}
 <head>
     <link rel="stylesheet" href="{% static 'css/addPatient1.css' %}">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
+    <script src="{% static 'js/jquery-validation-addPatient.js' %}"></script>
+
     </head>
  
     <div class="container">
@@ -11,6 +15,7 @@
       <form action="confirmDetails/" method="post">
         {% csrf_token %}
         {% for i in bookAppointment %}
+        <input type="hidden" id="appointmentId" name="appointmentId" value="{{i.appointmentId}}">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Case Number</span>
@@ -26,7 +31,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Email Id</span>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" value="{{i.email}}" required>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" value="{{i.patientEmail}}" required>
             </div>
             <div class="input-box">
                 <div class="gender-details">
@@ -50,11 +55,11 @@
             </div>
             <div class="input-box">
                 <span class="details">Patient Relative Name</span>
-                    <input type="text" id="patientRelativeName" name="patientRelativeName" placeholder="Enter Patient Relative Name" required>
+                    <input type="text" id="patientRelativeName" name="patientRelativeName" value="{{i.patientRelativeName}}">
             </div>
             <div class="input-box">
                 <span class="details">Patient Relative Contact Number</span>
-                    <input type="text" id="patientRelativeContactNumber" name="patientRelativeContactNumber" placeholder="Enter Patient Relative Contact " required>
+                    <input type="text" id="patientRelativeContactNumber" name="patientRelativeContactNumber" value="{{i.patientRelativeNumber}}">
             </div>
             <div class="input-box">
                 <span class="details">Line1</span>
@@ -137,7 +142,7 @@
             <div class="input-box">
                 <span class="details">Status</span>
                 <select id="status" name="status">
-                    <option  value="pn" selected>Pending</option>
+                    <option  value="Pending" selected>Pending</option>
                 </select>
             </div>
             <div class="input-box">

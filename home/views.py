@@ -164,11 +164,9 @@ def confirmationDetails(request):
 # appointment data and patient data added in patient
 def confirmDetails(request):
     if request.method == 'POST':
+        appointmentId = request.POST['appointmentId']
         caseNumber = request.POST['caseNumber']
-        
         patientName = request.POST['patientName']
-        
-
         phone = request.POST['phone']
         email = request.POST['email']
         gender = request.POST['gender']
@@ -197,8 +195,12 @@ def confirmDetails(request):
         file = request.POST.getlist('file')
         patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         patient.save()
+        
+        p = Appointment.objects.get(appointmentId = appointmentId)
+        p.delete()
+        
         pId=Patient.objects.latest("patientId")
-        print("hiii",pId.patientId)
+        
         for i in range(len(file)):
             patientId = Patient.objects.get(patientId=pId.patientId) 
             patientDocument = PatientDocument(patientName=patientId,document=file[i])
