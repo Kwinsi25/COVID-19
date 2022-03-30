@@ -1,5 +1,13 @@
 $().ready(function () {
+  $("textarea").keyup(function(){
 
+    if(this.value.length <= 100){
+        $("#remainingChar").html("Remaining Characters : " + (100 - this.value.length));
+    } 
+    else{
+        $("#remainingChar").html("Length Exceeded!");
+    }
+    });
   $("#form").validate({
     errorElement: 'span',
     rules: {
@@ -21,15 +29,15 @@ $().ready(function () {
     messages: {
       name: {
         required: "Please Enter Name",
-        minlength: "Please Enter Min 3 Charcter"
+        minlength: "Please Enter Minimum 3 Characters"
       },
       email: {
         required: "Please Enter Email Id",
         email: "Please Enter Valid Email Id"
       },
       msg: {
-        required: "Please Enter Massage",
-        maxlength: "Please Enter Max 100 Charcter"
+        required: "Please Enter Message",
+        maxlength: "Please Enter Character Less than 100 "
       },
     },
     submitHandler: function (form) {

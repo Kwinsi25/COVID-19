@@ -254,49 +254,7 @@
         {% include 'footer.html'%}
         
 
-        <script>
-            
-            window.onload = function() {
-                $('#case').hide();
-            }
-            $('#already').click(function(){
-                $('#case').show();
-              })
-              $('#new').click(function(){
-                $('#case').hide();
-              })
-            
-            $(function() {
-            
-                $("#newModalForm").validate({
-                    rules: {
-                        username: {
-                            required: true,
-                        },
-                        password: "required",
-                        role:"required"
-                    },
-                    messages: {
-                        username: {
-                            required: "Please enter username",
-                        },
-                        password: "Please provide password",
-                        role:"Role is Required"
-                    },
-                    errorPlacement:
-                    function( error, element ){
-                    if(element.is( ":radio" )){
-                    // error append here
-                    error.appendTo('#err');
-                    }
-                    else {
-                    error.insertAfter(element);
-                    }
-                    },
-                });
-            });
-
-        </script>
+       
 </body>
     
 </html>

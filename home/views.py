@@ -443,17 +443,36 @@ def aboutUs(request):
     getdata = block.objects.all().values()
     for i in getdata:
         if i['slug'] == 'dr1':
-            dr1 = i['content']
+            if i['status'] == 'enabled':
+                dr1 = i['content']
+            else:
+                dr1=""
         elif i['slug'] == 'dr2':
-            dr2 = i['content']
+            if i['status'] == 'enabled':
+                dr2 = i['content']
+            else:
+                dr2=""
         elif i['slug'] == 'dr3':
-            dr3 = i['content']
+            if i['status'] == 'enabled':
+                dr3 = i['content']
+            else:
+                dr3=""
         elif i['slug'] == 'covidServices':
-            covidServices = i['content']
+            if i['status'] == 'enabled':
+                covidServices = i['content']
+            else:
+                covidServices=""
         elif i['slug'] == 'modernScience':
-            modernScience = i['content']
+            if i['status'] == 'enabled':
+                modernScience = i['content']
+            else:
+                modernScience=""
         elif i['slug'] == 'entrustHealth':
-            entrustHealth = i['content']    
+            if i['status'] == 'enabled':
+                entrustHealth = i['content']  
+            else:
+                entrustHealth=""
+                
                  
     return render(request, 'aboutUs.html',{"slug":slug,"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
 
@@ -463,11 +482,26 @@ def contactUs(request):
     contectus = ContactUs.objects.all()
     for i in getdata:
         if i['slug'] == 'contact':
-            contact = i['content']
+            if i['status'] == 'enabled':
+                contact = i['content']
+            else:
+                contact=""
         elif i['slug'] == 'email':
-            email = i['content'] 
+            if i['status'] == 'enabled':
+                email = i['content']
+            else:
+                email=""    
+        elif i['slug'] == 'openingHours':
+            if i['status'] == 'enabled':
+                openingHours = i['content']
+            else:
+                openingHours=""
         elif i['slug'] == 'address':
-            address = i['content']     
+            if i['status'] == 'enabled':
+                address = i['content']
+            else:
+                address=""    
+             
     name=""
     emailid=""
     msg=""
@@ -489,7 +523,7 @@ def contactUs(request):
 
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
+    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,"openingHours":openingHours,'name':name,'emailid':emailid,'Msg':msg})
 
 class TC(DetailView):
     model = page

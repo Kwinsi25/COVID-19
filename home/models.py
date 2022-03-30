@@ -18,13 +18,14 @@ class page(models.Model):
     pageId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     fieldname = models.CharField(max_length=100,unique=True,default=None)
+    slug = models.SlugField(null=True, unique=True)
+    content = tinymce_models.HTMLField()
     statusChoice = (
         ('enabled','Enabled'),
         ('disabled','Disabled'),
     )
     status = models.CharField(max_length=10,choices=statusChoice,default='enabled')
-    body = tinymce_models.HTMLField()
-    slug = models.SlugField(null=True, unique=True)
+    
 
     def __str__(self):
         return str(self.title)   
@@ -38,6 +39,11 @@ class block(models.Model):
     title = models.CharField(max_length=100)
     slug = models.CharField(max_length=100,unique=True,default=None)
     content = tinymce_models.HTMLField()
+    statusChoice = (
+        ('enabled','Enabled'),
+        ('disabled','Disabled'),
+    )
+    status = models.CharField(max_length=10,choices=statusChoice,default='enabled')
 
     def __str__(self):
         return str(self.title) 
