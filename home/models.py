@@ -17,7 +17,6 @@ class configuration(models.Model):
 class page(models.Model):
     pageId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    fieldname = models.CharField(max_length=100,unique=True,default=None)
     slug = models.SlugField(null=True, unique=True)
     content = tinymce_models.HTMLField()
     statusChoice = (

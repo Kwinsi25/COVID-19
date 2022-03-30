@@ -451,12 +451,9 @@ def updatePatient(request):
 def terms():
     getdata = page.objects.all().values()
     for i in getdata:
-        if i['fieldname'] == 'termConditions' and i['status'] == 'enabled':
+        if i['slug'] == 'term-conditions' and i['status'] == 'enabled':
             slug = i['slug']
-            return slug
-        elif i['fieldname'] == 'aboutUs' and i['status'] == 'enabled':
-            slug = i['slug']
-            return slug    
+            return slug  
         else:
             return None
 
