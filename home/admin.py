@@ -60,7 +60,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
 class OxygenAdmin(admin.ModelAdmin):
     list_per_page = perpage
-    list_display = ['oxygen_Total_Hour','oxygen_Used','oxygen_Remaining','oxygen_Remaining_Hour']
+    list_display = ['oxygen_Total','oxygen_Total_Hour','oxygen_Used','oxygen_Remaining']
 
 class AppointmentAdmin(admin.ModelAdmin):
     list_per_page = perpage

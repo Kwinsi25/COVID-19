@@ -539,7 +539,33 @@ def contactUs(request):
             else:
                 address=""    
              
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password') 
+        if request.POST.get("role")=="Staff":
+            Details=staff.objects.filter(staffUserName = username,staffPassword = password)
+        if request.POST.get("role")=="Doctor":
+            Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
+        if Details.count() > 0 :
+            if request.POST.get("role")=="Staff":
     
+                if "Suser" in request.session:
+                    del request.session["Suser"]
+                request.session['Suser']=str(Details.get())
+                return redirect ( 'staffDashboard/')
+            
+ 
+            if request.POST.get("role")=="Doctor":
+                patient=Patient.objects.all().filter(doctorName=Details.get())
+                if "Duser" in request.session:
+                    del request.session["Duser"]
+                request.session['Duser']=str(Details.get())
+    
+                return redirect ("/doctorDashboard/")
+        else:
+            err="Username and Password is not valid!"
+            return render(request, 'index.html',{'err':err})
+
     name=""
     emailid=""
     number=""
