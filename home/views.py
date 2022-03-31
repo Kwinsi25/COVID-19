@@ -252,6 +252,88 @@ def confirmDetails(request):
         email.send()
         return render(request,'approved.html')    
 
+# patientAdd
+def patientAdded(request):
+    if request.method == 'POST':
+        
+        caseNumber = request.POST['caseNumber']
+        patientName = request.POST['patientName']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        gender = request.POST['gender']
+        genderName = Identifygender(gender)
+        patientRelativeName = request.POST['patientRelativeName']
+        patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
+        line1 = request.POST['line1']
+        line2 = request.POST['line2']
+        wardss = request.POST['wardss']        
+        wardId = Ward.objects.get(wardId=wardss)
+        statess = request.POST['statess']
+        stateId = State.objects.get(stateId=statess)
+        cities = request.POST['cities']
+        cityId = City.objects.get(cityId=cities)
+        pincode = request.POST['pincode']
+        dob = request.POST['dob']
+        history = request.POST['history']
+        wardss= request.POST['wardss']
+        beds = request.POST['beds']
+        bedId = Bed.objects.get(bedId=beds)
+        prices = request.POST['prices']
+        doctors = request.POST['doctors']
+        doctorId = Doctor.objects.get(doctorId=doctors)
+        notes = request.POST['notes']
+        time = request.POST['time']
+        status = request.POST['status']
+        file = request.POST.getlist('file')
+        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
+        patient.save() 
+        pId=Patient.objects.latest("patientId")
+        
+        for i in range(len(file)):
+            patientId = Patient.objects.get(patientId=pId.patientId) 
+            patientDocument = PatientDocument(patientName=patientId,document=file[i])
+            patientDocument.save()
+        symptoms = request.POST.getlist('symptoms')
+        for i in symptoms:
+            symptomsId = Symptoms.objects.get(symptomsId=int(i))
+            patientId = Patient.objects.get(patientId=pId.patientId)
+            PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+            PatientSymptoms.save()
+            html_content = render_to_string("confirmdetailsemailadmin.html",{'title':'Hello Admin,','msg':"Patient's Appointment is confirm by the Staff!",
+        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
+        "line1":line1,"line2":line2,"wardss":wardss,"wardId":wardId,"statess":statess,"stateId":stateId,"cities":cities,
+        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId,"prices":prices,"doctors":doctors,
+        "doctorId":doctorId,"notes":notes,"time":time,"status":status,"file":file})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "New Patient is added!",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ["omipatel213@gmail.com"],
+        )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
+    
+        
+        return redirect ('/viewPatient')
+        
+    else:
+        html_content = render_to_string("approvedemail.html",{'title':'Hello','msg':"Your Appointment is confirm by the Staff!",
+        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
+        "line1":line1,"line2":line2,"wardss":wardss,"wardId":wardId,"statess":statess,"stateId":stateId,"cities":cities,
+        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId,"prices":prices,"doctors":doctors,
+        "doctorId":doctorId,"notes":notes,"time":time,"status":status,"file":file})
+        text_content = strip_tags(html_content)
+        email = EmailMultiAlternatives(
+            "Your Appopintment is Approved!",
+            text_content,
+            settings.EMAIL_HOST_USER,
+            ['omipatel213@gmail.com'],
+        )
+        email.attach_alternative(html_content,"text/html")
+        email.send()
+        return render(request,'addPatient.html')    
+
 # message
 def message(request):
     bookAppointment = Appointment.objects.all()
@@ -449,7 +531,9 @@ def updatePatient(request):
     symptoms = Symptoms.objects.all()
     patientName = id[:-1]
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
-    
+    for i in updatePatient:
+        print("date of birth: ",i.dob)
+        print("Time: ",i.doctorVisitingTime)
     var=[]
     for i in updateSymptoms:
         var.append(i.Symptoms.symptoms)
@@ -603,21 +687,22 @@ def PatientUpdate(request):
         time = request.POST['time']
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
+        # print("Date of birth:",dob)
+        # print("time:",time)
+        # Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         
-        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
-        
-        for i in range(len(file1)):
-            PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
+        # for i in range(len(file1)):
+        #     PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
             
-        symptoms = request.POST.getlist('symptoms')
-        PatientSymptom.objects.filter(patientName = patientId).delete()
+        # symptoms = request.POST.getlist('symptoms')
+        # PatientSymptom.objects.filter(patientName = patientId).delete()
         
-        for i in symptoms:
-            symptomsId = Symptoms.objects.get(symptomsId=int(i))
-            patientId = Patient.objects.get(patientName=patientName)
-            patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
-            patientSymptoms.save()
-            # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
+        # for i in symptoms:
+        #     symptomsId = Symptoms.objects.get(symptomsId=int(i))
+        #     patientId = Patient.objects.get(patientName=patientName)
+        #     patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+        #     patientSymptoms.save()
+        #     # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
         return redirect('/staffDashboard')      
 
 # display bed

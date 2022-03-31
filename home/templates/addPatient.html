@@ -8,7 +8,7 @@
 
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
-<script src="{% static 'js/jquery-validation-addPatient.js' %}"></script>
+<script src="{% static 'Js/jquery-validation-addPatient.js' %}"></script>
 
 
 <style>
@@ -20,7 +20,7 @@
 <div class="container">
     <div class="title">Add Patient</div>
     <div class="content">
-      <form action="confirmDetails/" method="post" autocomplete="off" id="addPatient" novalidate>
+      <form action="patientAdded/" method="post" autocomplete="off" id="addPatient" novalidate>
         {% csrf_token %}
         <div class="user-details">
             <div class="input-box">
