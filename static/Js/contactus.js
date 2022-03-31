@@ -11,9 +11,13 @@ $().ready(function () {
         required: true,
         email: true,
       },
+      number: {
+        required: true,
+        maxlength: 10,
+        minlength: 10,
+      },
       msg: {
         required: true,
-        maxlength: 100,
       },
 
     },
@@ -27,15 +31,17 @@ $().ready(function () {
         required: "Please Enter Email Id",
         email: "Please Enter Valid Email Id"
       },
+      number: {
+        required: "Please Enter Phone No",
+        maxlength: "Please Enter Max 10 Number",
+        minlength: "Please Enter Min 10 Number"
+      },
       msg: {
         required: "Please Enter Massage",
-        maxlength: "Please Enter Max 100 Charcter"
       },
     },
     submitHandler: function (form) {
-      alert("Form Submitted");
-      console.log('Form Submitted');
-      // It is optional submit form or use AJAX snippet here to make AJAX call
+      document.getElementById("success").hidden = false;
       form.submit();
   }
   });

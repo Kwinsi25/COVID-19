@@ -6,7 +6,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 <style>
-
+    .float-end a i{
+      font-size: 40px;
+      color:rgb(0, 0, 0);
+      padding-left: 0px;
+    }
+    .float-end a i:hover{
+      color:blueviolet;
+      transform: scale(1.3);
+    }
     /* Add some padding on document's body to prevent the content
     to go underneath the header and footer */
     /*body{        
@@ -62,10 +70,9 @@
     <br><center><h1>{{page.title}}</h1></center>  <br><br>                          
     <p>{{page.content|safe}}</p>
     <br>
-    <p class="float-end" style="text-align: right;"><br><a href="#"><i class="fa fa-arrow-up" style="font-size: 40px;color:rgb(72, 26, 116);  "></i></a></p>
-    
-    </div>          
+    <p class="float-end" style="text-align: right;"><br><a href="#"><i class="fa fa-arrow-circle-up"></i></a></p>
+       
+</div>
     {% include 'footer.html'%}
-    </div>
 </body>
 </html>

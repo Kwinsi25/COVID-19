@@ -39,6 +39,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
+<style>
+    .error{
+        color: red;
+    }
+</style>
 <div class="fixed-header" id="fixed-header-bookAppo">
     <div class="container" id="container1">
         <nav>
@@ -104,7 +109,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'bookAppointment' %}" method="post" autocomplete="off" id="bookAppointment">
+                <form action="/bookAppointment/" method="post" autocomplete="off" id="bookAppointment">
                     {% csrf_token %}
                     
                     <div class="form-group">
@@ -133,3 +138,47 @@
         </div>
     </div>
 </div>    
+
+<script>
+            
+    window.onload = function() {
+        $('#case').hide();
+    }
+    $('#already').click(function(){
+        $('#case').show();
+      })
+      $('#new').click(function(){
+        $('#case').hide();
+      })
+    
+    $(function() {
+    
+        $("#newModalForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                },
+                password: "required",
+                role:"required"
+            },
+            messages: {
+                username: {
+                    required: "Please Enter Username",
+                },
+                password: "Please Provide Password",
+                role:"Please Select Your Role"
+            },
+            errorPlacement:
+            function( error, element ){
+            if(element.is( ":radio" )){
+            // error append here
+            error.appendTo('#err');
+            }
+            else {
+            error.insertAfter(element);
+            }
+            },
+        });
+    });
+
+</script>

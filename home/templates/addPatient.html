@@ -5,10 +5,22 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script> 
+<script src="{% static 'Js/jquery-validation-addPatient.js' %}"></script>
+
+
+<style>
+    .error {
+    color: red;
+  }
+  </style>
+  
 <div class="container">
     <div class="title">Add Patient</div>
     <div class="content">
-      <form action="confirmDetails/" method="post" autocomplete="off">
+      <form action="patientAdded/" method="post" autocomplete="off" id="addPatient" novalidate>
         {% csrf_token %}
         <div class="user-details">
             <div class="input-box">
@@ -17,7 +29,8 @@
               </div>
           <div class="input-box">
             <span class="details">Patient Name</span>
-            <input type="text" id="patientName" name="patientName" placeholder="Enter Patient Name" required>
+            <input type="text" id="patientName" name="patientName" placeholder="Enter Patient Name" >
+            
           </div>
             <div class="input-box">
                 <span class="details">Phone Number</span>
@@ -159,19 +172,20 @@
 </body>
 {% block javascript %}
 <script>
-$( function() {
-    $( "#datepicker" ).datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-  } );
-  $( function() {
-    $( "#datepicker1" ).datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-  } );
+    
+            $( function() {
+                $( "#datepicker" ).datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            } );
+            $( function() {
+                $( "#datepicker1" ).datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            } );
 
-$("#wardss").change(function () {
-        const wardname = $(this).val(); 
+        $("#wardss").change(function () {
+            const wardname = $(this).val(); 
 
         $.ajax({                                // initialize an AJAX request
             type: "POST",

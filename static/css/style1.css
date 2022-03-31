@@ -518,3 +518,13 @@ nav a{
     padding: 7px 25px;
     display: inline-block;
 }
+
+
+/* This CSS is for rearranging the other on CSS for footer.html which are changed. */
+.fw-bold {
+    font-weight: 700!important; 
+}
+.me-3 {
+    margin-right: 1rem!important;
+}
+/* This CSS is for rearranging the other on CSS for footer.html which are changed. */
