@@ -640,7 +640,7 @@ def contactUs(request):
                 if "Suser" in request.session:
                     del request.session["Suser"]
                 request.session['Suser']=str(Details.get())
-                return redirect ( 'staffDashboard/')
+                return redirect ( '/staffDashboard/')
             
  
             if request.POST.get("role")=="Doctor":
