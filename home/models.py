@@ -17,14 +17,16 @@ class configuration(models.Model):
 class page(models.Model):
     pageId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    fieldname = models.CharField(max_length=100,unique=True,default=None)
+    slug = models.SlugField(null=True, unique=True)
+    content = tinymce_models.HTMLField()
     statusChoice = (
         ('enabled','Enabled'),
         ('disabled','Disabled'),
     )
     status = models.CharField(max_length=10,choices=statusChoice,default='enabled')
-    body = tinymce_models.HTMLField()
-    slug = models.SlugField(null=True, unique=True)
+    number = models.IntegerField(default=0)
+    
+    
 
     def __str__(self):
         return str(self.title)   
@@ -49,6 +51,7 @@ class staff(models.Model):
     staffLastName = models.CharField(max_length=24,default=None)
     staffPassword = models.CharField(max_length=24,null=True,blank=True)
     staffContactNumber = models.CharField(max_length=10)
+    staffEmail = models.EmailField(("Email Id"),unique=True)
     staffPhoto = models.ImageField(upload_to='staffImages',null=True, blank=True)
     genderChoice = (
         ('M', 'Male'),
@@ -94,6 +97,7 @@ class Doctor(models.Model):
     doctorUsername=models.CharField(("Doctor Username"),max_length=15)
     doctorPass=models.CharField(("Doctor Password"),max_length=100)
     doctorContact = models.IntegerField(("Doctor Contact"))
+    doctorEmail = models.EmailField(("Email Id"),unique=True)
     Specialization = models.ForeignKey('Specialization',on_delete = models.CASCADE,null=False)
 
     def __str__(self):

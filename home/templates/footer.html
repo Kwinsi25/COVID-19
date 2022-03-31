@@ -13,20 +13,22 @@
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <!-- Content -->
             <h6 class="text-uppercase fw-bold mb-4" style="color: #FFFFFF;">
-              <i class="fas fa-gem me-3"></i><a href="/" style="color: #FFFFFF; text-decoration: none;">COVID-19 HMS</a>
+              <a href="/" style="color: #FFFFFF; text-decoration: none;">COVID-19 HMS</a>
             </h6>
           </div>
           <!-- Grid column -->
-  
+          
+          {% for i in pages %}
           <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <div class="col-md-2 col-lg-2 col-xl-3 mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4" style="color: #FFFFFF;">
-              <a href="/aboutUs" style="color: #FFFFFF; text-decoration: none;">About Us</a>
+              <a href="/{{i.slug}}" style="color: #FFFFFF; text-decoration: none;">{{i.title}}</a>
             </h6>
           </div>
           <!-- Grid column -->
-  
+          {% endfor %}
+
           <!-- Grid column -->
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
@@ -36,15 +38,6 @@
           </div>
           <!-- Grid column -->
   
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4" style="color: #FFFFFF;">
-              <a style="color: #FFFFFF; text-decoration: none;" {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
-            </h6>
-            
-          </div>
-          <!-- Grid column -->
         </div>
         <!-- Grid row -->
       </div>

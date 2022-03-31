@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <title>Terms and Conditions | Covid-19 HMS</title>
+  <title>{{page.title}} | Covid-19 HMS</title>
 <link href="{% static 'css/style1.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
@@ -58,12 +58,12 @@
     </div> -->
 <body>
 <div class="container">
-
+    
     <br><center><h1>{{page.title}}</h1></center>  <br><br>                          
-    <p>{{page.body|safe}}</p>
+    <p>{{page.content|safe}}</p>
     <br>
     <p class="float-end" style="text-align: right;"><br><a href="#"><i class="fa fa-arrow-up" style="font-size: 40px;color:rgb(72, 26, 116);  "></i></a></p>
-
+    
     </div>          
     {% include 'footer.html'%}
     </div>

@@ -45,9 +45,10 @@
             <img src="{% static 'corona.png' %}" height="50px" width="50px">
             <a href="/">Home</a>
             <a href="#bookappo"data-toggle="modal">Book Appointment</a>
-            <a href="/aboutUs">About Us</a>
+            {% for i in pages %}
+            <a href="/{{i.slug}}">{{i.title}}</a>
+            {% endfor %}
             <a href="/contactUs">Contact Us</a>
-            <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
             <a href="#myModal" data-toggle="modal">Login</a>
         </nav>
     </div>
@@ -103,7 +104,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="bookAppointment/" method="post" autocomplete="off" id="bookAppointment">
+                <form action="{% url 'bookAppointment' %}" method="post" autocomplete="off" id="bookAppointment">
                     {% csrf_token %}
                     
                     <div class="form-group">

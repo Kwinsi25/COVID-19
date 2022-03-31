@@ -27,7 +27,7 @@ def passwordCheck(value):
     return errorMessage,value
 # Create your views here.
 def home(request):
-    slug = terms()
+    pages = page_list()
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
     wards = Ward.objects.all()
@@ -56,7 +56,7 @@ def home(request):
                 if "Suser" in request.session:
                     del request.session["Suser"]
                 request.session['Suser']=str(Details.get())
-                return redirect ( 'staffDashboard/')
+                return redirect ( '/staffDashboard/')
             
  
             if request.POST.get("role")=="Doctor":
@@ -65,12 +65,12 @@ def home(request):
                     del request.session["Duser"]
                 request.session['Duser']=str(Details.get())
     
-                return redirect ("doctorDashboard/")
+                return redirect ("/doctorDashboard/")
         else:
             err="Username and Password is not valid!"
             return render(request, 'index.html',{'err':err})
                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"slug":slug})
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"pages":pages})
 
 def login(request):
     return render(request,'login.html')
@@ -238,7 +238,9 @@ def patient(request):
 
 
 def bookAppointment(request):
+    pages = page_list()
     if request.method == 'POST':
+        
         patientCheck = request.POST.get('check')
         if patientCheck == "oldPatient":
             caseNumber = request.POST['caseNumber']
@@ -254,15 +256,17 @@ def bookAppointment(request):
                         patientDetails['rname'] = p.patientRelativeName
                         patientDetails['pemail'] = p.patientEmail
                         patientDetails['caseNumber'] = p.caseNumber
+                        patientDetails['pages'] = pages
                     return render(request,'bookAppointment.html',context=patientDetails)
                 else:
                     return redirect ('/bookAppointment')
         elif patientCheck == "newPatient":
-            return redirect ('bookAppointment')
+            return render(request,'bookAppointment.html',{'pages': pages})
+            # return redirect ('bookAppointment')
         else:
             return redirect ('/')
 
-    return render(request,'bookAppointment.html')
+    return render(request,'bookAppointment.html',{'pages': pages})
 
 def bookedAppointment(request):
     data = {}
@@ -460,7 +464,7 @@ def aboutUs(request):
     return render(request, 'aboutUs.html',{"slug":slug,"dr1":dr1,"dr2":dr2,"dr3":dr3,"covidServices":covidServices,"modernScience":modernScience,"entrustHealth":entrustHealth})
 
 def contactUs(request):
-    slug = terms()
+    pages = page_list()
     getdata = block.objects.all().values()
     contectus = ContactUs.objects.all()
     for i in getdata:
@@ -491,7 +495,7 @@ def contactUs(request):
 
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
+    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
 
 class TC(DetailView):
     model = page
@@ -558,3 +562,13 @@ def showBed(request):
         if bed.occupied == False:
             bedcnt = bedcnt + 1
     return render(request, 'showBed.html',{"bedcnt":bedcnt,"beds":beds})
+
+def page_list():
+    pages = page.objects.filter(status="enabled").order_by('number')
+    return pages
+
+def page_details(request,slug):
+    pages = page_list()
+    pagedetails = page.objects.get(slug=slug)
+    print(pagedetails)
+    return render(request,'slugpage.html',{'page':pagedetails,'pages':pages})
