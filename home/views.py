@@ -717,7 +717,7 @@ def contactUs(request):
         email.send()
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg})
+    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,"openingHours":openingHours,'name':name,'emailid':emailid,'Msg':msg})
     
 class TC(DetailView):
     model = page
