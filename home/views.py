@@ -11,7 +11,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
 import random
-
+from django.contrib import messages
 data ={}
 def firstNameCheck(value):
     errorMessage = ""
@@ -805,6 +805,7 @@ def resetPassword(request):
         return render(request, 'resetPassword.html',{"code":code})
     
     else:
+        messages.add_message(request, messages.ERROR, 'Reset code is expired')
         return redirect("/")
     
     
