@@ -1,0 +1,18 @@
+<script>
+    $(function() {
+      setTimeout(function() { $("#notSuccess").fadeOut(500); }, 7000)
+      
+      })
+    </script>
+    
+{% if messages %}
+<div class="alert alert-warning alert-dismissible fade show" id="notSuccess" name="notSuccess" role="alert"
+  style="background-color: rgb(245, 153, 153); color: black;">
+  {% for message in messages %}
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
