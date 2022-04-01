@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <!-- datetime -->
+    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.datetimepicker.full.js' %}"></script>
+
 
     
    </head>
@@ -184,7 +189,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Doctor Visiting Time</span> 
-                    <input type="text" id="time" name="time" value="{{ i.doctorVisitingTime|date:'Y-m-d h:i:s' }}">
+                <input  id="time" name="time" value="{{ i.doctorVisitingTime|date:'Y-m-d h:i:s' }}">
                     
                     
             </div>
@@ -229,10 +234,6 @@
   </div>
     
 </body>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}"/>
-<script src="{% static 'js/jquery.datetimepicker.js' %}"></script>
 {% block javascript %}
 <script>
         $( function() {
@@ -241,10 +242,9 @@
                 
             });
         } );
-        $( function() {
-            $('#time').datetimepicker();
-
-        } );
+        $('#time').datetimepicker({
+            dateFormat: 'yy-mm-dd h:i:s',
+        });
 
         $("#wardss").change(function () {
             const wardname = $(this).val(); 

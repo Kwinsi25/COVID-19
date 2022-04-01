@@ -11,6 +11,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
 import random
+import datetime
 
 data ={}
 def firstNameCheck(value):
@@ -744,7 +745,7 @@ def PatientUpdate(request):
         statess = request.POST['statess']
         # stateId = State.objects.get(stateName=statess)
         cities = request.POST['cities']
-        cityId = City.objects.get(cityName=cities)
+        # cityId = City.objects.get(cityName=cities)
         pincode = request.POST['pincode']
         dob = request.POST['datepicker']
         history = request.POST['history']
@@ -755,24 +756,24 @@ def PatientUpdate(request):
         # doctorId = Doctor.objects.get(doctorName=doctors)
         notes = request.POST['notes']
         time = request.POST['time']
+        dt_obj = datetime.datetime.strptime(time,'%Y/%m/%d %H:%M')
+        dt_str = datetime.datetime.strftime(dt_obj,'%Y-%m-%d %H:%M:%S')
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
-        # print("Date of birth:",dob)
-        # print("time:",time)
-        # Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cities,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=dt_str,patientStatus=status)
         
-        # for i in range(len(file1)):
-        #     PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
+        for i in range(len(file1)):
+            PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
             
-        # symptoms = request.POST.getlist('symptoms')
-        # PatientSymptom.objects.filter(patientName = patientId).delete()
+        symptoms = request.POST.getlist('symptoms')
+        PatientSymptom.objects.filter(patientName = patientId).delete()
         
-        # for i in symptoms:
-        #     symptomsId = Symptoms.objects.get(symptomsId=int(i))
-        #     patientId = Patient.objects.get(patientName=patientName)
-        #     patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
-        #     patientSymptoms.save()
-        #     # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
+        for i in symptoms:
+            symptomsId = Symptoms.objects.get(symptomsId=int(i))
+            patientId = Patient.objects.get(patientName=patientName)
+            patientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
+            patientSymptoms.save()
+            # PatientSymptom.objects.save(patientName=patientId,Symptoms=i)
         return redirect('/staffDashboard')      
 
 # display bed
