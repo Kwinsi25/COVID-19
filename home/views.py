@@ -13,6 +13,7 @@ from django.views.generic import DetailView
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
+import random
 
 data ={}
 def firstNameCheck(value):
@@ -46,30 +47,66 @@ def home(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password') 
-        if request.POST.get("role")=="Staff":
-            Details=staff.objects.filter(staffUserName = username,staffPassword = password)
-        if request.POST.get("role")=="Doctor":
-            Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
-        if Details.count() > 0 :
+        label=request.POST.get('forgot')
+        if label=="forgot":
+            email1=request.POST.get('email')
             if request.POST.get("role")=="Staff":
-                #print(staffDetails.get())
-                if "Suser" in request.session:
-                    del request.session["Suser"]
-                request.session['Suser']=str(Details.get())
-                return redirect ( 'staffDashboard/')
-            
- 
+                Details=staff.objects.filter(staffEmail = email1)
+
             if request.POST.get("role")=="Doctor":
-                patient=Patient.objects.all().filter(doctorName=Details.get())
-                if "Duser" in request.session:
-                    del request.session["Duser"]
-                request.session['Duser']=str(Details.get())
-    
-                return redirect ("doctorDashboard/")
+                Details=Doctor.objects.filter(doctorEmail= email1)
+                
+            
+            if Details.count() > 0 :
+                code=random.randint(0000,999999)    
+                html_content = render_to_string("resetEmail.html",{'uname':Details.get(),"code":code})
+                text_content = strip_tags(html_content)
+                email = EmailMultiAlternatives(
+                "Reset Password Link",
+                text_content,
+                settings.EMAIL_HOST_USER,
+                [email1],
+                )
+                email.attach_alternative(html_content,"text/html")
+                email.send()
+                
+                print(code)
+                if request.POST.get("role")=="Staff":
+                    staff.objects.filter(staffEmail = email1).update(code=code)
+                if request.POST.get("role")=="Doctor":
+                    Doctor.objects.filter(doctorEmail= email1).update(code=code)
+                msg = "Your details are submitted you will get email for Reset Password"
+            
+            else:
+                msg="Email is incorrect , Please try again!"
+            return render (request,'index.html',{"msg":msg})
+
+                
         else:
-            err="Username and Password is not valid!"
-            return render(request, 'index.html',{'err':err})
-               
+            if request.POST.get("role")=="Staff":
+                Details=staff.objects.filter(staffUserName = username,staffPassword = password)
+            if request.POST.get("role")=="Doctor":
+                Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
+            if Details.count() > 0 :
+                if request.POST.get("role")=="Staff":
+                    #print(staffDetails.get())
+                    if "Suser" in request.session:
+                        del request.session["Suser"]
+                    request.session['Suser']=str(Details.get())
+                    return redirect ( 'staffDashboard/')
+                
+    
+                if request.POST.get("role")=="Doctor":
+                    patient=Patient.objects.all().filter(doctorName=Details.get())
+                    if "Duser" in request.session:
+                        del request.session["Duser"]
+                    request.session['Duser']=str(Details.get())
+        
+                    return redirect ("doctorDashboard/")
+            else:
+                err="Username and Password is not valid!"
+                return render(request, 'index.html',{'err':err})
+                
     return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"slug":slug})
 
 def login(request):
@@ -558,3 +595,28 @@ def showBed(request):
         if bed.occupied == False:
             bedcnt = bedcnt + 1
     return render(request, 'showBed.html',{"bedcnt":bedcnt,"beds":beds})
+
+def resetPassword(request):
+    code=request.GET.get("code")
+    isSData=staff.objects.filter(code=code)
+    isDData=Doctor.objects.filter(code=code)
+    if request.method =="POST":
+        password=request.POST["pass"]
+        confirmPassword=request.POST["cpassword"]
+        if isSData.count()>0:
+            staff.objects.filter(code=code).update(staffPassword=password,code="000000")
+            return redirect("/")
+        if isDData.count()>0:
+            Doctor.objects.filter(code=code).update(doctorPass=password,code="000000")
+            return redirect("/")
+
+    if isSData.count()>0 or isDData.count()>0:
+        return render(request, 'resetPassword.html',{"code":code})
+    
+    else:
+        return redirect("/")
+    
+    
+    
+
+    

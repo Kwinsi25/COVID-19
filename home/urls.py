@@ -33,5 +33,6 @@ urlpatterns = [
     path('contactUs/',views.contactUs,name="contactUs"),
     path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate"),
     path('showBed/',views.showBed,name="showBed"),
+    path('resetPassword/',views.resetPassword,name="resetPassword"),
     path('<slug:slug>/',TC.as_view(),name="termsConditions")
 ]

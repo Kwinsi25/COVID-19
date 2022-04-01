@@ -55,7 +55,15 @@
         </script>
        
         {% endif %}
-    
+       
+           
+        {% if msg is not None %}
+        <script>
+        alert("{{msg}}");
+        </script>
+       
+        {% endif %}
+       
      <!-- banner section start -->
      <div class="banner_section layout_padding">
         <div class="container">
@@ -288,6 +296,32 @@
                     if(element.is( ":radio" )){
                     // error append here
                     error.appendTo('#err');
+                    }
+                    else {
+                    error.insertAfter(element);
+                    }
+                    },
+                });
+                $("#forgotPasswordForm").validate({
+                    rules: {
+                        username: {
+                            required: true,
+                        },
+                        email: "required",
+                        role:"required"
+                    },
+                    messages: {
+                        username: {
+                            required: "Please provide username",
+                        },
+                        email: "Please provide email",
+                        role:"Role is Required"
+                    },
+                    errorPlacement:
+                    function( error, element ){
+                    if(element.is( "#role" )){
+                    // error append here
+                    error.appendTo('#err1');
                     }
                     else {
                     error.insertAfter(element);

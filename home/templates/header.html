@@ -48,7 +48,7 @@
             <a href="/aboutUs">About Us</a>
             <a href="/contactUs">Contact Us</a>
             <a {% if slug is not None %} href="{{slug}}" {% else %} href="/" {% endif %}>Terms & Conditions</a>
-            <a href="#myModal" data-toggle="modal">Login</a>
+            <a href="#" data-target="#myModal" data-toggle="modal">Login</a>
         </nav>
     </div>
 </div>
@@ -89,11 +89,53 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="#">Forgot Password?</a>
+                <div class="container ">
+                <button  data-toggle="modal" data-target="#fpModel" data-dismiss="modal">Forgot Password?</button>
             </div>
-        </div>
-    </div>
-</div> 
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="modal fade text-center" id="fpModel"  >
+                <div class="modal-dialog modal-login">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Forgot Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="post" autocomplete="off" id="forgotPasswordForm">
+                            {% csrf_token %}
+                        
+                        <div class="form-group" id="err1">
+                            
+                                <input type="radio"  name= "role" id="role" Value="Staff" > Staff
+                                <input type="radio"  name= "role" id="role" Value="Doctor" > Doctor<br>
+                                
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="forgot" id="forgot" value="forgot">
+                            <i class="fa fa-envelope"></i>
+                                <input type="text" class="form-control " name= "email" id="email" placeholder="Email" >
+    
+                        </div>
+                       
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-lg loginButton" value="sybmit">Submit</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+                
+               
+               
+        
 <!-- Modal HTML -->
 <div id="bookappo" class="modal fade text-center">
     <div class="modal-dialog modal-login">

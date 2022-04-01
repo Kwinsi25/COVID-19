@@ -1,3 +1,4 @@
+from email.policy import default
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 import random
@@ -49,6 +50,7 @@ class staff(models.Model):
     staffLastName = models.CharField(max_length=24,default=None)
     staffPassword = models.CharField(max_length=24,null=True,blank=True)
     staffContactNumber = models.CharField(max_length=10)
+    staffEmail=models.EmailField(("Email Id"),unique=True)
     staffPhoto = models.ImageField(upload_to='staffImages',null=True, blank=True)
     genderChoice = (
         ('M', 'Male'),
@@ -59,6 +61,7 @@ class staff(models.Model):
         ('active','Active'),
         ('on_leave','On_leave'),
     )
+    code=models.CharField(default='000000',max_length=16)
     status = models.CharField(max_length=10,choices=statusChoice,default='active')
     
     def __str__(self):
@@ -94,8 +97,9 @@ class Doctor(models.Model):
     doctorUsername=models.CharField(("Doctor Username"),max_length=15)
     doctorPass=models.CharField(("Doctor Password"),max_length=100)
     doctorContact = models.IntegerField(("Doctor Contact"))
+    doctorEmail=models.EmailField(("Email Id"),unique=True)
     Specialization = models.ForeignKey('Specialization',on_delete = models.CASCADE,null=False)
-
+    code=models.CharField(default='000000',max_length=16)
     def __str__(self):
         return self.doctorName
 
