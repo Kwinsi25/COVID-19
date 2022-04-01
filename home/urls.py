@@ -14,6 +14,7 @@ urlpatterns = [
     path('bookAppointment/',views.bookAppointment,name='bookAppointment'),
     path('bookAppointment/bookedAppointment',views.bookedAppointment,name='bookedAppointment'),
     path('viewPatient/',views.viewPatient,name="viewPatient"),
+    path('patient/patientAdded/',views.patientAdded,name="patientAdded"),
     path('getbedsajax/', views.getbedsajax, name="getbedsajax"),
     path('getdoctorsajax/', views.getdoctorsajax, name="getdoctorsajax"),
     path('getcitiesajax/', views.getcitiesajax, name="getcitiesajax"),
@@ -34,5 +35,5 @@ urlpatterns = [
     path('updatePatient/PatientUpdate/',views.PatientUpdate,name="PatientUpdate"),
     path('showBed/',views.showBed,name="showBed"),
     path('resetPassword/',views.resetPassword,name="resetPassword"),
-    path('<slug:slug>/',TC.as_view(),name="termsConditions")
+    path('<slug:slug>/',views.page_details,name="pagedetails")
 ]

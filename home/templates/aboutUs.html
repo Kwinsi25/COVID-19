@@ -85,6 +85,16 @@
             }
         }
 
+        .float-end a i{
+      font-size: 40px;
+      color:rgb(0, 0, 0);      
+      padding-left: 0px;
+    }
+    .float-end a i:hover{
+      color:blueviolet;
+      transform: scale(1.3);
+    }
+
     </style>
 
 
@@ -213,7 +223,7 @@
                 <div class="row featurette" style="padding: 25px;">
                     <div class="col-md-7"><br>
                         <h2 class="featurette-heading">Entrust <span class="text-muted">your health</span></h2>
-                      <p class="lead">{{covidServices|safe}}</p>
+                      <p class="lead">{{entrustHealth|safe}}</p>
                     </div>
                     <div class="col-md-5">
                         <img src="{% static 'aboutus1.jpg' %}" style="border-radius: 15px; height: 450px;"
@@ -225,9 +235,10 @@
                     </div>
                   </div>
                   
-                  <p class="float-end" style="text-align: right;"><br><a href="#"><i class="fa fa-arrow-up" style="font-size: 40px;color:rgb(72, 26, 116);  "></i></a></p>
+                <p class="float-end" style="text-align: right;"><br><a href="#"><i class="fa fa-arrow-circle-up"></i></a></p>
 
             </div>
+        </div>    
            
             
     </main>

@@ -1,0 +1,12 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:covid-19}/db.sqlite3",
+            "name": "covid",
+            "group": "crd"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
