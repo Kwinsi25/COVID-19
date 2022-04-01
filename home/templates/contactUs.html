@@ -153,7 +153,7 @@
 
 <body>
   {% include 'header.html' %}
-
+  {% include 'success.html' %}
   <main>
 
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -249,9 +249,9 @@
           <h2 class="featurette-heading" style="color: blueviolet;">Contact Us</h2><br>
           <p>
             <form method="POST" id="form" name="form">{% csrf_token %}
-              <div class="alert alert-success" role="alert" id="success" name="success" hidden>
+              <!-- <div class="alert alert-success" role="alert" id="success" name="success" hidden>
                 Send Successfully!
-              </div>
+              </div> -->
               <div>
                 <input type="text" class="form-control" name="name" id="name" value="{{name}}" placeholder="Name">
               </div>

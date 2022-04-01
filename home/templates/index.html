@@ -46,15 +46,20 @@
 <body>
     
     {% include 'header.html' %}
-    
+    {% include 'notsuccess.html' %}
+        <!-- <script>
+        alert("{{err}}");
+        </script> -->
+       
+
   
     <div class="header_section">
-    {% if err is not None %}
+    <!-- {% if err is not None %}
         <script>
         alert("{{err}}");
         </script>
        
-        {% endif %}
+        {% endif %} -->
        
            
         {% if msg is not None %}

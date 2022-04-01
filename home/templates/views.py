@@ -10,10 +10,6 @@ from django.views.generic import DetailView
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
-import random
-import datetime
-
-from django.contrib import messages
 
 data ={}
 def firstNameCheck(value):
@@ -36,7 +32,7 @@ def  Identifygender(value):
 
 # index
 def home(request):
-    pages = page_list()
+    slug = terms()
     success = False
     oxy = Oxygen.objects.all()
     beds = Bed.objects.all()
@@ -56,72 +52,33 @@ def home(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password') 
-        label=request.POST.get('forgot')
-        if label=="forgot":
-            email1=request.POST.get('email')
+        if request.POST.get("role")=="Staff":
+            Details=staff.objects.filter(staffUserName = username,staffPassword = password)
+        if request.POST.get("role")=="Doctor":
+            Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
+        if Details.count() > 0 :
             if request.POST.get("role")=="Staff":
-                Details=staff.objects.filter(staffEmail = email1)
-
-            if request.POST.get("role")=="Doctor":
-                Details=Doctor.objects.filter(doctorEmail= email1)
-                
     
-                
+                if "Suser" in request.session:
+                    del request.session["Suser"]
+                request.session['Suser']=str(Details.get())
+                success=True
+                return redirect ( 'staffDashboard/')
             
-            if Details.count() > 0 :
-                code=random.randint(0000,999999)    
-                html_content = render_to_string("resetEmail.html",{'uname':Details.get(),"code":code})
-                text_content = strip_tags(html_content)
-                email = EmailMultiAlternatives(
-                "Reset Password Link",
-                text_content,
-                settings.EMAIL_HOST_USER,
-                [email1],
-                )
-                email.attach_alternative(html_content,"text/html")
-                email.send()
-                
-                print(code)
-                if request.POST.get("role")=="Staff":
-                    staff.objects.filter(staffEmail = email1).update(code=code)
-                if request.POST.get("role")=="Doctor":
-                    Doctor.objects.filter(doctorEmail= email1).update(code=code)
-                msg = "Your details are submitted you will get email for Reset Password"
-            
-            else:
-                msg="Email is incorrect , Please try again!"
-            return render (request,'index.html',{"msg":msg})
-
-                
-        else:
-            if request.POST.get("role")=="Staff":
-                Details=staff.objects.filter(staffUserName = username,staffPassword = password)
+ 
             if request.POST.get("role")=="Doctor":
-                Details=Doctor.objects.filter(doctorUsername = username, doctorPass= password)
-            if Details.count() > 0 :
-                if request.POST.get("role")=="Staff":
-                    #print(staffDetails.get())
-                    if "Suser" in request.session:
-                        del request.session["Suser"]
-                    request.session['Suser']=str(Details.get())
+                patient=Patient.objects.all().filter(doctorName=Details.get())
+                if "Duser" in request.session:
+                    del request.session["Duser"]
                     success=True
-                    return redirect ( '/staffDashboard/')
-                
+                request.session['Duser']=str(Details.get())
     
-                if request.POST.get("role")=="Doctor":
-                    patient=Patient.objects.all().filter(doctorName=Details.get())
-                    if "Duser" in request.session:
-                        del request.session["Duser"]
-                        success=True
-                    request.session['Duser']=str(Details.get())
-        
-                    return redirect ("/doctorDashboard/")
-            else:
-                messages.error(request, 'Please Enter Username and Password!!')
-                # messages.add_message(request, messages.ERROR, 'Please Enter Username and Password!!')
-                return redirect('/')
-                
-    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"pages":pages})
+                return redirect ("doctorDashboard/")
+        else:
+            err="Username and Password is not valid!"
+            return render(request, 'index.html',{'err':err})
+               
+    return render(request, 'index.html',{"bedcnt":bedcnt,"beds":beds,"oxy":oxy,"wards":wards,"recovered":recovered,"deceased":deceased,"slug":slug})
 
 
 # staffDAshboard patient list
@@ -241,6 +198,7 @@ def confirmDetails(request):
         prices = request.POST['prices']
         doctors = request.POST['doctors']
         doctorId = Doctor.objects.get(doctorId=doctors)
+        print(doctorId.doctorName)
         notes = request.POST['notes']
         time = request.POST['time']
         status = request.POST['status']
@@ -251,87 +209,6 @@ def confirmDetails(request):
         p = Appointment.objects.get(appointmentId = appointmentId)
         p.delete()
         
-        pId=Patient.objects.latest("patientId")
-        
-        for i in range(len(file)):
-            patientId = Patient.objects.get(patientId=pId.patientId) 
-            patientDocument = PatientDocument(patientName=patientId,document=file[i])
-            patientDocument.save()
-        symptoms = request.POST.getlist('symptoms')
-        for i in symptoms:
-            symptomsId = Symptoms.objects.get(symptomsId=int(i))
-            patientId = Patient.objects.get(patientId=pId.patientId)
-            PatientSymptoms = PatientSymptom(patientName=patientId,Symptoms=symptomsId)
-            PatientSymptoms.save()
-            html_content = render_to_string("confirmdetailsemailadmin.html",{'title':'Hello Admin,','msg':"Patient's Appointment is confirm by the Staff!",
-        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
-        "line1":line1,"line2":line2,"wardss":wardId.wardName,"wardId":wardId,"statess":stateId.stateName,"stateId":stateId,"cities":cityId.cityName,
-        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId.bedNumber,"prices":prices,"doctors":doctors,
-        "doctorId":doctorId.doctorName,"notes":notes,"time":time,"status":status,"file":file})
-        text_content = strip_tags(html_content)
-        email = EmailMultiAlternatives(
-            "New Patient is added!",
-            text_content,
-            settings.EMAIL_HOST_USER,
-            ['omipatel213@gmail.com'],
-        )
-        email.attach_alternative(html_content,"text/html")
-        email.send()
-        
-        return redirect ('/viewPatient')
-        
-    else:
-        html_content = render_to_string("approvedemail.html",{'title':'Hello','msg':"Your Appointment is confirm by the Staff!",
-        "caseNumber":caseNumber,"patientName":patientName,"phone":phone,"email":email,"gender":genderName,"patientRelativeName":patientRelativeName,
-        "line1":line1,"line2":line2,"wardss":wardss,"wardId":wardId,"statess":statess,"stateId":stateId,"cities":cities,
-        "cityId":cityId,"pincode":pincode,"dob":dob,"history":history,"beds":beds,"bedId":bedId,"prices":prices,"doctors":doctors,
-        "doctorId":doctorId,"notes":notes,"time":time,"status":status,"file":file})
-        text_content = strip_tags(html_content)
-        email = EmailMultiAlternatives(
-            "Your Appopintment is Approved!",
-            text_content,
-            settings.EMAIL_HOST_USER,
-            ['omipatel213@gmail.com'],
-        )
-        email.attach_alternative(html_content,"text/html")
-        email.send()
-        return render(request,'approved.html')    
-
-# patientAdd
-def patientAdded(request):
-    if request.method == 'POST':
-        
-        caseNumber = request.POST['caseNumber']
-        patientName = request.POST['patientName']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        gender = request.POST['gender']
-        genderName = Identifygender(gender)
-        patientRelativeName = request.POST['patientRelativeName']
-        patientRelativeContactNumber = request.POST['patientRelativeContactNumber']
-        line1 = request.POST['line1']
-        line2 = request.POST['line2']
-        wardss = request.POST['wardss']        
-        wardId = Ward.objects.get(wardId=wardss)
-        statess = request.POST['statess']
-        stateId = State.objects.get(stateId=statess)
-        cities = request.POST['cities']
-        cityId = City.objects.get(cityId=cities)
-        pincode = request.POST['pincode']
-        dob = request.POST['dob']
-        history = request.POST['history']
-        wardss= request.POST['wardss']
-        beds = request.POST['beds']
-        bedId = Bed.objects.get(bedId=beds)
-        prices = request.POST['prices']
-        doctors = request.POST['doctors']
-        doctorId = Doctor.objects.get(doctorId=doctors)
-        notes = request.POST['notes']
-        time = request.POST['time']
-        status = request.POST['status']
-        file = request.POST.getlist('file')
-        patient = Patient(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=stateId,city=cityId,wardName=wardId,pincode=pincode,previousHistory=history,dob=dob,bedNumber=bedId,doctorName=doctorId,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
-        patient.save() 
         pId=Patient.objects.latest("patientId")
         
         for i in range(len(file)):
@@ -377,7 +254,7 @@ def patientAdded(request):
         )
         email.attach_alternative(html_content,"text/html")
         email.send()
-        return render(request,'addPatient.html')    
+        return render(request,'approved.html')    
 
 # message
 def message(request):
@@ -406,9 +283,7 @@ def patient(request):
 
 # book appointment
 def bookAppointment(request):
-    pages = page_list()
     if request.method == 'POST':
-        
         patientCheck = request.POST.get('check')
         if patientCheck == "oldPatient":
             caseNumber = request.POST['caseNumber']
@@ -424,17 +299,15 @@ def bookAppointment(request):
                         patientDetails['rname'] = p.patientRelativeName
                         patientDetails['pemail'] = p.patientEmail
                         patientDetails['caseNumber'] = p.caseNumber
-                        patientDetails['pages'] = pages
                     return render(request,'bookAppointment.html',context=patientDetails)
                 else:
                     return redirect ('/bookAppointment')
         elif patientCheck == "newPatient":
-            return render(request,'bookAppointment.html',{'pages': pages})
-            # return redirect ('bookAppointment')
+            return redirect ('bookAppointment')
         else:
             return redirect ('/')
 
-    return render(request,'bookAppointment.html',{'pages': pages})
+    return render(request,'bookAppointment.html')
 
 # book appointment done
 def bookedAppointment(request):
@@ -454,7 +327,7 @@ def bookedAppointment(request):
 
         appointment = Appointment(caseNumber = caseNumber,patientName = patientName,patientEmail = patientEmail,gender = gender,phone = patientPhone,patientRelativeNumber = relativePhone,patientRelativeName = relativeName,reason=reason)
         appointment.save()
-        html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':gender,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
+        html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':genderName,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
         text_content = strip_tags(html_content)
         email = EmailMultiAlternatives(
             "Appointment is Booked!",
@@ -566,6 +439,7 @@ def deleteAppointment(request):
     id = request.GET.get('id')
     p = Appointment.objects.get(appointmentId = id[:-1])
     p.delete()
+    delPatient = True
     return redirect("/message")
 
 # update patient data fetch
@@ -581,9 +455,7 @@ def updatePatient(request):
     symptoms = Symptoms.objects.all()
     patientName = id[:-1]
     updateSymptoms = PatientSymptom.objects.all().filter(patientName=patientName)
-    for i in updatePatient:
-        print("date of birth: ",i.dob)
-        print("Time: ",i.doctorVisitingTime)
+    
     var=[]
     for i in updateSymptoms:
         var.append(i.Symptoms.symptoms)
@@ -648,7 +520,8 @@ def aboutUs(request):
 
 # contact us
 def contactUs(request):
-    pages = page_list()
+    success = False
+    slug = terms()
     getdata = block.objects.all().values()
     contectus = ContactUs.objects.all()
     for i in getdata:
@@ -672,6 +545,8 @@ def contactUs(request):
                 address = i['content']
             else:
                 address=""    
+             
+    
     name=""
     emailid=""
     number=""
@@ -692,13 +567,11 @@ def contactUs(request):
         )
         email.attach_alternative(html_content,"text/html")
         email.send()
-        contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg,contactNo = number)
+        success = True
+        contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg)
         contactusform.save()
-        messages.add_message(request, messages.SUCCESS, 'Sucessfully!!')
-    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg,'menubar':number,"pages":pages})
+    return render(request, 'contactUs.html',{"slug":slug,"contact":contact,"email":email,"address":address,"openingHours":openingHours,'name':name,'emailid':emailid,'Msg':msg,"success":success})
 
-    
-    
 class TC(DetailView):
     model = page
     context_object_name = 'page'
@@ -725,7 +598,7 @@ def PatientUpdate(request):
         statess = request.POST['statess']
         # stateId = State.objects.get(stateName=statess)
         cities = request.POST['cities']
-        # cityId = City.objects.get(cityName=cities)
+        cityId = City.objects.get(cityName=cities)
         pincode = request.POST['pincode']
         dob = request.POST['datepicker']
         history = request.POST['history']
@@ -736,11 +609,10 @@ def PatientUpdate(request):
         # doctorId = Doctor.objects.get(doctorName=doctors)
         notes = request.POST['notes']
         time = request.POST['time']
-        dt_obj = datetime.datetime.strptime(time,'%Y/%m/%d %H:%M')
-        dt_str = datetime.datetime.strftime(dt_obj,'%Y-%m-%d %H:%M:%S')
         status = request.POST['status']
         file1 = request.POST.getlist('file1')
-        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cities,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=dt_str,patientStatus=status)
+        
+        Patient.objects.filter(patientId=patientId).update(caseNumber=caseNumber,patientName=patientName,patientEmail=email,gender=gender,phone=phone,patientRelativeNumber=patientRelativeContactNumber,patientRelativeName=patientRelativeName,line1=line1,line2=line2,state=statess,city=cityId,wardName=wardss,pincode=pincode,previousHistory=history,dob=dob,bedNumber=beds,doctorName=doctors,doctorNotes=notes,doctorVisitingTime=time,patientStatus=status)
         
         for i in range(len(file1)):
             PatientDocument.objects.filter(patientName=patientId).update(patientName=patientId,document=file1[i])
@@ -765,39 +637,3 @@ def showBed(request):
         if bed.occupied == False:
             bedcnt = bedcnt + 1
     return render(request, 'showBed.html',{"bedcnt":bedcnt,"beds":beds})
-
-def resetPassword(request):
-    code=request.GET.get("code")
-    isSData=staff.objects.filter(code=code)
-    isDData=Doctor.objects.filter(code=code)
-    if request.method =="POST":
-        password=request.POST["pass"]
-        confirmPassword=request.POST["cpassword"]
-        msg = "Password changed successfully!"
-        if isSData.count()>0:
-            staff.objects.filter(code=code).update(staffPassword=password,code="000000")
-
-            return redirect("/")
-        if isDData.count()>0:
-            Doctor.objects.filter(code=code).update(doctorPass=password,code="000000")
-            return redirect("/")
-
-    if isSData.count()>0 or isDData.count()>0:
-        return render(request, 'resetPassword.html',{"code":code})
-    
-    else:
-        return redirect("/")
-    
-    
-    
-
-    
-def page_list():
-    pages = page.objects.filter(status="enabled").order_by('number')
-    return pages
-
-def page_details(request,slug):
-    pages = page_list()
-    pagedetails = page.objects.get(slug=slug)
-    print(pagedetails)
-    return render(request,'slugpage.html',{'page':pagedetails,'pages':pages})

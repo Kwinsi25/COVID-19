@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .padding {
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 45px;
+            padding-right: 40px;
+        }
+    </style>
     <title>Document</title>
 </head>
 
@@ -41,12 +49,12 @@
                                                        padding: 20px;
                                                        border: none; 
                                                        background-color: white;">
-                            
-                                                <h2 style="text-align: left;
+
+                                <h2 style="text-align: left;
                                                            align-items: center;">
-                                                    {{title}} <br>
-                                                    {{msg}}
-                                                </h2>
+                                    {{title}} <br>
+                                    {{msg}}
+                                </h2>
                         </tbody>
                     </table>
                 </td>
@@ -57,87 +65,87 @@
                            padding: 20px;
                            border: none;
                            background-color: white;">
-                           <h2 style="text-align: center;"> Details </h2>
+                    <h2 style="text-align: center;"> Details </h2>
                     <h2 style="text-align: left;
                                align-items: center;">
-                               <table style="text-align: left;">
-                                <tr>
-                                    <td>Case Number :</td>
-                                    <td>{{caseNumber}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Patient Name :</td>
-                                    <td>{{patientName}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Phone No. :</td>
-                                    <td>{{phone}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email Id. :</td>
-                                    <td>{{email}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Gender :</td>
-                                    <td>{{gender}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Date of Birth :</td>
-                                    <td>{{dob}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Relative Name :</td>
-                                    <td>{{patientRelativeName}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address :</td>
-                                    <td>{{line1}}, {{line2}}</td>
-                                </tr>
-                                <tr>
-                                    <td>State :</td>
-                                    <td>{{statess}}</td>
-                                </tr>
-                                <tr>
-                                    <td>City :</td>
-                                    <td>{{cities}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Pincode :</td>
-                                    <td>{{pincode}}</td>
-                                </tr> 
-                                <tr>
-                                    <td>Ward :</td>
-                                    <td>{{wardss}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Bed :</td>
-                                    <td>{{beds}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Price :</td>
-                                    <td>{{prices}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Doctor :</td>
-                                    <td>{{doctors}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Time :</td>
-                                    <td>{{time}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Note :</td>
-                                    <td>{{notes}}</td>
-                                </tr>
-                                <tr>
-                                    <td>History :</td>
-                                    <td>{{history}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Status :</td>
-                                    <td>{{status}}</td>
-                                </tr>
-                            </table><br>
+                        <table style="text-align: left; width:100%;">
+                            <tr>
+                                <td class="padding">Case Number :</td>
+                                <td class="padding">{{caseNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Patient Name :</td>
+                                <td class="padding">{{patientName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Phone No. :</td>
+                                <td class="padding">{{phone}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Email Id. :</td>
+                                <td class="padding">{{email}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Gender :</td>
+                                <td class="padding">{{gender}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Date of Birth :</td>
+                                <td class="padding">{{dob}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Relative Name :</td>
+                                <td class="padding">{{patientRelativeName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Address :</td>
+                                <td class="padding">{{line1}}, {{line2}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">State :</td>
+                                <td class="padding">{{statess}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">City :</td>
+                                <td class="padding">{{cities}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Pincode :</td>
+                                <td class="padding">{{pincode}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Ward :</td>
+                                <td class="padding">{{wardss}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Bed :</td>
+                                <td class="padding">{{bedId}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Price :</td>
+                                <td class="padding">{{prices}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Doctor :</td>
+                                <td class="padding">{{doctorId}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Time :</td>
+                                <td class="padding">{{time}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Note :</td>
+                                <td class="padding">{{notes}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">History :</td>
+                                <td class="padding">{{history}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding">Status :</td>
+                                <td class="padding">{{status}}</td>
+                            </tr>
+                        </table><br>
                     </h2>
                 </td>
             </tr>
@@ -188,8 +196,10 @@
            color:#999999;" valign="top" align="center">
                     <a href="http://127.0.0.1:8000/aboutUs/" target="_blank" style="color:#999999; 
           text-decoration:underline;">About Us</a>
-                    | <a href="http://127.0.0.1:8000/contactUs/" target="_blank" style="color:#999999; text-decoration:underline;">Contact Us</a>
-                    | <a href="http://127.0.0.1:8000/term-conditions/" target="_blank" style="color:#999999; text-decoration:underline;">Terms Condition</a><br>
+                    | <a href="http://127.0.0.1:8000/contactUs/" target="_blank"
+                        style="color:#999999; text-decoration:underline;">Contact Us</a>
+                    | <a href="http://127.0.0.1:8000/term-conditions/" target="_blank"
+                        style="color:#999999; text-decoration:underline;">Terms Condition</a><br>
                     © COVID-19. All Rights Reserved.<br>
                     <a href="#" target="_blank" style="text-decoration:none; 
                          color:#999999;"></a>

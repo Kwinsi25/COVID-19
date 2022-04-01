@@ -227,3 +227,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     'height':800,
 }
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+from django.contrib.messages import constants as messages
