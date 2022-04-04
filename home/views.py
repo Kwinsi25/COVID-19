@@ -694,8 +694,8 @@ def contactUs(request):
         email.send()
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg,contactNo = number)
         contactusform.save()
-        messages.add_message(request, messages.SUCCESS, 'Sucessfully!!')
-    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg,'menubar':number,"pages":pages,"openingHours":openingHours})
+        messages.add_message(request, messages.SUCCESS, 'Sucessfully Send your message!!')
+    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg,'menubar':number,"pages":pages})
     
 class TC(DetailView):
     model = page
