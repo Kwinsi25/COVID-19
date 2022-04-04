@@ -11,9 +11,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
 import random
+from django.contrib import messages
 import datetime
 
-from django.contrib import messages
 
 data ={}
 def firstNameCheck(value):
@@ -694,8 +694,8 @@ def contactUs(request):
         email.send()
         contactusform = ContactUs(contactName = name,contactEmail = emailid,contactMsg = msg,contactNo = number)
         contactusform.save()
-        messages.add_message(request, messages.SUCCESS, 'Sucessfully Send your message!!')
-    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,'name':name,'emailid':emailid,'Msg':msg,'menubar':number,"pages":pages})
+        messages.add_message(request, messages.SUCCESS, 'Sucessfully!!')
+    return render(request, 'contactUs.html',{"pages":pages,"contact":contact,"email":email,"address":address,"openingHours":openingHours,'name':name,'emailid':emailid,'Msg':msg,'menubar':number,"pages":pages,"openingHours":openingHours})
     
 class TC(DetailView):
     model = page
@@ -784,6 +784,7 @@ def resetPassword(request):
         return render(request, 'resetPassword.html',{"code":code})
     
     else:
+        messages.add_message(request, messages.ERROR, 'Reset code is expired')
         return redirect("/")
     
     
