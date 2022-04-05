@@ -798,5 +798,7 @@ def page_list():
 def page_details(request,slug):
     pages = page_list()
     pagedetails = page.objects.get(slug=slug)
-    print(pagedetails)
-    return render(request,'slugpage.html',{'page':pagedetails,'pages':pages})
+    if pagedetails.status == "enabled":
+        return render(request,'slugpage.html',{'page':pagedetails,'pages':pages})
+    else:
+        return redirect('/')
