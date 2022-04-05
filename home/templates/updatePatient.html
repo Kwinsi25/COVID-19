@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/jquery.datetimepicker.full.js' %}"></script>
-
+    <script src="{% static 'Js/jquery-validation-addPatient.js' %}"></script>
 
     
    </head>
@@ -19,7 +19,7 @@
     <div class="container">
     <div class="title">Update Patient</div>
     <div class="content">
-      <form action="PatientUpdate/" method="post" autocomplete="off">
+      <form action="PatientUpdate/" method="post" autocomplete="off" novalidate>
         {% csrf_token %}
         {% for i in updatePatient %}
         <div class="user-details">
