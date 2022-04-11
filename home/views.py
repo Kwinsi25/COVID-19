@@ -90,7 +90,7 @@ def home(request):
             
             else:
                 msg="Email is incorrect , Please try again!"
-            return render (request,'index.html',{"msg":msg})
+            return render (request,'index.html',{"msg":msg,"pages":pages})
 
                 
         else:
@@ -765,6 +765,7 @@ def showBed(request):
     return render(request, 'showBed.html',{"bedcnt":bedcnt,"beds":beds})
 
 def resetPassword(request):
+    pages = page_list()
     code=request.GET.get("code")
     isSData=staff.objects.filter(code=code)
     isDData=Doctor.objects.filter(code=code)
@@ -781,7 +782,7 @@ def resetPassword(request):
             return redirect("/")
 
     if isSData.count()>0 or isDData.count()>0:
-        return render(request, 'resetPassword.html',{"code":code})
+        return render(request, 'resetPassword.html',{"code":code,"pages":pages})
     
     else:
         messages.add_message(request, messages.ERROR, 'Reset code is expired')
