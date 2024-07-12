@@ -1,0 +1,8 @@
+asgiref
+Django
+django-jazzmin 
+django-tinymce 
+pillow
+pip
+sqlparse      
+tzdata

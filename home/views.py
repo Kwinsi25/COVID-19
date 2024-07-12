@@ -415,8 +415,8 @@ def bookAppointment(request):
             if caseNumber != '':
                 patient = Patient.objects.all().filter(caseNumber = caseNumber)
                 if patient is not None:
+                    patientDetails = {}
                     for p in patient:
-                        patientDetails = {}
                         patientDetails['pname'] = p.patientName
                         patientDetails['pphone'] = p.phone
                         patientDetails['pgender'] = p.gender
@@ -456,11 +456,12 @@ def bookedAppointment(request):
         appointment.save()
         html_content = render_to_string("bookappointmentemail.html",{'title':'Hello','msg':"Your Appointment is Booked",'Name':patientName,'Email':patientEmail,'patientPhone':patientPhone,'gender':gender,'reason':reason,'relativeName':relativeName,'relativePhone':relativePhone})
         text_content = strip_tags(html_content)
+        print(text_content)
         email = EmailMultiAlternatives(
             "Appointment is Booked!",
             text_content,
             settings.EMAIL_HOST_USER,
-            ['omipatel213@gmail.com'],
+            [patientEmail],
         )
         email.attach_alternative(html_content,"text/html")
         email.send()
